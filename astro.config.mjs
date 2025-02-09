@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-// @ts-ignore
+import vercel from '@astrojs/vercel';
 
 
 
