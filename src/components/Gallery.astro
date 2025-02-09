@@ -1,0 +1,60 @@
+---
+const mobiles = [
+    {
+        name: "Armor",
+        image: "https://headicon.trovo.live/user/hslaqbqaaaaaa6ym4b7a6mgwcy.png?ext=png&t=0",
+    },
+    {
+        name: "Mage",
+        image: "https://preview.redd.it/3unf79s9mdh11.jpg?auto=webp&s=b692374a8716bfa332b50142255b4631b8cf62dc",
+    },
+    {
+        name: "Nak",
+        image: "https://www.gunbound.pe/Image/slide/01.png",
+    },
+    {
+        name: "Trico",
+        image: "https://vgmsite.com/soundtracks/gunbound-2001/Gunbound.png",
+    },
+];
+---
+
+<div class="gallery">
+    {
+        mobiles.map((mobile) => (
+            <img src={mobile.image || "/placeholder.svg"} alt={mobile.name} />
+        ))
+    }
+</div>
+
+<style>
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .gallery img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+        .gallery {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+
+        .gallery img {
+            height: 150px;
+        }
+    }
+</style>
