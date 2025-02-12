@@ -84,26 +84,21 @@
                 columns: [
                     "21",
                     "22",
-
                     "23",
                     "24",
                     "25",
-
                     "26",
                     "27",
-
                     "28",
                     "29",
                     "30",
                     "31",
                     "32",
-
                     "33",
                     "34",
                     "35",
                     "36",
                     "37",
-
                     "38",
                     "39",
                     "40",
@@ -119,9 +114,13 @@
                         3.69, 3.75, 3.81, 3.87, 3.93, 3.99,
                     ],
                     "75": [3.5, 3.59, 3.67, 3.74, 3.82, 3.9, 3.97],
-                    FULL: [
+                    "4": [
                         3.88, 3.98, 3.92, 4.0, 3.94, 4.0, 3.97, 3.93, 4.0, 3.96,
                         4.0, 3.99, 3.96, 4.0, 3.99, 3.96, 4.0, 4.0, 3.98, 3.97,
+                    ],
+                    angles: [
+                        78, 78, 77, 77, 76, 76, 75, 74, 74, 73, 73, 72, 71, 71,
+                        70, 69, 69, 68, 67, 66,
                     ],
                     "60": [
                         2.66, 2.72, 2.78, 2.84, 2.9, 2.96, 3.02, 3.07, 3.13,
@@ -161,19 +160,44 @@
                         1.92, 1.95, 1.95, 2.02, 2.05, 2.07, 2.09, 2.13, 2.18,
                         2.23, 2.27,
                     ],
+                    AngelTime: [
+                        87, 85, 82, 80, 77, 75, 73, 70, 68, 66, 64, 62, 60, 58,
+                        56, 55, 53, 51, 50, 48,
+                    ],
                     Fork: [
                         1.56, 1.57, 1.58, 1.58, 1.6, 1.65, 1.66, 1.69, 1.71,
                         1.73, 1.77, 1.82, 1.87, 1.92, 1.95, 1.98, 2.0, 2.1,
                         2.16, 2.23,
+                    ],
+                    AngelFork: [
+                        86, 83, 80, 76, 73, 70, 67, 64, 62, 59, 57, 54, 52, 50,
+                        48, 44, 44, 43, 41, 40,
+                    ],
+                    Fork2: [
+                        1.23, 1.25, 1.28, 1.32, 1.36, 1.42, 1.48, 1.55, 1.63,
+                        1.71, 1.79, 1.88, 1.97, 2.07, 2.16, 2.26, 2.36, 2.46,
+                        2.57, 2.65,
+                    ],
+                    AngelFork2: [
+                        84, 79, 74, 69, 64, 60, 56, 52, 49, 46, 43, 41, 39, 37,
+                        35, 33, 31, 30, 29, 27,
                     ],
                     Con: [
                         2.13, 2.13, 2.13, 2.13, 2.14, 2.15, 2.16, 2.17, 2.19,
                         2.21, 2.23, 2.26, 2.28, 2.29, 2.3, 2.33, 2.38, 2.39,
                         2.42, 2.44,
                     ],
+                    AngelCon: [
+                        88, 86, 84, 83, 81, 79, 77, 75, 74, 72, 70, 69, 67, 66,
+                        64, 66, 61, 60, 58, 57,
+                    ],
                     Sky: [
                         3.65, 3.57, 3.6, 3.6, 3.7, 3.7, 3.7, 3.7, 3.8, 3.5, 3.7,
                         3.4, 3.8, 3.7, 3.7, 3.5, 3.8, 3.8, 3.8, 3.8,
+                    ],
+                    AngelSkyBom: [
+                        89, 88, 87, 87, 86, 86, 85, 84, 83, 83, 82, 81, 81, 80,
+                        79, 79, 78, 77, 77, 76,
                     ],
                 },
             },
@@ -245,24 +269,56 @@
             return;
         }
 
-        const { section, index } = getPositionData(position);
+        // Definir índices para cada sección (suponiendo que ambas tienen 20 elementos)
+        const index1SD = position <= 20 ? position - 1 : 0; // o mostrar “N/D” si posición > 20
+        const index2SD = position > 20 ? position - 21 : position - 1;
 
-        // Obtener datos de ambos archivos
-        const data1 = turtleData["turtle.jpeg"][section]?.data;
-        const data2 = turtleData["turtle2.jpeg"][section]?.data;
+        // Obtener datos de turtle.jpeg para cada sección
+        const data1SD = turtleData["turtle.jpeg"]["1SD"]?.data;
+        const data2SD = turtleData["turtle.jpeg"]["2SD"]?.data;
 
-        // Combinar datos en un objeto
-        const valores = {
-            op1: data1?.default?.[index]?.toFixed(2) || "N/D",
-            op2: data1?.["70"]?.[index]?.toFixed(2) || "N/D",
-            op3: data1?.["75"]?.[index]?.toFixed(2) || "N/D",
-            op4: data1?.["80"]?.[index]?.toFixed(2) || "N/D",
-            spin: data1?.Full?.[index]?.toFixed(2) || "N/D",
-            spinAngle: data1?.angles[index]?.toFixed(0) || "N/D",
-            time: data2?.Time?.[index]?.toFixed(2) || "N/D",
-            fork: data2?.Fork?.[index]?.toFixed(2) || "N/D",
-            con: data2?.Con?.[index]?.toFixed(2) || "N/D",
-            sky: data2?.Sky?.[index]?.toFixed(2) || "N/D",
+        // Obtener datos de turtle2.jpeg según corresponda:
+        // Para la parte 1SD se usa "15D" y para 2SD se usa "2SD"
+        const dataT2_15D = turtleData["turtle2.jpeg"]["15D"]?.data;
+        const dataT2_2SD = turtleData["turtle2.jpeg"]["2SD"]?.data;
+
+        // Extraer los valores para cada parte usando las claves correctas.
+        const valoresParte1 = {
+            // Se asume que en 1SD se usan estas claves
+            op1: data1SD?.default?.[index1SD]?.toFixed(2) || "N/D",
+            op2: data1SD?.["70"]?.[index1SD]?.toFixed(2) || "N/D",
+            op3: data1SD?.["75"]?.[index1SD]?.toFixed(2) || "N/D",
+            op4: data1SD?.["80"]?.[index1SD]?.toFixed(2) || "N/D",
+            spin: data1SD?.Full?.[index1SD]?.toFixed(2) || "N/D",
+            spinAngle: data1SD?.angles?.[index1SD]?.toFixed(0) || "N/D",
+            // Datos de turtle2.jpeg para la parte 1 (usando "15D")
+            time: dataT2_15D?.Time?.[index1SD]?.toFixed(2) || "N/D",
+            AngelTime: dataT2_15D?.AngelTime?.[index1SD]?.toFixed(0) || "N/D",
+            fork: dataT2_15D?.Fork?.[index1SD]?.toFixed(2) || "N/D",
+            AngelFork: dataT2_15D?.AngelFork?.[index1SD]?.toFixed(0) || "N/D",
+            fork2: dataT2_15D?.Fork2?.[index1SD]?.toFixed(2) || "N/D",
+            AngelFork2: dataT2_15D?.AngelFork2?.[index1SD]?.toFixed(0) || "N/D",
+            con: dataT2_15D?.Con?.[index1SD]?.toFixed(2) || "N/D",
+            AngelCon: dataT2_15D?.AngelCon?.[index1SD]?.toFixed(0) || "N/D",
+            sky: dataT2_15D?.Sky?.[index1SD]?.toFixed(2) || "N/D",
+            AngelSkyBom:
+                dataT2_15D?.AngelSkyBom?.[index1SD]?.toFixed(0) || "N/D",
+        };
+
+        const valoresParte2 = {
+            // Para 2SD se usan otras claves
+            op5: data2SD?.["65"]?.[index2SD]?.toFixed(2) || "N/D",
+            op6: data2SD?.["70"]?.[index2SD]?.toFixed(2) || "N/D",
+            op7: data2SD?.["75"]?.[index2SD]?.toFixed(2) || "N/D",
+            op8: data2SD?.["60"]?.[index2SD]?.toFixed(2) || "N/D",
+
+            spin2: data2SD?.["4"]?.[index2SD]?.toFixed(2) || "N/D",
+            spinAngle2: data2SD?.angles?.[index2SD]?.toFixed(0) || "N/D",
+            // Datos de turtle2.jpeg para la parte 2 (usando "2SD")
+            // Aquí asumes que el arreglo en "2SD" de turtle2 tiene la misma cantidad de elementos
+            time: dataT2_2SD?.Time?.[index2SD]?.toFixed(2) || "N/D",
+            fork: dataT2_2SD?.Fork?.[index2SD]?.toFixed(2) || "N/D",
+            con: dataT2_2SD?.Con?.[index2SD]?.toFixed(2) || "N/D",
         };
 
         container.innerHTML = `
@@ -281,48 +337,84 @@
                     <tr>
                         <td>Tiro 65%</td>
                         <td>65</td>
-                        <td>${valores.op1}</td>
+                        <td>${valoresParte1.op1}</td>
                     </tr>
                     <tr>
                         <td>Tiro 70%</td>
                         <td>70</td>
-                        <td>${valores.op2}</td>
+                        <td>${valoresParte1.op2}</td>
                     </tr>
                     <tr>
                         <td>Tiro 75%</td>
                         <td>75</td>
-                        <td>${valores.op3}</td>
+                        <td>${valoresParte1.op3}</td>
                     </tr>
                     <tr>
                         <td>Tiro 80%</td>
                         <td>80</td>
-                        <td>${valores.op4}</td>
+                        <td>${valoresParte1.op4}</td>
                     </tr>
                     <tr>
                         <td>Full Spin</td>
-                        <td>${valores.spinAngle}</td>
-                        <td>${valores.spin}</td>
+                        <td>${valoresParte1.spinAngle}</td>
+                        <td>${valoresParte1.spin}</td>
                     </tr>
                     <tr>
-                        <td>Tiempo</td>
-                        <td>Time</td>
-                        <td>${valores.time}</td>
+                        <td class="custom-box">Time</td>
+                        <td class="custom-box">${valoresParte1.AngelTime}</td>
+                        <td class="custom-box">${valoresParte1.time}</td>
                     </tr>
                     <tr>
-                        <td>Bifurcación</td>
-                        <td>Fork</td>
-                        <td>${valores.fork}</td>
+                        <td class="custom-box">FORK</td>
+                        <td class="custom-box">${valoresParte1.AngelFork}</td>
+                        <td class="custom-box">${valoresParte1.fork}</td>
                     </tr>
                     <tr>
-                        <td>Control</td>
-                        <td>Con</td>
-                        <td>${valores.con}</td>
+                        <td class="custom-box">FORK 2</td>
+                        <td class="custom-box">${valoresParte1.AngelFork2}</td>
+                        <td class="custom-box">${valoresParte1.fork2}</td>
                     </tr>
                     <tr>
-                        <td>Cielo</td>
-                        <td>Sky</td>
-                        <td>${valores.sky}</td>
+                        <td class="custom-box">Control</td>
+                        <td class="custom-box">${valoresParte1.AngelCon}</td>
+                        <td class="custom-box">${valoresParte1.con}</td>
                     </tr>
+                    <tr>
+                        <td class="custom-box">Sky BooM</td>
+                        <td class="custom-box">${valoresParte1.AngelSkyBom}</td>
+                        <td class="custom-box">${valoresParte1.sky}</td>
+                    </tr>
+                    <tr>
+                        <th>Tiros 2SD</th>
+                        <th>Ángulo 2SD</th>
+                        <th>Fuerza 2SD</th>
+                    </tr>
+                    <tr>
+                        <td>Tiro 65%</td>
+                        <td>65</td>
+                        <td>${valoresParte2.op5}</td>
+                    </tr>
+                    <tr>
+                        <td>Tiro 70%</td>
+                        <td>70</td>
+                        <td>${valoresParte2.op6}</td>
+                    </tr>
+                    <tr>
+                        <td>Tiro 75%</td>
+                        <td>75</td>
+                        <td>${valoresParte2.op7}</td>
+                    </tr>
+                    <tr>
+                        <td>Tiro 60%</td>
+                        <td>80</td>
+                        <td>${valoresParte2.op8}</td>
+                    </tr>
+                    <tr>
+                        <td>Full Spin</td>
+                        <td>${valoresParte2.spinAngle2}</td>
+                        <td>${valoresParte2.spin2}</td>
+                    </tr>
+                    
                 </tbody>
             </table>
         `;
@@ -331,6 +423,12 @@
     // Estilos mejorados
     const style = document.createElement("style");
     style.textContent = `
+     .custom-box {
+    background-color: black;
+    color: #FCD116;
+    padding: 10px;
+    border: 2px solid #FCD116;
+  }
         .turtle-table {
             width: 100%;
             border-collapse: collapse;
