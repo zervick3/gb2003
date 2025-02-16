@@ -1,0 +1,174 @@
+---
+
+---
+
+<div class="card">
+    <h2>Calculadora Gunbound</h2>
+    <form id="calcForm">
+        <label for="angle">Ángulo:</label>
+        <input type="number" id="angle" name="angle" step="any" required />
+
+        <label for="wind">Viento:</label>
+        <input type="number" id="wind" name="wind" step="any" required />
+
+        <label for="direction">Dirección del viento:</label>
+        <select id="direction" name="direction" required>
+            <option value="derecha">Derecha</option>
+            <option value="izquierda">Izquierda</option>
+            <option value="arriba">Arriba</option>
+            <option value="abajo">Abajo</option>
+        </select>
+
+        <!-- Nota: no se usa onclick inline -->
+        <button type="button" id="calculateBtn">Calcular</button>
+    </form>
+    <p id="result"></p>
+</div>
+
+<script>
+    function calculate(): void {
+        // Obtener los elementos del DOM y asegurar sus tipos
+        const angleInput = document.getElementById("angle") as HTMLInputElement;
+        const windInput = document.getElementById("wind") as HTMLInputElement;
+        const directionSelect = document.getElementById(
+            "direction",
+        ) as HTMLSelectElement;
+        const resultElement = document.getElementById("result") as HTMLElement;
+
+        // Convertir los valores a números
+        const angle: number = parseFloat(angleInput.value);
+        const wind: number = parseFloat(windInput.value);
+        const direction: string = directionSelect.value;
+
+        // Validar la entrada
+        if (isNaN(angle) || isNaN(wind)) {
+            resultElement.innerText = "Por favor, ingresa números válidos.";
+            resultElement.style.opacity = "1";
+            return;
+        }
+
+        // Calcular el resultado según la dirección del viento
+        let result: number;
+        switch (direction) {
+            case "derecha":
+                result = angle - wind / 2;
+                break;
+            case "izquierda":
+                result = angle + wind / 2;
+                break;
+            case "arriba":
+                result = angle - wind / 5;
+                break;
+            case "abajo":
+                result = angle + wind / 5;
+                break;
+            default:
+                result = angle;
+        }
+
+        // Mostrar el resultado con animación
+        resultElement.innerText = "Resultado: " + result;
+        resultElement.style.opacity = "0";
+        setTimeout(() => {
+            resultElement.style.opacity = "1";
+        }, 100);
+    }
+
+    // Asignar el listener cuando el DOM esté completamente cargado
+    document.addEventListener("DOMContentLoaded", () => {
+        const calculateBtn = document.getElementById(
+            "calculateBtn",
+        ) as HTMLButtonElement;
+        calculateBtn.addEventListener("click", calculate);
+    });
+</script>
+
+<style>
+    /* Card con estilo retro */
+    .card {
+        background: #222;
+        border: 3px solid #ffcc33;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+        width: 350px;
+        padding: 20px;
+        text-align: center;
+        animation: fadeInCard 1s ease-out;
+    }
+
+    @keyframes fadeInCard {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h2 {
+        color: #ffcc33;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+
+    /* Formulario centrado */
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    label {
+        color: #ffcc33;
+        margin-bottom: 5px;
+        font-size: 15px;
+        text-align: center;
+        width: 100%;
+    }
+
+    input,
+    select {
+        width: 80%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 2px solid #ffcc33;
+        border-radius: 5px;
+        background: #333;
+        color: #ffcc33;
+        font-size: 12px;
+        text-align: center;
+        transition: border-color 0.3s ease;
+    }
+
+    input:focus,
+    select:focus {
+        outline: none;
+        border-color: #fff;
+    }
+
+    button {
+        width: 80%;
+        padding: 10px;
+        background: #ffcc33;
+        color: #222;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+    #result {
+        margin-top: 10px;
+        color: #ffcc33;
+        font-size: 15px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+</style>
