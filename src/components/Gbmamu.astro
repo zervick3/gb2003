@@ -1,0 +1,497 @@
+---
+
+---
+
+<div class="container">
+    <h2 class="float">GunBound 2004 - Ice </h2>
+    <input
+        type="number"
+        id="numeroInput"
+        placeholder="Ingresa una posición (1-40)"
+        min="1"
+        max="40"
+    />
+    <div class="table-container" id="tablaContainer"></div>
+</div>
+<script>
+    // Definición de interfaces y estructura de datos
+    interface SectionData {
+        columns: string[];
+        data: {
+            [key: string]: number[];
+        };
+    }
+    interface TurtleData {
+        [section: string]: SectionData;
+    }
+    const turtleData: { [key: string]: TurtleData } = {
+        "Mamu": {
+            "1SD": {
+                columns: [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "20",
+                ],
+                data: {
+                    default: [
+                        0.5,0.7,0.9,1,1.12,1.23,1.33,1.42,1.5,1.6,1.7,1.74,1.8,1.9,1.95,2.0,2.07,2.13,2.2,2.25,
+                    ],
+                    "60": [
+                        0.54,0.76,0.93,1.07,1.2,1.31,1.42,1.52,1.61,1.7,1.78,1.86,1.93,2.0,2.08,2.14,2.21,2.27,2,34,2.39,
+                    ],
+                    "70": [
+                        0.62,0.88,1.08,1.24,1.4,1.52,1.65,1.8,1.9,1.97,2.06,2.16,2.24,2.33,2.41,2.49,2.57,2.64,2.71,2.78,
+                    ],
+                    "75": [
+                        0.71,1.0,1.22,1.41,1.58,1.73,1.87,2.0,2.12,2.23,2.34,2.44,2.54,2.64,2.73,2.82,2.91,3.0,3.08,3.16,
+                    ],
+                    "80": [
+                        0.85,1.21,1.48,1.71,1.91,2.09,2.26,2.41,2.56,2.7,2.83,2.96,3.08,3.2,3.3,3.41,2.52,3.62,3.72,3.82,
+                    ],
+                    
+                },
+            },
+            "2SD": {
+                columns: [
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "29",
+                    "30",
+                    "31",
+                    "32",
+                    "33",
+                    "34",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "40",
+                ],
+                data: {
+                    "50": [
+                        2.3,2.36,2.4,2.46,2.5,2.56,2.6,2.66,2.71,2.75,2.8,2.84,2.9,2.93,2.97,3.0,3.06,3.1,3.14,3.2,
+                    ],
+                    "60": [
+                        2.46,2.51,2.57,2.63,2.68,2.73,2.79,2.84,2.89,2.94,2.99,3.03,3.08,3.13,3.17,3.22,3.26,3.3,3.35,3.4,
+                    ],
+                    "70": [
+                        2.85,2.92,2.98,3.05,3.11,3.17,3.23,3.29,3.35,3.41,3.46,3.52,3.57,3.63,3.68,3.73,3.79,3.84,3.89,3.94,
+                    ],
+                    "75": [
+                        3.23,3.31,3.38,3.46,3.53,3.6,3.67,3.73,3.8,3.86,3.93,4.0
+                    ],
+                    
+                    "80": [
+                        2.66, 2.72, 2.78, 2.84, 2.9, 2.96, 3.02, 3.07, 3.13,
+                        3.18, 3.23, 3.34, 3.39, 3.44, 3.48, 3.53, 3.56, 3.58,
+                        3.63, 3.68,
+                    ],
+                },
+            },
+        },
+       
+    };
+
+    function getPositionData(position: number): {
+        section: string;
+        index: number;
+    } {
+        if (position <= 20) return { section: "1SD", index: position - 1 };
+        if (position <= 40) return { section: "2SD", index: position - 21 };
+        throw new Error("Posición inválida");
+    }
+
+    const numeroInput = document.getElementById(
+        "numeroInput",
+    ) as HTMLInputElement;
+    const container = document.getElementById(
+        "tablaContainer",
+    ) as HTMLDivElement;
+
+    function generarTabla() {
+        const position = parseInt(numeroInput.value);
+        if (!position || position < 1 || position > 40 || !container) {
+            container.innerHTML =
+                "<div class='error'>Posición inválida (1-40)</div>";
+            return;
+        }
+
+        // Definir índices para cada sección (suponiendo que ambas tienen 20 elementos)
+        const index1SD = position <= 20 ? position - 1 : 0; // o mostrar “N/D” si posición > 20
+        const index2SD = position > 20 ? position - 21 : position - 1;
+
+        // Obtener datos de turtle.jpeg para cada sección
+        const data1SD = turtleData["Mamu"]["1SD"]?.data;
+        const data2SD = turtleData["Mamu"]["2SD"]?.data;
+
+        // Extraer los valores para cada parte usando las claves correctas.
+        const valoresParte1 = {
+            // Se asume que en 1SD se usan estas claves
+            op1: data1SD?.default?.[index1SD]?.toFixed(2) || "N/D",
+            op2: data1SD?.["60"]?.[index1SD]?.toFixed(2) || "N/D",
+            op3: data1SD?.["70"]?.[index1SD]?.toFixed(2) || "N/D",
+            op4: data1SD?.["75"]?.[index1SD]?.toFixed(2) || "N/D",
+            op5: data1SD?.["80"]?.[index1SD]?.toFixed(2) || "N/D",
+            
+           
+        };
+
+        const valoresParte2 = {
+            // Para 2SD se usan otras claves
+            op6: data2SD?.["50"]?.[index2SD]?.toFixed(2) || "N/D",
+            op7: data2SD?.["60"]?.[index2SD]?.toFixed(2) || "N/D",
+            op8: data2SD?.["70"]?.[index2SD]?.toFixed(2) || "N/D",
+            op9: data2SD?.["75"]?.[index2SD]?.toFixed(2) || "N/D",
+            op10: data2SD?.["80"]?.[index2SD]?.toFixed(2) || "N/D",
+        };
+
+        container.innerHTML = `
+            <table class="turtle-table">
+                <thead>
+                    <tr>
+                        <th colspan="3" class="table-header">Posición ${position}</th>
+                    </tr>
+                    <tr>
+                        <th>Tiros</th>
+                        <th>Ángulo</th>
+                        <th>Fuerza</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td>Tiro 50%</td>
+                        <td>50</td>
+                        <td>${valoresParte1.op1}</td>
+                    </tr>
+                    <tr>
+                        <td>Tiro 60%</td>
+                        <td>60</td>
+                        <td>${valoresParte1.op2}</td>
+                    </tr>
+                    <tr>
+                        <td>Tiro 70%</td>
+                        <td>70</td>
+                        <td>${valoresParte1.op3}</td>
+                    </tr>
+                    <tr>
+                        <td>Tiro 75%</td>
+                        <td>75</td>
+                        <td>${valoresParte1.op4}</td>
+                    </tr>
+                    <tr>
+                        <td>Tiro 80%</td>
+                        <td>80</td>
+                        <td>${valoresParte1.op5}</td>
+                    </tr>
+                    <tr>
+                        <th class="custom-box">Tiros 2SD</th>
+                        <th class="custom-box">Ángulo</th>
+                        <th class="custom-box">Fuerza</th>
+                    </tr>
+
+
+
+                    <tr>
+                        <td>Tiro 50%</td>
+                        <td>50</td>
+                        <td>${valoresParte2.op6}</td>
+                    </tr>
+                    <tr>
+                        <td>Tiro 60%</td>
+                        <td>60</td>
+                        <td>${valoresParte2.op7}</td>
+                    </tr>
+                    <tr>
+                        <td>Tiro 70%</td>
+                        <td>70</td>
+                        <td>${valoresParte2.op8}</td>
+                    </tr>
+                    <tr>
+                        <td>Tiro 75%</td>
+                        <td>75</td>
+                        <td>${valoresParte2.op9}</td>
+                    </tr>
+                    <tr>
+                        <td>Tiro 80%</td>
+                        <td>80</td>
+                        <td>${valoresParte2.op10}</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        `;
+    }
+
+    // Estilos mejorados
+    const style = document.createElement("style");
+    style.textContent = `
+     .custom-box {
+    background-color: black;
+    color: #FCD116;
+    padding: 10px;
+    border: 2px solid #FCD116;
+  }
+        .turtle-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #2c2c2c;
+            color: #ffd700;
+            border: 2px solid #4a4a4a;
+            margin-top: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .table-header {
+            background: #1a1a1a;
+            font-size: 1.2em;
+            padding: 15px;
+            text-transform: uppercase;
+        }
+        
+        th {
+            background: #333;
+            padding: 12px;
+            border: 1px solid #4a4a4a;
+        }
+        
+        td {
+            padding: 10px;
+            border: 1px solid #4a4a4a;
+            text-align: center;
+        }
+        
+        tr:nth-child(even) {
+            background: #363636;
+        }
+        
+        .error {
+            color: #ff4444;
+            padding: 10px;
+            border: 1px solid #ff4444;
+            margin-top: 20px;
+            text-align: center;
+        }
+    `;
+    document.head.appendChild(style);
+
+    numeroInput.addEventListener("input", generarTabla);
+    generarTabla(); // Generar tabla inicial
+</script>
+
+<style>
+    .container {
+        background: linear-gradient(135deg, var(--bg-color), #002040);
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        max-width: 90%;
+        width: 50rem;
+        border: 0.25rem solid var(--primary-color);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+            to right,
+            var(--primary-color),
+            var(--secondary-color),
+            var(--accent-color)
+        );
+    }
+
+    h2 {
+        color: var(--primary-color);
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    input[type="number"] {
+        margin: 0.625rem 0;
+        padding: 0.625rem;
+        width: 100%;
+        background: linear-gradient(to bottom, #ffff99, var(--primary-color));
+        color: #000;
+        border: 0.1875rem solid var(--secondary-color);
+        font-family: "Russo One", sans-serif;
+        font-size: 1.2em;
+        border-radius: 0.625rem;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    input[type="number"]:focus {
+        outline: none;
+        box-shadow: 0 0 10px var(--accent-color);
+    }
+    .Direction {
+        background: linear-gradient(to bottom, #444, #111);
+        border: 2px solid #ffd700;
+        color: #ffd700;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        text-shadow: 1px 1px 2px black;
+        padding: 5px 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+        cursor: pointer;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        margin-top: 1.25rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 0.5rem;
+        padding: 1rem;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0.125rem;
+    }
+
+    th,
+    td {
+        border: 0.125rem solid var(--secondary-color);
+        padding: 0.5rem;
+        text-align: center;
+        background-color: rgba(30, 144, 255, 0.7);
+        border-radius: 0.3125rem;
+    }
+
+    th {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+        font-size: 1.2em;
+    }
+
+    tr:nth-child(even) td {
+        background-color: rgba(255, 215, 0, 0.7);
+    }
+    .mobile-icon,
+    .shot-icon {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    input[type="radio"] {
+        appearance: none;
+        width: 1.25rem;
+        height: 1.25rem;
+        border: 0.125rem solid var(--primary-color);
+        border-radius: 50%;
+        outline: none;
+        margin-right: 0.3125rem;
+        vertical-align: middle;
+        position: relative;
+        cursor: pointer;
+    }
+
+    input[type="radio"]:checked::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0.75rem;
+        height: 0.75rem;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        animation: pulse 0.5s ease-out;
+    }
+
+    input[type="radio"]:hover {
+        box-shadow: 0 0 8px var(--accent-color);
+    }
+
+    label {
+        cursor: pointer;
+        font-size: 1.1em;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 1rem;
+        }
+
+        h2 {
+            font-size: 2em;
+        }
+
+        input[type="number"] {
+            font-size: 1em;
+        }
+
+        th,
+        td {
+            padding: 0.5rem;
+        }
+
+        label {
+            font-size: 1em;
+        }
+
+        .mobile-icon,
+        .shot-icon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            padding: 0.75rem;
+        }
+
+        h2 {
+            font-size: 1.75em;
+        }
+
+        input[type="radio"] {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .mobile-icon,
+        .shot-icon {
+            width: 15px;
+            height: 15px;
+        }
+    }
+</style>
