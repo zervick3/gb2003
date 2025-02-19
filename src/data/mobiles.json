@@ -1,0 +1,45 @@
+[
+    {
+      "name": "Aduka",
+      "desc": "Aduka es un bot creado por la religión worshipping Thor. Sus disparos son eléctricos y pueden ser muy poderosos.",
+      "img": "https://via.placeholder.com/100?text=Aduka",
+      "pros": "Puede atacar con armas eléctricas que dañan en línea recta.",
+      "features": "Las armas de Aduka se potencian con los rayos que caen del cielo.",
+      "natural": "Tipo eléctrico, fuerte contra máquinas.",
+      "shot1": "https://via.placeholder.com/50?text=1",
+      "shot1desc": "Disparo eléctrico simple.",
+      "shot2": "https://via.placeholder.com/50?text=2",
+      "shot2desc": "Disparo eléctrico de mayor potencia.",
+      "ss": "https://via.placeholder.com/50?text=SS",
+      "ssdesc": "Un rayo devastador que invoca la ira de Thor."
+    },
+    {
+      "name": "Boomer",
+      "desc": "Boomer lanza proyectiles con trayectoria curva como un búmeran. Requiere habilidad para calcular el ángulo.",
+      "img": "https://via.placeholder.com/100?text=Boomer",
+      "pros": "Ataques con gran rango de disparo y efecto búmeran.",
+      "features": "Requiere precisión y control del viento.",
+      "natural": "Tipo Mecánico, neutral.",
+      "shot1": "https://via.placeholder.com/50?text=1",
+      "shot1desc": "Proyectil curvo de baja potencia.",
+      "shot2": "https://via.placeholder.com/50?text=2",
+      "shot2desc": "Proyectil curvo con daño adicional.",
+      "ss": "https://via.placeholder.com/50?text=SS",
+      "ssdesc": "Ataque con trayectorias múltiples en forma de búmeran."
+    },
+    {
+      "name": "Dragon",
+      "desc": "El Dragon es capaz de lanzar fuego devastador y causar daño masivo en área.",
+      "img": "https://via.placeholder.com/100?text=Dragon",
+      "pros": "Daño masivo de fuego y buena defensa.",
+      "features": "Puede quemar el terreno y a los enemigos.",
+      "natural": "Tipo Animal, débil contra hielo.",
+      "shot1": "https://via.placeholder.com/50?text=1",
+      "shot1desc": "Bola de fuego estándar.",
+      "shot2": "https://via.placeholder.com/50?text=2",
+      "shot2desc": "Llamarada con efecto de área.",
+      "ss": "https://via.placeholder.com/50?text=SS",
+      "ssdesc": "Explosión de fuego de gran magnitud."
+    }
+  ]
+  
