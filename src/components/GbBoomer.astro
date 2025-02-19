@@ -1,0 +1,934 @@
+---
+
+---
+
+<div class="container">
+    <h2 class="float">GunBound 2004 - Boomer</h2>
+    <form id="dataForm">
+        <label class="label-boomer" for="rowInput">Número (1 al 20):</label>
+        <input
+            type="number"
+            id="rowInput"
+            min="1"
+            max="20"
+            placeholder="Ingresa un número del 1 al 20"
+        />
+
+        <label class="label-boomer" for="sdSelect">Seleccione SD:</label>
+        <select class="Direction" id="sdSelect">
+            <option value="1SD">1SD</option>
+            <option value="2SD">2SD</option>
+        </select>
+
+        <label class="label-boomer" for="categorySelect"
+            >Seleccione categoría:</label
+        >
+        <select class="Direction" id="categorySelect">
+            <option value="40">40</option>
+            <option value="50">50</option>
+            <option value="60">60</option>
+            <option value="70">70</option>
+            <option value="75">75</option>
+            <option value="80">80</option>
+            <option value="85">85</option>
+            <option value="Full power">Full power</option>
+            <option value="Time bomb">Time bomb</option>
+            <option value="Hook 30">Hook 30</option>
+            <option value="Hook 40">Hook 40</option>
+            <option value="Hook 50">Hook 50</option>
+            <option value="Hook 55">Hook 55</option>
+            <option value="Hook 60">Hook 60</option>
+            <option value="Hook time">Hook time</option>
+            <option value="Hook full">Hook full</option>
+        </select>
+    </form>
+
+    <div class="result table-container custom-box">
+        Valor: <span id="valueDisplay">N/A</span>
+    </div>
+</div>
+<script>
+    const data: DataStructure = {
+        "1SD": {
+            "40": {
+                "1": 0.5,
+                "2": 0.71,
+                "3": 0.87,
+                "4": 1.0,
+                "5": 1.12,
+                "6": 1.23,
+                "7": 1.33,
+                "8": 1.42,
+                "9": 1.5,
+                "10": 1.58,
+                "11": 1.66,
+                "12": 1.73,
+                "13": 1.81,
+                "14": 1.88,
+                "15": 1.94,
+                "16": 2.07,
+                "17": 2.13,
+                "18": 2.19,
+                "19": 2.24,
+                "20": null,
+            },
+            "50": {
+                "1": 0.5,
+                "2": 0.71,
+                "3": 0.87,
+                "4": 1.0,
+                "5": 1.12,
+                "6": 1.23,
+                "7": 1.33,
+                "8": 1.42,
+                "9": 1.5,
+                "10": 1.58,
+                "11": 1.66,
+                "12": 1.74,
+                "13": 1.81,
+                "14": 1.88,
+                "15": 1.94,
+                "16": 2.07,
+                "17": 2.13,
+                "18": 2.19,
+                "19": 2.24,
+                "20": null,
+            },
+            "60": {
+                "1": 0.53,
+                "2": 0.75,
+                "3": 0.92,
+                "4": 1.07,
+                "5": 1.2,
+                "6": 1.31,
+                "7": 1.41,
+                "8": 1.51,
+                "9": 1.6,
+                "10": 1.7,
+                "11": 1.77,
+                "12": 1.85,
+                "13": 1.93,
+                "14": 2.0,
+                "15": 2.07,
+                "16": 2.14,
+                "17": 2.21,
+                "18": 2.27,
+                "19": 2.33,
+                "20": 2.39,
+            },
+            "70": {
+                "1": 0.62,
+                "2": 0.88,
+                "3": 1.07,
+                "4": 1.24,
+                "5": 1.39,
+                "6": 1.52,
+                "7": 1.64,
+                "8": 1.76,
+                "9": 1.86,
+                "10": 1.96,
+                "11": 2.06,
+                "12": 2.15,
+                "13": 2.24,
+                "14": 2.32,
+                "15": 2.41,
+                "16": 2.48,
+                "17": 2.56,
+                "18": 2.64,
+                "19": 2.71,
+                "20": 2.78,
+            },
+            "75": {
+                "1": 0.71,
+                "2": 1.0,
+                "3": 1.22,
+                "4": 1.41,
+                "5": 1.58,
+                "6": 1.73,
+                "7": 1.87,
+                "8": 2.0,
+                "9": 2.12,
+                "10": 2.23,
+                "11": 2.34,
+                "12": 2.44,
+                "13": 2.54,
+                "14": 2.64,
+                "15": 2.73,
+                "16": 2.82,
+                "17": 2.91,
+                "18": 2.99,
+                "19": 3.07,
+                "20": 3.15,
+            },
+            "80": {
+                "1": 0.85,
+                "2": 1.21,
+                "3": 1.5,
+                "4": 1.71,
+                "5": 1.91,
+                "6": 2.09,
+                "7": 2.26,
+                "8": 2.41,
+                "9": 2.56,
+                "10": 2.7,
+                "11": 2.83,
+                "12": 2.96,
+                "13": 3.08,
+                "14": 3.19,
+                "15": 3.3,
+                "16": 3.41,
+                "17": 3.52,
+                "18": 3.62,
+                "19": 3.72,
+                "20": 3.82,
+            },
+            "85": {
+                "1": 1.2,
+                "2": 1.7,
+                "3": 2.07,
+                "4": 2.4,
+                "5": 2.68,
+                "6": 2.93,
+                "7": 3.17,
+                "8": 3.39,
+                "9": 3.59,
+                "10": 3.79,
+                "11": 3.97,
+                "12": null,
+                "13": null,
+                "14": null,
+                "15": null,
+                "16": null,
+                "17": null,
+                "18": null,
+                "19": null,
+                "20": null,
+            },
+            "Full power": {
+                "1": "89.2.64",
+                "2": "89.3.73",
+                "3": "88.3.23",
+                "4": "88",
+                "5": "87.3.41",
+                "6": "87",
+                "7": "87.4.03",
+                "8": "86.3.73",
+                "9": "86",
+                "10": "85.3.74",
+                "11": "85",
+                "12": "84.3.74",
+                "13": "84.3.9",
+                "14": "84.4.04",
+                "15": "83",
+                "16": "83.4.01",
+                "17": "82.3.87",
+                "18": "82.3.98",
+                "19": "81.3.86",
+                "20": "81.3.97",
+            },
+            "Time bomb": {
+                "1": "81.0.92",
+                "2": "73.0.95",
+                "3": "66.1.00",
+                "4": "60.1.06",
+                "5": "54.1.13",
+                "6": "49.1.21",
+                "7": "44.1.31",
+                "8": "40.1.40",
+                "9": "37.1.51",
+                "10": "35.1.62",
+                "11": "32.1.73",
+                "12": "30.1.84",
+                "13": "28.1.96",
+                "14": "26.2.08",
+                "15": "25.2.15",
+                "16": "23.2.32",
+                "17": "22.2.44",
+                "18": "21.2.57",
+                "19": "20.2.69",
+                "20": "19.2.82",
+            },
+            "Hook 30": {
+                "1": 0.44,
+                "2": 0.67,
+                "3": 0.91,
+                "4": 1.04,
+                "5": 1.17,
+                "6": 1.28,
+                "7": 1.47,
+                "8": 1.66,
+                "9": 1.85,
+                "10": 1.95,
+                "11": 2.03,
+                "12": 2.17,
+                "13": 2.32,
+                "14": 2.47,
+                "15": 2.54,
+                "16": 2.61,
+                "17": 2.76,
+                "18": 2.9,
+                "19": 3.05,
+                "20": 3.12,
+            },
+            "Hook 40": {
+                "1": 0.5,
+                "2": 0.8,
+                "3": 1.0,
+                "4": 1.4,
+                "5": 1.6,
+                "6": 1.67,
+                "7": 1.81,
+                "8": 1.95,
+                "9": 2.02,
+                "10": 2.15,
+                "11": 2.22,
+                "12": 2.37,
+                "13": 2.52,
+                "14": 2.67,
+                "15": 2.75,
+                "16": 2.8,
+                "17": 2.9,
+                "18": 3.0,
+                "19": 3.1,
+                "20": 3.15,
+            },
+            "Hook 50": {
+                "1": null,
+                "2": null,
+                "3": 1.2,
+                "4": 1.45,
+                "5": 1.7,
+                "6": 1.79,
+                "7": 1.97,
+                "8": 2.14,
+                "9": 2.32,
+                "10": 2.4,
+                "11": 2.47,
+                "12": 2.61,
+                "13": 2.75,
+                "14": 2.89,
+                "15": 2.95,
+                "16": 3.02,
+                "17": 3.15,
+                "18": 3.3,
+                "19": 3.44,
+                "20": 3.5,
+            },
+            "Hook 55": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": 1.82,
+                "5": 1.92,
+                "6": 2.15,
+                "7": 2.37,
+                "8": 2.6,
+                "9": 2.7,
+                "10": 2.74,
+                "11": 2.83,
+                "12": 3.06,
+                "13": 3.19,
+                "14": 3.25,
+                "15": 3.32,
+                "16": 3.46,
+                "17": 3.6,
+                "18": 3.74,
+                "19": 3.8,
+                "20": null,
+            },
+            "Hook 60": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "6": null,
+                "7": null,
+                "8": 2.7,
+                "9": 2.85,
+                "10": 2.95,
+                "11": 3.09,
+                "12": 3.22,
+                "13": 3.36,
+                "14": 3.49,
+                "15": 3.63,
+                "16": 3.76,
+                "17": 3.89,
+                "18": 4.02,
+                "19": null,
+                "20": null,
+            },
+            "Hook time": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "6": null,
+                "7": null,
+                "8": null,
+                "9": null,
+                "10": "35.2.05",
+                "11": null,
+                "12": null,
+                "13": null,
+                "14": null,
+                "15": "25.2.35",
+                "16": null,
+                "17": null,
+                "18": null,
+                "19": null,
+                "20": "19.2.9",
+            },
+            "Hook full": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": 81,
+                "6": 79,
+                "7": 78,
+                "8": 77,
+                "9": 76,
+                "10": 75,
+                "11": 74,
+                "12": 73,
+                "13": 71,
+                "14": 69,
+                "15": 67,
+                "16": 64,
+                "17": 63,
+                "18": 60,
+                "19": 59,
+                "20": 58,
+            },
+        },
+        "2SD": {
+            "40": {
+                "21": 2.3,
+                "22": 2.35,
+                "23": 2.41,
+                "24": 2.46,
+                "25": 2.51,
+                "26": 2.56,
+                "27": 2.61,
+                "28": 2.66,
+                "29": 2.7,
+                "30": 2.75,
+                "31": 2.79,
+                "32": 2.84,
+                "33": 2.88,
+                "34": 2.93,
+                "35": 2.97,
+                "36": 3.01,
+                "37": 3.05,
+                "38": 3.09,
+                "39": 3.13,
+                "40": 3.17,
+            },
+            "50": {
+                "21": 2.3,
+                "22": 2.35,
+                "23": 2.41,
+                "24": 2.46,
+                "25": 2.51,
+                "26": 2.56,
+                "27": 2.61,
+                "28": 2.66,
+                "29": 2.7,
+                "30": 2.75,
+                "31": 2.79,
+                "32": 2.84,
+                "33": 2.88,
+                "34": 2.93,
+                "35": 2.97,
+                "36": 3.01,
+                "37": 3.05,
+                "38": 3.09,
+                "39": 3.13,
+                "40": 3.17,
+            },
+            "60": {
+                "21": 2.45,
+                "22": 2.51,
+                "23": 2.57,
+                "24": 2.62,
+                "25": 2.68,
+                "26": 2.73,
+                "27": 2.78,
+                "28": 2.83,
+                "29": 2.88,
+                "30": 2.93,
+                "31": 2.98,
+                "32": 3.03,
+                "33": 3.07,
+                "34": 3.12,
+                "35": 3.17,
+                "36": 3.21,
+                "37": 3.26,
+                "38": 3.3,
+                "39": 3.34,
+                "40": 3.39,
+            },
+            "70": {
+                "21": 2.85,
+                "22": 2.91,
+                "23": 2.98,
+                "24": 3.04,
+                "25": 3.11,
+                "26": 3.17,
+                "27": 3.23,
+                "28": 3.29,
+                "29": 3.35,
+                "30": 3.4,
+                "31": 3.46,
+                "32": 3.52,
+                "33": 3.57,
+                "34": 3.62,
+                "35": 3.68,
+                "36": 3.73,
+                "37": 3.78,
+                "38": 3.83,
+                "39": 3.88,
+                "40": 3.93,
+            },
+            "75": {
+                "21": 3.23,
+                "22": 3.31,
+                "23": 3.38,
+                "24": 3.45,
+                "25": 3.53,
+                "26": 3.6,
+                "27": 3.66,
+                "28": 3.73,
+                "29": 3.8,
+                "30": 3.86,
+                "31": 3.93,
+                "32": 3.99,
+                "33": null,
+                "34": null,
+                "35": null,
+                "36": null,
+                "37": null,
+                "38": null,
+                "39": null,
+                "40": null,
+            },
+            "Full power": {
+                "21": "80.3.86",
+                "22": "80.3.96",
+                "23": "79.3.86",
+                "24": "79.3.94",
+                "25": "79.4.02",
+                "26": "78.3.94",
+                "27": "78.4.01",
+                "28": "77.3.94",
+                "29": "77.4.01",
+                "30": "76.3.94",
+                "31": "76.4.00",
+                "32": "75.3.94",
+                "33": "75.4.00",
+                "34": "74.3.95",
+                "35": "74.4.00",
+                "36": "73.3.95",
+                "37": "73.4.01",
+                "38": "72.3.96",
+                "39": "72.4.01",
+                "40": "71.3.97",
+            },
+            "Time bomb": {
+                "21": "18.2.94",
+                "22": "17.3.07",
+                "23": "17.3.2",
+                "24": "16.3.33",
+                "25": "3.46.15",
+                "26": "14.3.71",
+                "27": "14.3.84",
+                "28": "13.3.97",
+                "29": "13.4.02",
+                "30": null,
+                "31": null,
+                "32": null,
+                "33": null,
+                "34": null,
+                "35": null,
+                "36": null,
+                "37": null,
+                "38": null,
+                "39": null,
+                "40": null,
+            },
+            "Hook 30": {
+                "21": 3.15,
+                "22": 3.21,
+                "23": 3.27,
+                "24": 3.32,
+                "25": 3.35,
+                "26": 3.39,
+                "27": 3.44,
+                "28": 3.49,
+                "29": 3.54,
+                "30": 3.57,
+                "31": 3.61,
+                "32": 3.66,
+                "33": 3.73,
+                "34": 3.78,
+                "35": 3.8,
+                "36": 3.84,
+                "37": 3.89,
+                "38": 3.94,
+                "39": 3.99,
+                "40": 4.02,
+            },
+            "Hook 40": {
+                "21": 3.21,
+                "22": 3.26,
+                "23": 3.31,
+                "24": 3.37,
+                "25": 3.42,
+                "26": 3.47,
+                "27": 3.52,
+                "28": 3.61,
+                "29": 3.66,
+                "30": 3.71,
+                "31": 3.77,
+                "32": 3.84,
+                "33": 3.9,
+                "34": 3.96,
+                "35": 4.02,
+                "36": null,
+                "37": null,
+                "38": null,
+                "39": null,
+                "40": null,
+            },
+            "Hook 50": {
+                "21": 3.56,
+                "22": 3.68,
+                "23": 3.78,
+                "24": 3.89,
+                "25": 3.95,
+                "26": 4.02,
+                "27": null,
+                "28": null,
+                "29": null,
+                "30": null,
+                "31": null,
+                "32": null,
+                "33": null,
+                "34": null,
+                "35": null,
+                "36": null,
+                "37": null,
+                "38": null,
+                "39": null,
+                "40": null,
+            },
+            "Hook full": {
+                "21": 57,
+                "22": 56,
+                "23": 54,
+                "24": 52,
+                "25": 51,
+                "26": 50,
+                "27": 49,
+                "28": 47,
+                "29": 46,
+                "30": 45,
+                "31": 44,
+                "32": 43,
+                "33": 42,
+                "34": 41,
+                "35": 40,
+                "36": 38,
+                "37": 36,
+                "38": 34,
+                "39": 33,
+                "40": 32,
+            },
+        },
+    };
+
+    // Definir la estructura de "data" (ajusta los tipos según corresponda)
+    interface DataStructure {
+        [sd: string]: {
+            [category: string]: {
+                [key: string]: string | number | null | undefined;
+            };
+        };
+    }
+
+    // Declarar la variable "data". Se asume que ya está definida en algún lugar.
+
+    function updateResult(): void {
+        // Obtener y forzar el tipo de los elementos del DOM
+        const rowInput = document.getElementById(
+            "rowInput",
+        ) as HTMLInputElement;
+        const sdSelect = document.getElementById(
+            "sdSelect",
+        ) as HTMLSelectElement;
+        const categorySelect = document.getElementById(
+            "categorySelect",
+        ) as HTMLSelectElement;
+        const valueDisplay = document.getElementById(
+            "valueDisplay",
+        ) as HTMLElement;
+
+        // Obtener valores de los controles
+        const row: number = parseInt(rowInput.value, 10);
+        const sd: string = sdSelect.value;
+        const category: string = categorySelect.value;
+
+        let displayValue: string = "N/A";
+
+        // Validar que se haya ingresado un número entre 1 y 20
+        if (!isNaN(row) && row >= 1 && row <= 20) {
+            // Para "1SD" usamos el número tal cual; para "2SD" sumamos 20 (ya que las claves van de 21 a 40)
+            const key: string =
+                sd === "1SD" ? row.toString() : (row + 20).toString();
+
+            if (
+                data[sd] &&
+                data[sd][category] &&
+                Object.prototype.hasOwnProperty.call(data[sd][category], key)
+            ) {
+                const value = data[sd][category][key];
+                displayValue =
+                    value === null || value === undefined
+                        ? "N/A"
+                        : value.toString();
+            }
+        }
+
+        valueDisplay.textContent = displayValue;
+    }
+
+    // Actualizar automáticamente al cambiar alguno de los controles
+    (document.getElementById("rowInput") as HTMLInputElement).addEventListener(
+        "input",
+        updateResult,
+    );
+    (document.getElementById("sdSelect") as HTMLSelectElement).addEventListener(
+        "change",
+        updateResult,
+    );
+    (
+        document.getElementById("categorySelect") as HTMLSelectElement
+    ).addEventListener("change", updateResult);
+
+    // Actualización inicial
+    updateResult();
+</script>
+<style>
+    .container {
+        background: linear-gradient(135deg, var(--bg-color), #002040);
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        max-width: 90%;
+        width: 50rem;
+        border: 0.25rem solid var(--primary-color);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+            to right,
+            var(--primary-color),
+            var(--secondary-color),
+            var(--accent-color)
+        );
+    }
+
+    h2 {
+        color: var(--primary-color);
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .label-boomer {
+        color: var(--primary-color);
+        font-size: 1.5em;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        padding: 1rem;
+    }
+
+    input[type="number"] {
+        margin: 0.625rem 0;
+        padding: 0.625rem;
+        width: 100%;
+        background: linear-gradient(to bottom, #ffff99, var(--primary-color));
+        color: #000;
+        border: 0.1875rem solid var(--secondary-color);
+        font-family: "Russo One", sans-serif;
+        font-size: 1.2em;
+        border-radius: 0.625rem;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+    .custom-box {
+        background-color: black;
+        color: #fcd116;
+        padding: 10px;
+        border: 2px solid #fcd116;
+        font-size: 1.4em;
+    }
+    input[type="number"]:focus {
+        outline: none;
+        box-shadow: 0 0 10px var(--accent-color);
+    }
+    .Direction {
+        background: linear-gradient(to bottom, #444, #111);
+        border: 2px solid #ffd700;
+        color: #ffd700;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        text-shadow: 1px 1px 2px black;
+        padding: 5px 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+        cursor: pointer;
+    }
+    option {
+        background: #444;
+        color: #ffd700;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        text-shadow: 1px 1px 2px black;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        margin-top: 1.25rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 0.5rem;
+        padding: 1rem;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0.125rem;
+    }
+
+    th,
+    td {
+        border: 0.125rem solid var(--secondary-color);
+        padding: 0.5rem;
+        text-align: center;
+        background-color: rgba(30, 144, 255, 0.7);
+        border-radius: 0.3125rem;
+    }
+
+    th {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+        font-size: 1.2em;
+    }
+
+    tr:nth-child(even) td {
+        background-color: rgba(255, 215, 0, 0.7);
+    }
+    .mobile-icon,
+    .shot-icon {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    input[type="radio"] {
+        appearance: none;
+        width: 1.25rem;
+        height: 1.25rem;
+        border: 0.125rem solid var(--primary-color);
+        border-radius: 50%;
+        outline: none;
+        margin-right: 0.3125rem;
+        vertical-align: middle;
+        position: relative;
+        cursor: pointer;
+    }
+
+    input[type="radio"]:checked::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0.75rem;
+        height: 0.75rem;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        animation: pulse 0.5s ease-out;
+    }
+
+    input[type="radio"]:hover {
+        box-shadow: 0 0 8px var(--accent-color);
+    }
+
+    label {
+        cursor: pointer;
+        font-size: 1.1em;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 1rem;
+        }
+
+        h2 {
+            font-size: 2em;
+        }
+
+        input[type="number"] {
+            font-size: 1em;
+        }
+
+        th,
+        td {
+            padding: 0.5rem;
+        }
+
+        label {
+            font-size: 1em;
+        }
+
+        .mobile-icon,
+        .shot-icon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            padding: 0.75rem;
+        }
+
+        h2 {
+            font-size: 1.75em;
+        }
+
+        input[type="radio"] {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .mobile-icon,
+        .shot-icon {
+            width: 15px;
+            height: 15px;
+        }
+    }
+</style>
