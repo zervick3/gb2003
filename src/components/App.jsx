@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './App.css';
-import MobileCard from './components/MobileCard';
-import Modal from './components/Modal';
+import '@/css/card.css';
+import MobileCard from '@/components/MobileCard';
+import Modal from '@/components/Modal';
 // Importa el JSON; asegúrate de tener configurado el manejo de JSON en tu bundler
-import mobilesData from './data/mobiles.json';
+import mobilesData from '@/data/mobiles.json';
 
 function App() {
   const [selectedMobile, setSelectedMobile] = useState(null);

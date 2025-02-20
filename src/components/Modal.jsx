@@ -1,5 +1,5 @@
 import React from 'react';
-import './Modal.css'; // Opcional: si deseas estilos específicos para el modal
+//import '@/Modal.css'; // Opcional: si deseas estilos específicos para el modal
 
 const Modal = ({ mobile, onClose }) => {
   if (!mobile) return null;
