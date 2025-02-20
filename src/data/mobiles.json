@@ -1,21 +1,20 @@
-
-
-
 [ 
 
     {
       "name": "Armor",
-      "desc": "Aduka es un bot creado por la religión worshipping Thor. Sus disparos son eléctricos y pueden ser muy poderosos.",
-      "img": ".../guide04_mobile_L01.gif",
-      "pros": "Puede atacar con armas eléctricas que dañan en línea recta.",
-      "features": "Las armas de Aduka se potencian con los rayos que caen del cielo.",
-      "natural": "Tipo eléctrico, fuerte contra máquinas.",
-      "shot1": "https://via.placeholder.com/50?text=1",
-      "shot1desc": "Disparo eléctrico simple.",
-      "shot2": "https://via.placeholder.com/50?text=2",
-      "shot2desc": "Disparo eléctrico de mayor potencia.",
-      "ss": "https://via.placeholder.com/50?text=SS",
-      "ssdesc": "Un rayo devastador que invoca la ira de Thor."
+      "desc": "El Móvile Armor está equipado con proyectiles especiales altamente explosivos diseñados para explotar después de penetrar las defensas de un oponente.",
+      "img": "/img/guide04_mobile_L01.gif",
+      "pros": "Un golpe directo hace un daño tremendo.",
+      "features": "Movilidad limitada.",
+      "natural": "El Huboei desarrolló el Móvile Armor para soportar condiciones geológicas extremas. ",
+      "shot1": "/img/ico_capacity01.gif",
+      "shot1desc": "100%",
+      "shot2": "/img/ico_capacity02.gif",
+      "shot2desc": "50%",
+      "ss": "/img/ico_capacity03.gif",
+      "ssdesc": "70%",
+      "Movilidad": "/img/ico_capacity04.gif",
+      "Movidesc": "50%"
     }
     
 ]

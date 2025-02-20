@@ -18,36 +18,45 @@ const Modal = ({ mobile, onClose }) => {
           <img id="modal-img" src={mobile.img} alt={mobile.name} />
           <p id="modal-desc">{mobile.desc}</p>
           <div className="modal-extra-info">
-            <h3>Pros</h3>
+            <h3>Ventajas</h3>
             <p id="modal-pros">{mobile.pros}</p>
-            <h3>Features</h3>
+            <h3>Desventajas</h3>
             <p id="modal-features">{mobile.features}</p>
-            <h3>Natural Enemies</h3>
+            <h3>Huboei</h3>
             <p id="modal-natural">{mobile.natural}</p>
           </div>
         </div>
         <div className="modal-right">
-          <h2>SKILL PREVIEW</h2>
+          <h2>Capacidad</h2>
           <div className="skill">
-            <img id="modal-shot1" src={mobile.shot1} alt="Shot 1" />
+            <img id="modal-shot1" src={mobile.shot1} alt="Ataque" />
             <div>
-              <h4>Shot 1</h4>
+              <h4>Ataque</h4>
               <p id="modal-shot1desc">{mobile.shot1desc}</p>
             </div>
           </div>
           <div className="skill">
-            <img id="modal-shot2" src={mobile.shot2} alt="Shot 2" />
+            <img id="modal-shot2" src={mobile.shot2} alt="Defensa" />
             <div>
-              <h4>Shot 2</h4>
+              <h4>Defensa</h4>
               <p id="modal-shot2desc">{mobile.shot2desc}</p>
             </div>
           </div>
           <div className="skill">
-            <img id="modal-ss" src={mobile.ss} alt="SS" />
+            <img id="modal-ss" src={mobile.ss} alt="Energia" />
             <div>
-              <h4>SS</h4>
+              <h4>Energia</h4>
               <p id="modal-ssdesc">{mobile.ssdesc}</p>
             </div>
+            
+          </div>
+          <div className="skill">
+            <img id="modal-ss" src={mobile.Movilidad} alt="Movilidad" />
+            <div>
+              <h4>Energia</h4>
+              <p id="modal-ssdesc">{mobile.Movidesc}</p>
+            </div>
+            
           </div>
         </div>
       </div>
