@@ -15,6 +15,22 @@
       "ssdesc": "70%",
       "Movilidad": "/img/ico_capacity04.gif",
       "Movidesc": "50%"
+    },
+    {
+      "name": "Mage",
+      "desc": "Desde la antigüedad, el Adium ha utilizado cristales fotofílicos especiales para controlar y dirigir la energía de la luz. Utilizaron esta tecnología para desarrollar el ágil Móvile Mage al comienzo de las Grandes Guerras para contrarrestar el Móvile Armor del Huboei.",
+      "img": "/img/guide04_mobile_L02.gif",
+      "pros": "Bien equilibrado, ágil, con un amplio ángulo de disparo.",
+      "features": "Armamento más ligero que la armadura..",
+      "natural": " Desde la antigüedad, el Adium ha utilizado cristales fotofílicos especiales para controlar y dirigir la energía de la luz.. ",
+      "shot1": "/img/ico_capacity01.gif",
+      "shot1desc": "100%",
+      "shot2": "/img/ico_capacity02.gif",
+      "shot2desc": "100%",
+      "ss": "/img/ico_capacity03.gif",
+      "ssdesc": "100%",
+      "Movilidad": "/img/ico_capacity04.gif",
+      "Movidesc": "100%"
     }
     
 ]

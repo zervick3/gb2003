@@ -1,5 +1,6 @@
 import React from 'react';
-//import '@/Modal.css'; // Opcional: si deseas estilos específicos para el modal
+//import '@/Modal.css'; // Opcional: si deseas estilos específicos para el modal<h3>Huboei</h3>
+           // <p id="modal-natural">{mobile.natural}</p>
 
 const Modal = ({ mobile, onClose }) => {
   if (!mobile) return null;
@@ -22,8 +23,7 @@ const Modal = ({ mobile, onClose }) => {
             <p id="modal-pros">{mobile.pros}</p>
             <h3>Desventajas</h3>
             <p id="modal-features">{mobile.features}</p>
-            <h3>Huboei</h3>
-            <p id="modal-natural">{mobile.natural}</p>
+           
           </div>
         </div>
         <div className="modal-right">
