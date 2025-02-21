@@ -5,15 +5,18 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Gallery from "../components/Gallery.astro";
 import Footer from "../components/Footer.astro";
+import App from "@/components/App";
+import FormCard from "@/components/FormCard.astro";
 ---
 
 <Layout title="GunBound 2003 - Turtle">
     <Header />
     <div class="main-content">
         <GbTurtle />
-        <NewsCard />
+        <FormCard/>
     </div>
-    <Gallery />
+    <App client:load/>
+    
     <Footer />
 </Layout>
 <style>
