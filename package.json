@@ -2,6 +2,7 @@
   "name": "guiasweb",
   "type": "module",
   "version": "0.0.1",
+  "client": "load",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

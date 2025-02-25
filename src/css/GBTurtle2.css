@@ -1,0 +1,214 @@
+.container {
+    background: linear-gradient(135deg, var(--bg-color), #002040);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    max-width: 90%;
+    width: 50rem;
+    border: 0.25rem solid var(--primary-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(to right,
+            var(--primary-color),
+            var(--secondary-color),
+            var(--accent-color));
+}
+
+h2 {
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.label-boomer {
+    color: var(--primary-color);
+    font-size: 1.5em;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+}
+
+input[type="number"] {
+    margin: 0.625rem 0;
+    padding: 0.625rem;
+    width: 100%;
+    background: linear-gradient(to bottom, #ffff99, var(--primary-color));
+    color: #000;
+    border: 0.1875rem solid var(--secondary-color);
+    font-family: "Russo One", sans-serif;
+    font-size: 1.2em;
+    border-radius: 0.625rem;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.custom-box {
+    background-color: black;
+    color: #fcd116;
+    padding: 10px;
+    border: 2px solid #fcd116;
+    font-size: 1.4em;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--accent-color);
+}
+
+.Direction {
+    background: linear-gradient(to bottom, #444, #111);
+    border: 2px solid #ffd700;
+    color: #ffd700;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+    cursor: pointer;
+}
+
+option {
+    background: #444;
+    color: #ffd700;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    text-shadow: 1px 1px 2px black;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-top: 1.25rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0.125rem;
+}
+
+th,
+td {
+    border: 0.125rem solid var(--secondary-color);
+    padding: 0.5rem;
+    text-align: center;
+    background-color: rgba(30, 144, 255, 0.7);
+    border-radius: 0.3125rem;
+}
+
+th {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-size: 1.2em;
+}
+
+tr:nth-child(even) td {
+    background-color: rgba(255, 215, 0, 0.7);
+}
+
+.mobile-icon,
+.shot-icon {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+input[type="radio"] {
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 0.125rem solid var(--primary-color);
+    border-radius: 50%;
+    outline: none;
+    margin-right: 0.3125rem;
+    vertical-align: middle;
+    position: relative;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    animation: pulse 0.5s ease-out;
+}
+
+input[type="radio"]:hover {
+    box-shadow: 0 0 8px var(--accent-color);
+}
+
+label {
+    cursor: pointer;
+    font-size: 1.1em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    input[type="number"] {
+        font-size: 1em;
+    }
+
+    th,
+    td {
+        padding: 0.5rem;
+    }
+
+    label {
+        font-size: 1em;
+    }
+
+    .mobile-icon,
+    .shot-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0.75rem;
+    }
+
+    h2 {
+        font-size: 1.75em;
+    }
+
+    input[type="radio"] {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .mobile-icon,
+    .shot-icon {
+        width: 15px;
+        height: 15px;
+    }
+}

@@ -7,16 +7,17 @@ import Gallery from "../components/Gallery.astro";
 import Footer from "../components/Footer.astro";
 import App from "@/components/App";
 import FormCard from "@/components/FormCard.astro";
+import GBTurtle2 from "@/components/GBTurtle2";
 ---
 
 <Layout title="GunBound 2003 - Turtle">
     <Header />
     <div class="main-content">
-        <GbTurtle />
-        <FormCard/>
+        <GBTurtle2 client:load />
+        <FormCard />
     </div>
-    <App client:load/>
-    
+    <App client:load />
+
     <Footer />
 </Layout>
 <style>
