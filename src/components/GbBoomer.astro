@@ -66,11 +66,11 @@
                 "13": 1.81,
                 "14": 1.88,
                 "15": 1.94,
-                "16": 2.07,
-                "17": 2.13,
-                "18": 2.19,
-                "19": 2.24,
-                "20": null,
+                "16": 2.00,
+                "17": 2.07,
+                "18": 2.13,
+                "19": 2.19,
+                "20": 2.24,
             },
             "50": {
                 "1": 0.5,
@@ -88,11 +88,11 @@
                 "13": 1.81,
                 "14": 1.88,
                 "15": 1.94,
-                "16": 2.07,
-                "17": 2.13,
-                "18": 2.19,
-                "19": 2.24,
-                "20": null,
+                "16": 2.00,
+                "17": 2.07,
+                "18": 2.13,
+                "19": 2.19,
+                "20": 2.24,
             },
             "60": {
                 "1": 0.53,
@@ -677,23 +677,25 @@
 
         // Obtener valores de los controles
         const row: number = parseInt(rowInput.value, 10);
-        const sd: string = sdSelect.value;
+        const sd: string = sdSelect.value.trim();
         const category: string = categorySelect.value;
 
         let displayValue: string = "N/A";
 
         // Validar que se haya ingresado un número entre 1 y 20
-        if (!isNaN(row) && row >= 1 && row <= 20) {
+         if (!isNaN(row) && ((sd === "1SD" && row >= 1 && row <= 20) || (sd === "2SD" && row >= 21 && row <= 40))) {
             // Para "1SD" usamos el número tal cual; para "2SD" sumamos 20 (ya que las claves van de 21 a 40)
-            const key: string =
-                sd === "1SD" ? row.toString() : (row + 20).toString();
-
+            
+            // Dejar el número tal cual para 2SD
+            const key: string = row.toString();
+            console.log(`Generated key: ${key} for sd: ${sd}, category: ${category}`);
             if (
                 data[sd] &&
                 data[sd][category] &&
                 Object.prototype.hasOwnProperty.call(data[sd][category], key)
             ) {
                 const value = data[sd][category][key];
+                
                 displayValue =
                     value === null || value === undefined
                         ? "N/A"
@@ -702,6 +704,7 @@
         }
 
         valueDisplay.textContent = displayValue;
+        
     }
 
     // Actualizar automáticamente al cambiar alguno de los controles
