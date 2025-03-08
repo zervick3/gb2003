@@ -31,15 +31,15 @@
             <option value="75">75</option>
             <option value="80">80</option>
             <option value="85">85</option>
-            <option value="Full power">Full power</option>
-            <option value="Time bomb">Time bomb</option>
-            <option value="Hook 30">Hook 30</option>
-            <option value="Hook 40">Hook 40</option>
-            <option value="Hook 50">Hook 50</option>
-            <option value="Hook 55">Hook 55</option>
-            <option value="Hook 60">Hook 60</option>
-            <option value="Hook time">Hook time</option>
-            <option value="Hook full">Hook full</option>
+            <option value="Fullpower">Full power</option>
+            <option value="Timebomb">Time bomb</option>
+            <option value="Hook30">Hook 30</option>
+            <option value="Hook40">Hook 40</option>
+            <option value="Hook50">Hook 50</option>
+            <option value="Hook55">Hook 55 1SD</option>
+            <option value="Hook60">Hook 60</option>
+            <option value="Hooktime">Hook time</option>
+            <option value="Hookfull">Hook full</option>
         </select>
     </form>
 
@@ -66,7 +66,7 @@
                 "13": 1.81,
                 "14": 1.88,
                 "15": 1.94,
-                "16": 2.00,
+                "16": 2.0,
                 "17": 2.07,
                 "18": 2.13,
                 "19": 2.19,
@@ -88,7 +88,7 @@
                 "13": 1.81,
                 "14": 1.88,
                 "15": 1.94,
-                "16": 2.00,
+                "16": 2.0,
                 "17": 2.07,
                 "18": 2.13,
                 "19": 2.19,
@@ -204,7 +204,7 @@
                 "19": null,
                 "20": null,
             },
-            "Full power": {
+            Fullpower: {
                 "1": "89.2.64",
                 "2": "89.3.73",
                 "3": "88.3.23",
@@ -226,7 +226,7 @@
                 "19": "81.3.86",
                 "20": "81.3.97",
             },
-            "Time bomb": {
+            Timebomb: {
                 "1": "81.0.92",
                 "2": "73.0.95",
                 "3": "66.1.00",
@@ -248,7 +248,7 @@
                 "19": "20.2.69",
                 "20": "19.2.82",
             },
-            "Hook 30": {
+            Hook30: {
                 "1": 0.44,
                 "2": 0.67,
                 "3": 0.91,
@@ -270,7 +270,7 @@
                 "19": 3.05,
                 "20": 3.12,
             },
-            "Hook 40": {
+            Hook40: {
                 "1": 0.5,
                 "2": 0.8,
                 "3": 1.0,
@@ -292,7 +292,7 @@
                 "19": 3.1,
                 "20": 3.15,
             },
-            "Hook 50": {
+            Hook50: {
                 "1": null,
                 "2": null,
                 "3": 1.2,
@@ -314,7 +314,7 @@
                 "19": 3.44,
                 "20": 3.5,
             },
-            "Hook 55": {
+            Hook55: {
                 "1": null,
                 "2": null,
                 "3": null,
@@ -336,7 +336,7 @@
                 "19": 3.8,
                 "20": null,
             },
-            "Hook 60": {
+            Hook60: {
                 "1": null,
                 "2": null,
                 "3": null,
@@ -358,7 +358,7 @@
                 "19": null,
                 "20": null,
             },
-            "Hook time": {
+            Hooktime: {
                 "1": null,
                 "2": null,
                 "3": null,
@@ -380,7 +380,7 @@
                 "19": null,
                 "20": "19.2.9",
             },
-            "Hook full": {
+            Hookfull: {
                 "1": null,
                 "2": null,
                 "3": null,
@@ -514,7 +514,7 @@
                 "39": null,
                 "40": null,
             },
-            "Full power": {
+            Fullpower: {
                 "21": "80.3.86",
                 "22": "80.3.96",
                 "23": "79.3.86",
@@ -536,7 +536,7 @@
                 "39": "72.4.01",
                 "40": "71.3.97",
             },
-            "Time bomb": {
+            Timebomb: {
                 "21": "18.2.94",
                 "22": "17.3.07",
                 "23": "17.3.2",
@@ -558,7 +558,7 @@
                 "39": null,
                 "40": null,
             },
-            "Hook 30": {
+            Hook30: {
                 "21": 3.15,
                 "22": 3.21,
                 "23": 3.27,
@@ -580,7 +580,7 @@
                 "39": 3.99,
                 "40": 4.02,
             },
-            "Hook 40": {
+            Hook40: {
                 "21": 3.21,
                 "22": 3.26,
                 "23": 3.31,
@@ -602,7 +602,7 @@
                 "39": null,
                 "40": null,
             },
-            "Hook 50": {
+            Hook50: {
                 "21": 3.56,
                 "22": 3.68,
                 "23": 3.78,
@@ -624,7 +624,7 @@
                 "39": null,
                 "40": null,
             },
-            "Hook full": {
+            Hookfull: {
                 "21": 57,
                 "22": 56,
                 "23": 54,
@@ -683,19 +683,25 @@
         let displayValue: string = "N/A";
 
         // Validar que se haya ingresado un número entre 1 y 20
-         if (!isNaN(row) && ((sd === "1SD" && row >= 1 && row <= 20) || (sd === "2SD" && row >= 21 && row <= 40))) {
+        if (
+            !isNaN(row) &&
+            ((sd === "1SD" && row >= 1 && row <= 20) ||
+                (sd === "2SD" && row >= 21 && row <= 40))
+        ) {
             // Para "1SD" usamos el número tal cual; para "2SD" sumamos 20 (ya que las claves van de 21 a 40)
-            
+
             // Dejar el número tal cual para 2SD
             const key: string = row.toString();
-            console.log(`Generated key: ${key} for sd: ${sd}, category: ${category}`);
+            console.log(
+                `Generated key: ${key} for sd: ${sd}, category: ${category}`,
+            );
             if (
                 data[sd] &&
                 data[sd][category] &&
                 Object.prototype.hasOwnProperty.call(data[sd][category], key)
             ) {
                 const value = data[sd][category][key];
-                
+
                 displayValue =
                     value === null || value === undefined
                         ? "N/A"
@@ -704,7 +710,6 @@
         }
 
         valueDisplay.textContent = displayValue;
-        
     }
 
     // Actualizar automáticamente al cambiar alguno de los controles
