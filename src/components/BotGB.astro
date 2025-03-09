@@ -1,0 +1,394 @@
+---
+
+---
+
+<div class="container">
+    <h1>Gunbound - Calculador Manual</h1>
+    <div class="wrapper">
+        <div class="form-section">
+            <!-- Selección de Mobile para asignar la gravedad -->
+            <label for="mobileSelect">Selecciona Mobile:</label>
+            <select id="mobileSelect">
+                <option value="">-- Selecciona Mobile --</option>
+                <option value="Armor">Armor</option>
+                <option value="Mage">Mage</option>
+                <option value="Nak">Nak</option>
+                <option value="Trico">Trico</option>
+                <option value="Bigfoot">Bigfoot</option>
+                <option value="Boomer">Boomer</option>
+                <option value="Raon">Raon</option>
+                <option value="Lightning">Lightning</option>
+                <option value="JD">JD</option>
+                <option value="Asate">Asate</option>
+                <option value="Ice">Ice</option>
+                <option value="Turtle">Turtle</option>
+                <option value="Grub">Grub</option>
+                <option value="Aduka">Aduka</option>
+                <option value="JFrog/Dragon">JFrog/Dragon</option>
+                <option value="Kalsiddon">Kalsiddon</option>
+                <option value="Slots">Slots</option>
+                <option value="Aid">Aid</option>
+            </select>
+
+            <label for="angle">Ángulo de disparo (°):</label>
+            <input
+                type="number"
+                id="angle"
+                placeholder="Ingresa el ángulo"
+                step="any"
+            />
+
+            <label for="distance">Distancia (0-40):</label>
+            <input
+                type="number"
+                id="distance"
+                placeholder="Ingresa la distancia"
+                min="0"
+                max="20"
+                step="any"
+            />
+
+            <!-- Se muestra la gravedad asignada -->
+            <p>Gravedad asignada: <span id="gravityDisplay">N/A</span> m/s²</p>
+
+            <label for="windAcc">Efecto del viento (m/s²):</label>
+            <input
+                type="number"
+                id="windAcc"
+                placeholder="Valor del viento"
+                value="0"
+                step="any"
+            />
+        </div>
+        <div class="graphic-section">
+            <p>
+                <strong>dirección del viento</strong>
+            </p>
+            <canvas id="windCanvas" width="200" height="200"></canvas>
+            <p>Dirección: <span id="windDirectionDisplay">0</span>°</p>
+        </div>
+    </div>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    // Definición del objeto con la gravedad asignada a cada mobile.
+    // Se utiliza un objeto cuyo valor puede ser número o string (para casos no jugables).
+    const mobilesGravity: { [key: string]: number | string } = {
+        Armor: 70,
+        Mage: 40,
+        Nak: 80,
+        Trico: 85,
+        Bigfoot: 70,
+        Boomer: 50,
+        Raon: 65,
+        Lightning: 55,
+        JD: 55,
+        Asate: 30,
+        Ice: 35,
+        Turtle: 70,
+        Grub: 50,
+        Aduka: 60,
+        Dragon: 40,
+        Kalsiddon: 85,
+        Slots: "N/A (no jugable)",
+        Aid: "N/A (no jugable)",
+    };
+
+    // Función que actualiza la gravedad mostrada según el mobile seleccionado.
+    function updateGravity(): void {
+        const mobileSelect = document.getElementById(
+            "mobileSelect",
+        ) as HTMLSelectElement;
+        const gravityDisplay = document.getElementById(
+            "gravityDisplay",
+        ) as HTMLElement;
+
+        // Se obtiene el mobile seleccionado
+        const selectedMobile = mobileSelect.value;
+
+        // Si el mobile existe y la gravedad es un número, se muestra; si no, se muestra "N/A"
+        if (
+            selectedMobile &&
+            mobilesGravity[selectedMobile] !== undefined &&
+            typeof mobilesGravity[selectedMobile] === "number"
+        ) {
+            gravityDisplay.textContent = String(mobilesGravity[selectedMobile]);
+        } else {
+            gravityDisplay.textContent = "N/A";
+        }
+
+        // Se recalcula la velocidad con los nuevos valores
+        calculate();
+    }
+
+    // Se añade el listener para detectar cambios en el select de mobile
+    document
+        .getElementById("mobileSelect")
+        ?.addEventListener("change", updateGravity);
+
+    // Variables y configuración para el canvas de la dirección del viento.
+    let windDirection: number = 0; // Dirección del viento en grados
+
+    // Se obtiene el canvas y su contexto
+    const canvas = document.getElementById("windCanvas") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+
+    /**
+     * Función que dibuja la dirección del viento en el canvas.
+     * Se dibuja un círculo de referencia y una línea que indica la dirección actual.
+     */
+    function drawWindDirection(): void {
+        // Limpiar el canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Dibujar círculo de referencia
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 80, 0, 2 * Math.PI);
+        ctx.strokeStyle = "#ffcc00";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Convertir la dirección del viento a radianes
+        const rad: number = (windDirection * Math.PI) / 180;
+        const lineLength: number = 80;
+
+        // Calcular el punto final de la línea usando funciones trigonométricas
+        const endX: number = centerX + lineLength * Math.cos(rad);
+        const endY: number = centerY - lineLength * Math.sin(rad); // Se invierte Y para que 0° esté a la derecha
+
+        // Dibujar la línea que representa la dirección del viento
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(endX, endY);
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+    }
+
+    // Dibuja la dirección inicial del viento en el canvas.
+    drawWindDirection();
+
+    // Añade un listener al canvas para actualizar la dirección del viento cuando se hace click.
+    canvas.addEventListener("click", function (event: MouseEvent): void {
+        const rect = canvas.getBoundingClientRect();
+        const x: number = event.clientX - rect.left;
+        const y: number = event.clientY - rect.top;
+
+        // Calcular la diferencia con el centro del canvas
+        const dx: number = x - centerX;
+        const dy: number = centerY - y; // Invertir para que 0° esté a la derecha
+
+        // Calcular el ángulo en grados usando atan2 y ajustar si es negativo
+        let angle: number = (Math.atan2(dy, dx) * 180) / Math.PI;
+        if (angle < 0) angle += 360;
+
+        // Actualizar la dirección del viento y mostrarla en el elemento correspondiente
+        windDirection = angle;
+        const windDirectionDisplay = document.getElementById(
+            "windDirectionDisplay",
+        ) as HTMLElement;
+        windDirectionDisplay.textContent = windDirection.toFixed(0);
+
+        // Redibujar el canvas con la nueva dirección y recalcular los valores
+        drawWindDirection();
+        calculate();
+    });
+
+    /**
+     * Función que calcula y muestra la velocidad requerida basándose en:
+     * - Ángulo de disparo (en grados)
+     * - Distancia (en pulgadas, que se convierten a metros)
+     * - Aceleración del viento (windAcc)
+     * - Gravedad (según el mobile seleccionado)
+     */
+    function calculate(): void {
+        // Obtener valores de los inputs y convertirlos a números
+        const angleInput = document.getElementById("angle") as HTMLInputElement;
+        const distanceInput = document.getElementById(
+            "distance",
+        ) as HTMLInputElement;
+        const windAccInputElement = document.getElementById(
+            "windAcc",
+        ) as HTMLInputElement;
+        const gravityDisplay = document.getElementById(
+            "gravityDisplay",
+        ) as HTMLElement;
+        const resultDisplay = document.getElementById("result") as HTMLElement;
+
+        const angleDegrees: number = parseFloat(angleInput.value);
+        const distanceInches: number = parseFloat(distanceInput.value);
+        const windAccInput: number = parseFloat(windAccInputElement.value);
+        const gravityText: string = gravityDisplay.textContent || "";
+        const g: number = parseFloat(gravityText);
+
+        // Validación: Si algún valor no es válido o la distancia es menor o igual a cero, se muestra un error.
+        if (
+            isNaN(angleDegrees) ||
+            isNaN(distanceInches) ||
+            distanceInches <= 0 ||
+            isNaN(g) ||
+            isNaN(windAccInput)
+        ) {
+            resultDisplay.textContent =
+                "Por favor, ingresa todos los valores válidos.";
+            return;
+        }
+
+        // Convertir el ángulo de disparo a radianes
+        const alpha: number = (angleDegrees * Math.PI) / 180;
+
+        // Convertir la distancia de pulgadas a metros (1 pulgada = 0.0254 metros)
+        const d: number = distanceInches * 0.0254;
+
+        // Calcular la componente efectiva del viento
+        // a_eff = windAcc * cos(windDirection)
+        const windDirRad: number = (windDirection * Math.PI) / 180;
+        const a_eff: number = windAccInput * Math.cos(windDirRad);
+
+        // Calcular el denominador de la fórmula para evitar divisiones por cero
+        const denominator: number =
+            2 *
+            Math.sin(alpha) *
+            (g * Math.cos(alpha) + a_eff * Math.sin(alpha));
+        if (denominator <= 0) {
+            resultDisplay.textContent =
+                "No es posible calcular la velocidad con estos valores.";
+            return;
+        }
+
+        // Calcular la velocidad requerida en m/s
+        const v: number = Math.sqrt((d * g * g) / denominator);
+
+        // Convertir la velocidad a pulgadas/segundo (1 m/s ≈ 39.37 in/s)
+        const v_in_s: number = v * 39.37;
+
+        // Escalar el resultado dividiendo entre 100 y formatear a dos decimales
+        const displayVelocity: string = (v_in_s / 100).toFixed(2);
+
+        // Mostrar el resultado en el elemento correspondiente
+        resultDisplay.textContent = `POWER : ${displayVelocity} `;
+    }
+
+    // Agregar listeners a los inputs para recalcular automáticamente al cambiar sus valores.
+    document.getElementById("angle")?.addEventListener("input", calculate);
+    document.getElementById("distance")?.addEventListener("input", calculate);
+    document.getElementById("windAcc")?.addEventListener("input", calculate);
+</script>
+
+<style>
+    .container {
+        max-width: 800px;
+        background: #004080;
+        padding: 40px;
+        margin: 0 auto 30px;
+        border: 3px solid #ffcc00;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    }
+
+    h1 {
+        text-align: center;
+        color: #ffcc00;
+        font-size: 2em;
+    }
+    h2 {
+        text-align: center;
+        color: #ffcc00;
+    }
+    strong {
+        text-align: center;
+        color: #ffcc00;
+        font-size: 1.2em;
+    }
+
+    .form-section,
+    .graphic-section {
+        flex: 1;
+        padding: 10px;
+    }
+
+    .wrapper {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    label,
+    p {
+        margin-top: 15px;
+        display: block;
+        font-size: 1.085em;
+        font-weight: bold;
+        color: #ffcc00;
+    }
+
+    input[type="number"],
+    select {
+        width: 100%;
+        padding: 5px;
+        margin-top: 5px;
+        box-sizing: border-box;
+        border: 2px solid #ffcc00;
+        border-radius: 5px;
+        background: #333;
+        color: #ffcc00;
+        font-size: 1em;
+    }
+
+    /* Estilos para el canvas, se ajusta el tamaño para el layout */
+    canvas {
+        background: #222;
+        border: 2px solid #ffcc00;
+        cursor: pointer;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .result {
+        margin-top: 20px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2em;
+        color: #ffcc00;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #ffcc00;
+        color: #333;
+        border: 2px solid #333;
+        border-radius: 5px;
+        margin-top: 20px;
+        font-size: 1em;
+
+        cursor: pointer;
+        transition:
+            background 0.3s,
+            color 0.3s;
+    }
+
+    button:hover {
+        background: #fff;
+        color: #000;
+    }
+
+    /* Ajustar el layout en pantallas más grandes */
+    @media (min-width: 700px) {
+        .wrapper {
+            flex-wrap: nowrap;
+        }
+        .form-section,
+        .graphic-section {
+            flex: 1;
+        }
+        .graphic-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+</style>

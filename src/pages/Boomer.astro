@@ -8,13 +8,15 @@ import Footer from "../components/Footer.astro";
 import GbBoomer from "@/components/GbBoomer.astro";
 import FormCard from "@/components/FormCard.astro";
 import App from "@/components/App";
+import BotGB from "@/components/BotGB.astro";
 ---
 
 <Layout title="GunBound 2003 - Turtle">
     <Header />
     <div class="main-content">
         <GbBoomer />
-       <FormCard />
+        <BotGB />
+        <FormCard />
     </div>
     <App client:load />
     <Footer />

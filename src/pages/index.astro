@@ -8,17 +8,18 @@ import Gallery from "../components/Gallery.astro";
 import Footer from "../components/Footer.astro";
 import FormCard from "@/components/FormCard.astro";
 import App from "@/components/App";
-
+import BotGB from "@/components/BotGB.astro";
 ---
 
 <Layout title="GunBound 2007">
     <Header />
     <div class="main-content">
         <GunboundForm />
+        <BotGB />
         <FormCard />
     </div>
-    <App client:load/>
-    
+    <App client:load />
+
     <Footer />
     <style>
         .main-content {
