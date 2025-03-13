@@ -1,0 +1,404 @@
+---
+
+---
+
+<!-- Controles -->
+<div class="container">
+    <h1>Gunbound - Grafica Angulo</h1>
+    <div class="controls">
+        <div>
+            <label for="dataSelect">Selecciona un conjunto de datos: </label>
+            <select id="dataSelect"></select>
+        </div>
+        <div>
+            <label for="windInput">Valor del viento: </label>
+            <input
+                type="number"
+                id="windInput"
+                placeholder="Ingresa el valor del viento"
+            />
+        </div>
+    </div>
+    <!-- Div para mostrar los resultados -->
+    <div id="result">VIENTO A FAVOR:</div>
+    <div id="result2">VIENTO ENCONTRA:</div>
+    <!-- Canvas donde se dibuja la gráfica -->
+    <canvas id="dataCanvas" width="350" height="350"></canvas>
+
+    <!-- Div para mostrar mensajes -->
+    <div id="info">Haz clic en un punto para ver su valor</div>
+</div>
+
+<script>
+    // Definición de los conjuntos de datos con valores numéricos como claves
+    const datasets: { [key: number]: number[] } = {
+        65: [
+            0.07, 0.05, 0.02, 0.02, 0.05, 0.09, 0.09, 0.09, 0.09, 0.065, 0.03,
+            0.01, 0.04, 0.06, 0.08, 0.085,
+        ],
+        70: [
+            0.5, 0.05, 0.025, 0.005, 0.025, 0.048, 0.06, 0.065, 0.5, 0.055,
+            0.035, 0.005, 0.02, 0.045, 0.065, 0.07,
+        ],
+        75: [
+            0.85, 0.65, 0.45, 0.25, 0.55, 0.35, 0.95, 0.8, 0.78, 0.5, 0.33,
+            0.14, 0.35, 0.6, 0.85, 0.9,
+        ],
+        80: [
+            0.57, 0.48, 0.3, 0.1, 0.1, 0.3, 0.46, 0.54, 0.58, 0.54, 0.4, 0.1,
+            0.1, 0.35, 0.52, 0.6,
+        ],
+    };
+
+    // Colores para los puntos en el gráfico
+    const colors: string[] = [
+        "black",
+        "black",
+        "black",
+        "black",
+        "red",
+        "red",
+        "red",
+        "red",
+        "red",
+        "red",
+        "red",
+        "red",
+        "black",
+        "black",
+        "black",
+        "black",
+    ];
+
+    // Interfaz para representar un punto en el gráfico
+    interface Point {
+        x: number;
+        y: number;
+        value: number;
+    }
+
+    // Obtener el canvas y su contexto 2D
+    const canvas = document.getElementById("dataCanvas") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const maxRadius = 130;
+
+    let selectedDataset: string = Object.keys(datasets)[0]; // Primer conjunto de datos
+    let points: Point[] = [];
+    let selectedPointValue: number | null = null;
+
+    // Rellenar el select con los valores del conjunto de datos
+    const dataSelect = document.getElementById(
+        "dataSelect",
+    ) as HTMLSelectElement;
+    Object.keys(datasets).forEach((value) => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = `Angle ${value}`;
+        dataSelect.appendChild(option);
+    });
+
+    // Dibujar el círculo principal con puntos
+    function drawCircleWithPoints(): void {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        points = [];
+
+        const data = datasets[parseInt(selectedDataset)];
+
+        // Dibujar el círculo central
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, maxRadius, 0, 2 * Math.PI);
+        ctx.strokeStyle = "#000";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Dibujar líneas radiales
+        for (let i = 0; i < 8; i++) {
+            const angle = i * ((2 * Math.PI) / 8);
+            const endX = centerX + maxRadius * Math.cos(angle);
+            const endY = centerY + maxRadius * Math.sin(angle);
+
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(endX, endY);
+            ctx.strokeStyle = "#aaa";
+            ctx.stroke();
+        }
+
+        // Dibujar los puntos en el círculo
+        for (let i = 0; i < data.length; i++) {
+            const angle = i * ((2 * Math.PI) / data.length);
+            const x = centerX + maxRadius * Math.cos(angle);
+            const y = centerY + maxRadius * Math.sin(angle);
+
+            points.push({ x, y, value: data[i] });
+
+            const pointColor = colors[i % colors.length];
+
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, 2 * Math.PI);
+            ctx.fillStyle = pointColor;
+            ctx.fill();
+
+            // Mostrar la etiqueta con el valor del punto
+            const labelOffset = 15;
+            const labelX = x + labelOffset * Math.cos(angle);
+            const labelY = y + labelOffset * Math.sin(angle);
+
+            ctx.font = "14px Arial";
+            ctx.fillStyle = pointColor;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(data[i].toString(), labelX, labelY);
+        }
+    }
+
+    drawCircleWithPoints();
+
+    // Calcular el resultado con el valor de viento
+    function calculateResult(): void {
+        if (selectedPointValue !== null) {
+            const windValue =
+                parseFloat(
+                    (document.getElementById("windInput") as HTMLInputElement)
+                        .value,
+                ) || 0;
+            const selectValue = parseFloat(dataSelect.value);
+
+            const result = selectedPointValue * windValue + selectValue;
+            const result2 = selectedPointValue * windValue - selectValue;
+
+            (document.getElementById("result") as HTMLElement).textContent =
+                "VIENTO A FAVOR: " + result.toFixed(2);
+            (document.getElementById("result2") as HTMLElement).textContent =
+                "VIENTO ENCONTRA: " + (-result2).toFixed(2);
+        }
+    }
+
+    // Manejar clic en el canvas para seleccionar un punto
+    canvas.addEventListener("click", (event: MouseEvent) => {
+        const rect = canvas.getBoundingClientRect();
+        const clickX = event.clientX - rect.left;
+        const clickY = event.clientY - rect.top;
+
+        for (const point of points) {
+            const dx = point.x - clickX;
+            const dy = point.y - clickY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist <= 10) {
+                selectedPointValue = point.value;
+                (document.getElementById("info") as HTMLElement).textContent =
+                    "Hiciste clic en el valor: " + selectedPointValue;
+                calculateResult();
+                break;
+            }
+        }
+    });
+
+    // Actualizar el conjunto de datos seleccionado
+    dataSelect.addEventListener("change", function () {
+        selectedDataset = this.value;
+        drawCircleWithPoints();
+    });
+
+    // Calcular el resultado al cambiar el valor de viento
+    (document.getElementById("windInput") as HTMLInputElement).addEventListener(
+        "input",
+        calculateResult,
+    );
+</script>
+
+<style>
+    .container {
+        max-width: 800px;
+        background: #004080;
+        padding: 40px;
+        margin: 0 auto 30px;
+        border: 3px solid #ffcc00;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    }
+
+    h1 {
+        text-align: center;
+        color: #ffcc00;
+        font-size: 2em;
+    }
+    h2 {
+        text-align: center;
+        color: #ffcc00;
+    }
+    strong {
+        text-align: center;
+        color: #ffcc00;
+        font-size: 1.2em;
+    }
+    .Direction {
+        background: linear-gradient(to bottom, #444, #111);
+        border: 2px solid #ffd700;
+        color: #ffd700;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        text-shadow: 1px 1px 2px black;
+        padding: 5px 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+        cursor: pointer;
+    }
+    input[type="number"] {
+        margin: 0.625rem 0;
+        padding: 0.625rem;
+        width: 100%;
+        background: linear-gradient(to bottom, #ffff99, var(--primary-color));
+        color: #000;
+        border: 0.1875rem solid var(--secondary-color);
+        font-family: "Russo One", sans-serif;
+        font-size: 1.2em;
+        border-radius: 0.625rem;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+    .custom-box {
+        background-color: black;
+        color: #fcd116;
+        padding: 10px;
+        border: 2px solid #fcd116;
+        font-size: 1.4em;
+    }
+    input[type="number"]:focus {
+        outline: none;
+        box-shadow: 0 0 10px var(--accent-color);
+    }
+    input[type="radio"] {
+        appearance: none;
+        width: 1.25rem;
+        height: 1.25rem;
+        border: 0.125rem solid var(--primary-color);
+        border-radius: 50%;
+        outline: none;
+        margin-right: 0.3125rem;
+        vertical-align: middle;
+        position: relative;
+        cursor: pointer;
+    }
+
+    input[type="radio"]:checked::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0.75rem;
+        height: 0.75rem;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        animation: pulse 0.5s ease-out;
+    }
+
+    input[type="radio"]:hover {
+        box-shadow: 0 0 8px var(--accent-color);
+    }
+
+    label {
+        cursor: pointer;
+        font-size: 1.1em;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    option {
+        background: #444;
+        color: #ffd700;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        text-shadow: 1px 1px 2px black;
+    }
+    .form-section,
+    .graphic-section {
+        flex: 1;
+        padding: 10px;
+    }
+
+    .wrapper {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    label,
+    div,
+    p {
+        margin-top: 15px;
+        display: block;
+        font-size: 1.085em;
+        font-weight: bold;
+        color: #ffcc00;
+    }
+
+    input[type="number"],
+    select {
+        width: 100%;
+        padding: 5px;
+        margin-top: 5px;
+        box-sizing: border-box;
+        border: 2px solid #ffcc00;
+        border-radius: 5px;
+        background: #333;
+        color: #ffcc00;
+        font-size: 1em;
+    }
+
+    /* Estilos para el canvas, se ajusta el tamaño para el layout */
+    #canvas {
+        background: #222;
+        border: 2px solid #ffcc00;
+        cursor: pointer;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .result {
+        margin-top: 20px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2em;
+        color: #ffcc00;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #ffcc00;
+        color: #333;
+        border: 2px solid #333;
+        border-radius: 5px;
+        margin-top: 20px;
+        font-size: 1em;
+
+        cursor: pointer;
+        transition:
+            background 0.3s,
+            color 0.3s;
+    }
+
+    button:hover {
+        background: #fff;
+        color: #000;
+    }
+
+    /* Ajustar el layout en pantallas más grandes */
+    @media (min-width: 700px) {
+        .wrapper {
+            flex-wrap: nowrap;
+        }
+        .form-section,
+        .graphic-section {
+            flex: 1;
+        }
+        .graphic-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+</style>
