@@ -7,11 +7,27 @@
     <h1>Gunbound - Grafica Angulo</h1>
     <div class="controls">
         <div>
+            <div class="input-container">
+                <h3>Selecciona valores</h3>
+                <input
+                    type="number"
+                    id="distance"
+                    placeholder="Distancia (m)"
+                />
+                <select id="selectValue">
+                    <option value="65">65°</option>
+                    <option value="70">70°</option>
+                    <option value="75">75°</option>
+                    <option value="80">80°</option>
+                </select>
+            </div>
+            <!-- angulo para los angulos -->
             <label for="dataSelect">Selecciona un conjunto de datos: </label>
             <select id="dataSelect"></select>
         </div>
         <div>
             <label for="windInput">Valor del viento: </label>
+
             <input
                 type="number"
                 id="windInput"
@@ -20,195 +36,355 @@
         </div>
     </div>
     <!-- Div para mostrar los resultados -->
-    <div id="result">VIENTO A FAVOR:</div>
-    <div id="result2">VIENTO ENCONTRA:</div>
+    <div class="value-display">
+        <h2>POWER</h2>
+        <h2 id="finalResult">--</h2>
+        <h2 id="result">VIENTO A FAVOR:</h2>
+        <h2 id="result2">VIENTO ENCONTRA:</h2>
+    </div>
+
     <!-- Canvas donde se dibuja la gráfica -->
-    <canvas id="dataCanvas" width="350" height="350"></canvas>
+    <canvas id="dataCanvas" width="320" height="320"></canvas>
+    <canvas id="chartCanvas" width="350" height="350"></canvas>
 
     <!-- Div para mostrar mensajes -->
     <div id="info">Haz clic en un punto para ver su valor</div>
 </div>
 
 <script>
-    // Definición de los conjuntos de datos con valores numéricos como claves
-    const datasets: { [key: number]: number[] } = {
+    // Definición de interfaces para los puntos en los gráficos
+    interface ChartPoint {
+        x: number;
+        y: number;
+        value: number;
+    }
+
+    // Definición de tipos para los conjuntos de datos
+    type AngleValues = { [key: string]: number };
+    type DatasetType = { [key: string]: number[] };
+
+    // Inicialización de elementos del DOM
+    const canvas = document.getElementById("chartCanvas") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d")!;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = 140;
+    const values: number[] = [
+        0.02, 0.02, 0.02, 0.02, 0.02, 0.015, 0.01, 0.01, 0.005, 0, 0.003, 0.006,
+        0.009, 0.014, 0.018, 0.018, 0.02, 0.02, 0.02, 0.02, 0.02, 0.015, 0.01,
+        0.01, 0.005, 0, 0.003, 0.006, 0.009, 0.14, 0.18, 0.18,
+    ];
+    const angleStep = (2 * Math.PI) / values.length;
+    let selectedPoint: ChartPoint | null = null;
+    const points: ChartPoint[] = [];
+
+    // Valores predefinidos
+    const valuesJSON: { [key: string]: AngleValues } = {
+        "65": {
+            "1": 0.6,
+            "2": 0.67,
+            "3": 1.07,
+            "4": 1.23,
+            "5": 1.38,
+            "6": 1.51,
+            "7": 1.63,
+            "8": 1.75,
+            "9": 1.85,
+            "10": 1.95,
+            "11": 2.05,
+            "12": 2.14,
+            "13": 2.29,
+            "14": 2.31,
+            "15": 2.39,
+            "16": 2.47,
+            "17": 2.54,
+            "18": 2.62,
+            "19": 2.69,
+            "20": 2.76,
+        },
+        "70": {
+            "1": 0.65,
+            "2": 0.95,
+            "3": 1.16,
+            "4": 1.35,
+            "5": 1.5,
+            "6": 1.65,
+            "7": 1.79,
+            "8": 1.9,
+            "9": 2.02,
+            "10": 2.13,
+            "11": 2.23,
+            "12": 2.33,
+            "13": 2.43,
+            "14": 2.52,
+            "15": 2.61,
+            "16": 2.7,
+            "17": 2.78,
+            "18": 2.86,
+            "19": 2.94,
+            "20": 3.0,
+        },
+        "75": {
+            "1": 0.76,
+            "2": 1.08,
+            "3": 1.32,
+            "4": 1.53,
+            "5": 1.71,
+            "6": 1.87,
+            "7": 2.02,
+            "8": 2.16,
+            "9": 2.29,
+            "10": 2.42,
+            "11": 2.53,
+            "12": 2.65,
+            "13": 2.75,
+            "14": 2.86,
+            "15": 2.96,
+            "16": 3.06,
+            "17": 3.15,
+            "18": 3.24,
+            "19": 3.33,
+            "20": 3.42,
+        },
+        "80": {
+            "1": 0.92,
+            "2": 1.33,
+            "3": 1.06,
+            "4": 1.85,
+            "5": 2.06,
+            "6": 2.26,
+            "7": 2.44,
+            "8": 2.61,
+            "9": 2.77,
+            "10": 2.92,
+            "11": 3.06,
+            "12": 3.2,
+            "13": 3.33,
+            "14": 3.46,
+            "15": 3.58,
+            "16": 3.7,
+            "17": 3.81,
+            "18": 3.92,
+            "19": 4.03,
+            "20": 4.4,
+        },
+    };
+
+    // Elementos de UI
+    const finalResult = document.getElementById("finalResult") as HTMLElement;
+    const windSpeedInput = document.getElementById(
+        "windInput",
+    ) as HTMLInputElement;
+    const resultElement = document.getElementById("result")!;
+    const result2Element = document.getElementById("result2")!;
+
+    // Función para actualizar valores
+    function updateValue(): void {
+        const angle = (
+            document.getElementById("selectValue") as HTMLSelectElement
+        ).value;
+        const distance = (
+            document.getElementById("distance") as HTMLInputElement
+        ).value;
+        const powerValue = valuesJSON[angle]?.[distance] || 0;
+        finalResult.textContent = powerValue.toFixed(2);
+    }
+
+    // Dibujar gráfico principal
+    function drawChart(): void {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = "#FFD700";
+        ctx.lineWidth = 2;
+        points.length = 0;
+
+        values.forEach((value, i) => {
+            const angle = i * angleStep - Math.PI / 2;
+            const x = centerX + (radius + 10) * Math.cos(angle);
+            const y = centerY + (radius + 10) * Math.sin(angle);
+            points.push({ x, y, value });
+
+            ctx.fillStyle = "#FFD700";
+            ctx.font = "bold 12px Arial";
+            ctx.fillText(value.toFixed(3), x - 5, y - 10);
+
+            ctx.fillStyle =
+                selectedPoint?.x === x && selectedPoint?.y === y
+                    ? "#FF4500"
+                    : "#00FFFF";
+            ctx.beginPath();
+            ctx.arc(x, y, 7, 0, 2 * Math.PI);
+            ctx.fill();
+        });
+    }
+
+    // Evento click en el primer gráfico
+    canvas.addEventListener("click", (event: MouseEvent) => {
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
+        const windInput = parseFloat(windSpeedInput.value) || 0;
+
+        // Obtener el valor base actualizado
+        const angle = (
+            document.getElementById("selectValue") as HTMLSelectElement
+        ).value;
+        const distance = (
+            document.getElementById("distance") as HTMLInputElement
+        ).value;
+        const basePower = valuesJSON[angle]?.[distance] || 0;
+
+        points.forEach((point) => {
+            const dx = mouseX - point.x;
+            const dy = mouseY - point.y;
+            if (Math.sqrt(dx * dx + dy * dy) < 8) {
+                selectedPoint = point;
+                // Calcular desde el valor base cada vez
+                finalResult.textContent = (
+                    basePower +
+                    windInput * point.value
+                ).toFixed(2);
+                drawChart();
+            }
+        });
+    });
+
+    // Configuración del segundo gráfico
+    const datasets: DatasetType = {
         65: [
-            0.07, 0.05, 0.02, 0.02, 0.05, 0.09, 0.09, 0.09, 0.09, 0.065, 0.03,
-            0.01, 0.04, 0.06, 0.08, 0.085,
+            0.7, 0.5, 0.2, 0.2, 0.5, 0.9, 0.9, 0.9, 0.9, 0.65, 0.03, 0.01, 0.04,
+            0.06, 0.08, 0.085,
         ],
         70: [
-            0.5, 0.05, 0.025, 0.005, 0.025, 0.048, 0.06, 0.065, 0.5, 0.055,
-            0.035, 0.005, 0.02, 0.045, 0.065, 0.07,
+            0.6, 0.5, 0.25, 0.05, 0.25, 0.5, 0.6, 0.65, 0.65, 0.5, 0.35, 0.1,
+            0.2, 0.45, 0.65, 0.7,
         ],
         75: [
             0.85, 0.65, 0.45, 0.25, 0.55, 0.35, 0.95, 0.8, 0.78, 0.5, 0.33,
             0.14, 0.35, 0.6, 0.85, 0.9,
         ],
         80: [
-            0.57, 0.48, 0.3, 0.1, 0.1, 0.3, 0.46, 0.54, 0.58, 0.54, 0.4, 0.1,
-            0.1, 0.35, 0.52, 0.6,
+            0.57, 0.45, 0.3, 0.1, 0.1, 0.3, 0.46, 0.54, 0.58, 0.54, 0.4, 0.19,
+            0.1, 0.35, 0.53, 0.6,
         ],
     };
 
-    // Colores para los puntos en el gráfico
-    const colors: string[] = [
-        "black",
-        "black",
-        "black",
-        "black",
-        "red",
-        "red",
-        "red",
-        "red",
-        "red",
-        "red",
-        "red",
-        "red",
-        "black",
-        "black",
-        "black",
-        "black",
-    ];
-
-    // Interfaz para representar un punto en el gráfico
-    interface Point {
-        x: number;
-        y: number;
-        value: number;
-    }
-
-    // Obtener el canvas y su contexto 2D
-    const canvas = document.getElementById("dataCanvas") as HTMLCanvasElement;
-    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const maxRadius = 130;
-
-    let selectedDataset: string = Object.keys(datasets)[0]; // Primer conjunto de datos
-    let points: Point[] = [];
+    const dataCanvas = document.getElementById(
+        "dataCanvas",
+    ) as HTMLCanvasElement;
+    const dataCtx = dataCanvas.getContext("2d")!;
+    const dataCenterX = dataCanvas.width / 2;
+    const dataCenterY = dataCanvas.height / 2;
+    const maxRadius = 150;
+    let selectedDataset: string = "65";
+    let dataPoints: ChartPoint[] = [];
     let selectedPointValue: number | null = null;
 
-    // Rellenar el select con los valores del conjunto de datos
-    const dataSelect = document.getElementById(
-        "dataSelect",
-    ) as HTMLSelectElement;
-    Object.keys(datasets).forEach((value) => {
-        const option = document.createElement("option");
-        option.value = value;
-        option.textContent = `Angle ${value}`;
-        dataSelect.appendChild(option);
-    });
-
-    // Dibujar el círculo principal con puntos
+    // Dibujar segundo gráfico
     function drawCircleWithPoints(): void {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        points = [];
+        dataCtx.clearRect(0, 0, dataCanvas.width, dataCanvas.height);
+        dataPoints = [];
+        const data = datasets[selectedDataset];
+        const colors = [
+            "black",
+            "black",
+            "black",
+            "black",
+            "red",
+            "red",
+            "red",
+            "red",
+            "red",
+            "red",
+            "red",
+            "red",
+            "black",
+            "black",
+            "black",
+            "black",
+        ];
 
-        const data = datasets[parseInt(selectedDataset)];
+        dataCtx.beginPath();
+        dataCtx.arc(dataCenterX, dataCenterY, maxRadius, 0, 2 * Math.PI);
+        dataCtx.strokeStyle = "#000";
+        dataCtx.stroke();
 
-        // Dibujar el círculo central
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, maxRadius, 0, 2 * Math.PI);
-        ctx.strokeStyle = "#000";
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // Dibujar líneas radiales
-        for (let i = 0; i < 8; i++) {
-            const angle = i * ((2 * Math.PI) / 8);
-            const endX = centerX + maxRadius * Math.cos(angle);
-            const endY = centerY + maxRadius * Math.sin(angle);
-
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.lineTo(endX, endY);
-            ctx.strokeStyle = "#aaa";
-            ctx.stroke();
-        }
-
-        // Dibujar los puntos en el círculo
-        for (let i = 0; i < data.length; i++) {
+        data.forEach((value, i) => {
             const angle = i * ((2 * Math.PI) / data.length);
-            const x = centerX + maxRadius * Math.cos(angle);
-            const y = centerY + maxRadius * Math.sin(angle);
+            const x = dataCenterX + maxRadius * Math.cos(angle);
+            const y = dataCenterY + maxRadius * Math.sin(angle);
+            dataPoints.push({ x, y, value });
 
-            points.push({ x, y, value: data[i] });
+            dataCtx.beginPath();
+            dataCtx.arc(x, y, 5, 0, 2 * Math.PI);
+            dataCtx.fillStyle = colors[i % colors.length];
+            dataCtx.fill();
 
-            const pointColor = colors[i % colors.length];
-
-            ctx.beginPath();
-            ctx.arc(x, y, 5, 0, 2 * Math.PI);
-            ctx.fillStyle = pointColor;
-            ctx.fill();
-
-            // Mostrar la etiqueta con el valor del punto
-            const labelOffset = 15;
-            const labelX = x + labelOffset * Math.cos(angle);
-            const labelY = y + labelOffset * Math.sin(angle);
-
-            ctx.font = "14px Arial";
-            ctx.fillStyle = pointColor;
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText(data[i].toString(), labelX, labelY);
-        }
+            dataCtx.fillStyle = "blue";
+            dataCtx.fillText(value.toFixed(2), x + 10, y);
+        });
     }
 
-    drawCircleWithPoints();
+    // Calcular resultados finales
+    function calculateWindResults(): void {
+        const windInput = document.getElementById(
+            "windInput",
+        ) as HTMLInputElement;
+        const windValue = parseFloat(windInput.value) || 0;
 
-    // Calcular el resultado con el valor de viento
-    function calculateResult(): void {
         if (selectedPointValue !== null) {
-            const windValue =
-                parseFloat(
-                    (document.getElementById("windInput") as HTMLInputElement)
-                        .value,
-                ) || 0;
-            const selectValue = parseFloat(dataSelect.value);
+            const angleValue = parseFloat(selectedDataset);
+            const windEffect = windValue * selectedPointValue;
 
-            const result = selectedPointValue * windValue + selectValue;
-            const result2 = selectedPointValue * windValue - selectValue;
-
-            (document.getElementById("result") as HTMLElement).textContent =
-                "VIENTO A FAVOR: " + result.toFixed(2);
-            (document.getElementById("result2") as HTMLElement).textContent =
-                "VIENTO ENCONTRA: " + (-result2).toFixed(2);
+            resultElement.textContent = `VIENTO A FAVOR: ${(angleValue + windEffect).toFixed(2)}`;
+            result2Element.textContent = `VIENTO EN CONTRA: ${(angleValue - windEffect).toFixed(2)}`;
         }
     }
 
-    // Manejar clic en el canvas para seleccionar un punto
-    canvas.addEventListener("click", (event: MouseEvent) => {
-        const rect = canvas.getBoundingClientRect();
+    // Event listeners
+    dataCanvas.addEventListener("click", (event: MouseEvent) => {
+        const rect = dataCanvas.getBoundingClientRect();
         const clickX = event.clientX - rect.left;
         const clickY = event.clientY - rect.top;
 
-        for (const point of points) {
-            const dx = point.x - clickX;
-            const dy = point.y - clickY;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
+        dataPoints.forEach((point) => {
+            const dist = Math.hypot(point.x - clickX, point.y - clickY);
             if (dist <= 10) {
                 selectedPointValue = point.value;
-                (document.getElementById("info") as HTMLElement).textContent =
-                    "Hiciste clic en el valor: " + selectedPointValue;
-                calculateResult();
-                break;
+                document.getElementById("info")!.textContent =
+                    `Valor seleccionado: ${selectedPointValue}`;
+                calculateWindResults();
             }
-        }
+        });
     });
 
-    // Actualizar el conjunto de datos seleccionado
-    dataSelect.addEventListener("change", function () {
-        selectedDataset = this.value;
+    // Inicialización
+    // 1. Obtenemos el elemento con el tipo correcto
+    const dataSelect = document.getElementById(
+        "dataSelect",
+    ) as HTMLSelectElement;
+
+    // 2. Poblamos las opciones del select
+    dataSelect.innerHTML = Object.keys(datasets)
+        .map((angle) => `<option value="${angle}">Ángulo ${angle}°</option>`)
+        .join("");
+
+    // 3. Agregamos el event listener con tipado correcto
+    dataSelect.addEventListener("change", function (this: HTMLSelectElement) {
+        selectedDataset = this.value; // Ahora funciona correctamente
         drawCircleWithPoints();
     });
+    document
+        .getElementById("windInput")!
+        .addEventListener("input", calculateWindResults);
+    document
+        .getElementById("selectValue")!
+        .addEventListener("change", updateValue);
+    document.getElementById("distance")!.addEventListener("input", updateValue);
 
-    // Calcular el resultado al cambiar el valor de viento
-    (document.getElementById("windInput") as HTMLInputElement).addEventListener(
-        "input",
-        calculateResult,
-    );
+    // Inicializar gráficos
+    drawChart();
+    drawCircleWithPoints();
+    updateValue();
 </script>
 
 <style>
