@@ -1,0 +1,524 @@
+---
+
+---
+
+<div class="main-container">
+    <h4 id="selectedValue" hidden>Valor seleccionado: Ninguno</h4>
+    <canvas id="dataCanvas" width="600" height="600"></canvas>
+
+    <div class="form-centered">
+        <label
+            >Distance
+            <input
+                type="number"
+                id="distance"
+                value="15"
+                oninput="calcularAngulo()"
+            />
+        </label>
+        <label
+            >Desnivel
+            <input
+                type="number"
+                id="desnivel"
+                value="0"
+                oninput="calcularAngulo()"
+            />
+        </label>
+        <label
+            >Fator
+            <input
+                type="number"
+                id="fator"
+                value="0"
+                oninput="calcularAngulo()"
+            />
+        </label>
+        <label
+            >Wind
+            <input
+                type="number"
+                id="wind"
+                value="0"
+                oninput="calcularAngulo()"
+            />
+        </label>
+        <label style="grid-column: span 2;"
+            >Angle
+            <input
+                type="number"
+                id="angle"
+                value="70"
+                oninput="calcularAngulo()"
+            />
+        </label>
+        <div class="result" id="value">---</div>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById("dataCanvas") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d")!;
+    const selectedValue = document.getElementById(
+        "selectedValue",
+    ) as HTMLElement;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const maxRadius = 250;
+
+    const values = [
+        0, -5, -10, -15, -20, -25, -30, -35, -40, -45, -50, -55, -60, -65, -70,
+        -75, -80, -85, -90, -95, -100, -105, -110, -120, -125, -130, -135, -140,
+        -145, -150, -155, -160, -165, -170, -175, 180, 175, 170, 165, 160, 155,
+        150, 145, 140, 135, 130, 125, 120, 115, 110, 105, 100, 90, 85, 80, 75,
+        70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5,
+    ];
+    let points: { x: number; y: number; value: number }[] = [];
+
+    const valueColors = values.map((v, i) => {
+        if (i % 2 === 0) return "yellow";
+        return i < 18 || (i >= 54 && i < 72) ? "green" : "red";
+    });
+
+    function drawCircularGraph(): void {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, maxRadius, 0, 2 * Math.PI);
+        ctx.strokeStyle = "gray";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        for (let i = 0; i < 72; i++) {
+            const angle = ((2 * Math.PI) / 72) * i;
+            const endX = centerX + maxRadius * Math.cos(angle);
+            const endY = centerY + maxRadius * Math.sin(angle);
+
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(endX, endY);
+            ctx.strokeStyle = i % 2 === 0 ? "white" : "blue";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        points = [];
+
+        for (let i = 0; i < values.length; i++) {
+            const angle = ((2 * Math.PI) / values.length) * i;
+            const distance = maxRadius + (i % 2 === 0 ? 20 : 40);
+            const x = centerX + distance * Math.cos(angle);
+            const y = centerY + distance * Math.sin(angle);
+
+            ctx.font = "16px Tahoma";
+            ctx.fillStyle = valueColors[i];
+            ctx.shadowColor = "black";
+            ctx.shadowBlur = 8;
+            ctx.textAlign = "center";
+            ctx.fillText(values[i].toString(), x, y);
+            points.push({ x, y, value: values[i] });
+        }
+
+        ctx.font = "20px Tahoma";
+        ctx.fillStyle = "#FFF";
+        ctx.textAlign = "center";
+        ctx.shadowBlur = 0;
+        ctx.fillText("@ERVICLINARES", centerX, centerY);
+    }
+
+    function calcularAngulo(): void {
+        const distanceInput = document.getElementById(
+            "distance",
+        ) as HTMLInputElement;
+        const desnivelInput = document.getElementById(
+            "desnivel",
+        ) as HTMLInputElement;
+        const fatorInput = document.getElementById("fator") as HTMLInputElement;
+        const windInput = document.getElementById("wind") as HTMLInputElement;
+        const angleInput = document.getElementById("angle") as HTMLInputElement;
+
+        if (
+            !distanceInput ||
+            !desnivelInput ||
+            !fatorInput ||
+            !windInput ||
+            !angleInput
+        )
+            return;
+
+        const distance = parseFloat(distanceInput.value);
+        const desnivel = parseFloat(desnivelInput.value);
+        const fator = parseFloat(fatorInput.value);
+        const wind = parseFloat(windInput.value);
+        const angle = parseFloat(angleInput.value);
+
+        if (
+            isNaN(distance) ||
+            isNaN(desnivel) ||
+            isNaN(fator) ||
+            isNaN(wind) ||
+            isNaN(angle)
+        )
+            return;
+
+        const gravedad = 0.608;
+        const peso = 168;
+
+        const finalAngleRadians = angle * (Math.PI / 180);
+        const D42 = Math.cos(finalAngleRadians);
+        const D43 = Math.sin(finalAngleRadians);
+        const B44 = distance / 3.75;
+        const D44 = B44 - desnivel * Math.tan(((90 - angle) * Math.PI) / 180);
+        const C44 = Math.sin((fator * Math.PI) / 180) * wind;
+        const C46 = gravedad - C44 / peso;
+        const C43 = Math.cos((fator * Math.PI) / 180) * wind;
+        const C45 = C43 / peso;
+
+        const D45 = Math.sqrt(
+            D44 / ((2 * D42 * D43) / C46 + (2 * C45 * D43 ** 2) / C46 ** 2),
+        );
+        const D47 = D45 * D43;
+        const D48 = (2 * D47) / C46;
+        const time = D48 ** 2;
+        const B45 = (desnivel + (C46 / 2) * time) / (B44 - (C45 / 2) * time);
+        const B46 = Math.atan(B45) * (180 / Math.PI);
+        const rB46 = Math.round(B46);
+        const finalB42 = rB46 * (Math.PI / 180);
+        const B42 = Math.cos(finalB42);
+        const B47 = (B44 - 0.5 * C45 * D48 * D48) / (B42 * D48);
+
+        const Vo = B47.toFixed(2);
+        angleInput.value = angle.toString();
+        const valueOutput = document.getElementById("value") as HTMLElement;
+        if (valueOutput) {
+            valueOutput.textContent = Vo;
+        }
+    }
+
+    // Exponer la función para que funcione si usás oninput en HTML
+    (window as any).calcularAngulo = calcularAngulo;
+
+    // Listeners automáticos para inputs
+    ["distance", "desnivel", "fator", "wind", "angle"].forEach((id) => {
+        const input = document.getElementById(id) as HTMLInputElement | null;
+        if (input) {
+            input.addEventListener("input", calcularAngulo);
+        }
+    });
+
+    // Dibujar la gráfica circular
+    drawCircularGraph();
+
+    // Manejo del click en el canvas
+    canvas.addEventListener("click", (event: MouseEvent) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const clickX = (event.clientX - rect.left) * scaleX;
+        const clickY = (event.clientY - rect.top) * scaleY;
+
+        for (const point of points) {
+            const dx = clickX - point.x;
+            const dy = clickY - point.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance <= 15) {
+                selectedValue.innerText = `Valor seleccionado: ${point.value}`;
+                const fatorInput = document.getElementById(
+                    "fator",
+                ) as HTMLInputElement;
+                fatorInput.value = point.value.toString();
+                calcularAngulo();
+                break;
+            }
+        }
+    });
+
+    // Redibuja al cambiar tamaño
+    window.addEventListener("resize", drawCircularGraph);
+</script>
+
+<style>
+    .container {
+        background: linear-gradient(135deg, var(--bg-color), #002040);
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        max-width: 90%;
+        width: 50rem;
+        border: 0.25rem solid var(--primary-color);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+            to right,
+            var(--primary-color),
+            var(--secondary-color),
+            var(--accent-color)
+        );
+    }
+
+    h2 {
+        color: var(--primary-color);
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    input[type="number"] {
+        margin: 0.625rem 0;
+        padding: 0.625rem;
+        width: 100%;
+        background: linear-gradient(to bottom, #ffff99, var(--primary-color));
+        color: #000;
+        border: 0.1875rem solid var(--secondary-color);
+        font-family: "Russo One", sans-serif;
+        font-size: 1.2em;
+        border-radius: 0.625rem;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    input[type="number"]:focus {
+        outline: none;
+        box-shadow: 0 0 10px var(--accent-color);
+    }
+    .Direction {
+        background: linear-gradient(to bottom, #444, #111);
+        border: 2px solid #ffd700;
+        color: #ffd700;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        text-shadow: 1px 1px 2px black;
+        padding: 5px 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+        cursor: pointer;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        margin-top: 1.25rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 0.5rem;
+        padding: 1rem;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0.125rem;
+    }
+
+    th,
+    td {
+        border: 0.125rem solid var(--secondary-color);
+        padding: 0.5rem;
+        text-align: center;
+        background-color: rgba(30, 144, 255, 0.7);
+        border-radius: 0.3125rem;
+    }
+
+    th {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+        font-size: 1.2em;
+    }
+
+    tr:nth-child(even) td {
+        background-color: rgba(255, 215, 0, 0.7);
+    }
+    .mobile-icon,
+    .shot-icon {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    input[type="radio"] {
+        appearance: none;
+        width: 1.25rem;
+        height: 1.25rem;
+        border: 0.125rem solid var(--primary-color);
+        border-radius: 50%;
+        outline: none;
+        margin-right: 0.3125rem;
+        vertical-align: middle;
+        position: relative;
+        cursor: pointer;
+    }
+
+    input[type="radio"]:checked::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0.75rem;
+        height: 0.75rem;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        animation: pulse 0.5s ease-out;
+    }
+
+    input[type="radio"]:hover {
+        box-shadow: 0 0 8px var(--accent-color);
+    }
+
+    label {
+        cursor: pointer;
+        font-size: 1.1em;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 1rem;
+        }
+
+        h2 {
+            font-size: 2em;
+        }
+
+        input[type="number"] {
+            font-size: 1em;
+        }
+
+        th,
+        td {
+            padding: 0.5rem;
+        }
+
+        label {
+            font-size: 1em;
+        }
+
+        .mobile-icon,
+        .shot-icon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            padding: 0.75rem;
+        }
+
+        h2 {
+            font-size: 1.75em;
+        }
+
+        input[type="radio"] {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .mobile-icon,
+        .shot-icon {
+            width: 15px;
+            height: 15px;
+        }
+    }
+    .main-container {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        aspect-ratio: 1 / 1;
+    }
+
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .form-centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 10px 20px;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #ffd700;
+        box-shadow: 0 0 15px #000;
+    }
+
+    .form-centered label {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        color: #ffd700;
+    }
+
+    .form-centered input[type="number"] {
+        width: 80px;
+        padding: 5px;
+        font-size: 14px;
+        text-align: center;
+        border: 1px solid #ffd700;
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.6);
+        color: #ffd700;
+        outline: none;
+    }
+
+    .result {
+        grid-column: span 2;
+        text-align: center;
+        font-size: 48px;
+        font-weight: bold;
+        color: #ffd700;
+        text-shadow: 0 0 6px #00ffff;
+        margin-top: 5px;
+    }
+
+    #selectedValue {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        font-size: 18px;
+        color: #00ff00;
+        text-shadow: 0 0 6px #000;
+        text-align: center;
+    }
+
+    @media screen and (max-width: 500px) {
+        .form-centered {
+            grid-template-columns: 1fr;
+            gap: 10px;
+            padding: 15px;
+        }
+
+        .form-centered input[type="number"] {
+            width: 100%;
+        }
+
+        #selectedValue {
+            font-size: 14px;
+        }
+        #dataCanvas {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+    }
+</style>
