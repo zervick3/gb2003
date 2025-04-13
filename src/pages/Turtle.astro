@@ -6,18 +6,14 @@ import Footer from "../components/Footer.astro";
 import App from "@/components/App";
 import FormCard from "@/components/FormCard.astro";
 
-import GbTurtle from "@/components/GbTurtle.astro";
-import BotGB from "@/components/BotGB.astro";
-import GraficaTurtle2 from "@/components/GraficaTurtle2.astro";
+import GbTurtle from "@/components/gunbound/GbTurtle.astro";
+
 ---
 
 <Layout title="GunBound 2003 - Turtle">
     <Header />
     <div class="main-content">
-        <GbTurtle />
-        <GraficaTurtle2 />
-        <BotGB />
-        <FormCard />
+        <GbTurtle />   
     </div>
     <App client:load />
 

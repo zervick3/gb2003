@@ -1,22 +1,21 @@
 ---
-import GbTurtle from "../components/GbTurtle.astro";
-import NewsCard from "../components/NewsCard.astro";
+
+
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
-import Gallery from "../components/Gallery.astro";
+
 import Footer from "../components/Footer.astro";
-import Gbmamu from "@/components/Gbmamu.astro";
-import FormCard from "@/components/FormCard.astro";
+import Gbmamu from "@/components/gunbound/Gbmamu.astro";
+
 import App from "@/components/App";
-import BotGB from "@/components/BotGB.astro";
+
 ---
 
 <Layout title="GunBound 2003 - Turtle">
     <Header />
     <div class="main-content">
         <Gbmamu />
-        <BotGB />
-        <FormCard />
+        
     </div>
     <App client:load />
     <Footer />
