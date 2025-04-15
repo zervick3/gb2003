@@ -1,20 +1,18 @@
 ---
-import React from "react";
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import GunboundForm from "@/components/gunbound/GunboundForm.astro";
 
-import Footer from "../components/Footer.astro";
+import Layout from "@/layouts/Layout.astro";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
 
 import App from "@/components/App";
+import Delay from "@/components/Delay.astro";
 
 ---
 
 <Layout title="GunBound 2007">
     <Header />
     <div class="main-content">
-        <GunboundForm />
-        
+        <Delay/>
         
     </div>
     <App client:load />

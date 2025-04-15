@@ -1,0 +1,590 @@
+---
+import img1 from '/public/delay/imagen1.png';
+import img2 from '/public/delay/imagen2.png';
+---
+<div class="container2">
+    <div class="text-center mb-8">
+        <h1>Guía Completa de Delay en Gunbound</h1>
+    </div>
+
+    <nav id="toc">
+        <h2 class="h2">Tabla de Contenidos</h2>
+        <ul class="ul">
+            <li class="li"><a href="#definicion">Definición</a><span class="page-number">Pag 2</span></li>
+            <li class="li">
+                <a href="#tablas-delay">Tablas de Delay</a><span class="page-number">Pag 2</span>
+                <ul class="ml-4 ul">
+                    <li class="li"><a href="#gb-classic">GB Classic</a></li>
+                    <li class="li"><a href="#gb-adventures">GB Adventures</a></li>
+                </ul>
+            </li>
+            <li class="li">
+                <a href="#estrategias-delay">Estrategias de Delay</a><span class="page-number">Pag 3</span>
+                <ul class="ml-4 ul" >
+                    <li class="li"><a href="#delay-1vs1">Delay en 1vs1</a></li>
+                    <li class="li"><a href="#delay-2vs2">Delay en 2vs2</a></li>
+                    <li class="li"><a href="#delay-3vs3">Delay en 3vs3</a></li>
+                    <li class="li"><a href="#delay-4vs4">Delay en 4vs4</a></li>
+                </ul>
+            </li>
+            <li class="li"><a href="#matematica-mental">La Matemática Mental</a><span class="page-number">Pag 6</span></li>
+            <li class="li"><a href="#conclusion">Conclusión</a><span class="page-number">Pag 9</span></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="mb-6 note">
+            <h2 class="h2">Antes de comenzar, vale aclarar lo siguiente:</h2>
+            <ul class="ul">
+                <li class="li">- Todos los ejemplos están basados en que 
+                    <span class="self-info">TU eres Ice</span> 
+                    y el <span class="opponent-info">oponente es Armor
+                        </span>.
+                    </li>
+                <li class="li">- Cuando digo “clima” me refiero a Thor, Rayo, Force, Cambio de Viento, Luna Negra, o Luna Curativa.</li>
+                <li class="li">- Todo lo que está en <span class="opponent-info">VERDE</span> tiene que ver con los tiros del oponente o el delay restante basado en los tiros del oponente, todo lo que está en <span class="self-info">ROJO</span> tiene que ver con tus propios tiros o los de tu equipo.</li>
+            </ul>
+        </section>
+
+        <article>
+            <section id="definicion" class="mb-8">
+                <h2>1. Definición</h2>
+                <p>El delay es lo que te cuesta un turno y el tiro que hagas. Imagínate que el delay es dinero. Cada turno te cuesta dinero, así sea que solo aprietes F8, el tener un turno cuesta dinero. A su vez, cada tiro te cuesta dinero; obviamente te va a costar más los tiros más fuertes, y por eso el orden de costo es así:</p>
+                <p class="font-mono text-center my-4 text-lg">F8 &lt; s1 &lt; s2 &lt; SS &lt; DD s1 &lt; DD s2</p>
+                <p>Ahora, el delay se complica un poco cuando consideramos las diferencias entre móviles. Obviamente, no todos los móviles tienen el mismo delay, ni tienen las mismas características de delay. Estas pequeñas diferencias son las que hacen que el sistema de delay sirva para determinar a quién le toca tirar. A su vez, cada clima diferente induce a una forma de juego diferente: Thor, Rayo, y Force inducen a jugar agresivo; mientras tanto, Cambio de Viento, Luna Llena, Luna Regenerativa, y Tornado inducen a jugar de una manera más conservadora. Como jugador debes tomar todos estos factores en consideración antes de si quiera tirar.</p>
+            </section>
+
+            <section id="tablas-delay" class="mb-8">
+                <h2>2. Tabla de Delay</h2>
+
+                <section id="gb-classic" class="mb-6">
+                    <h3>GB Classic</h3>
+                    <p class="note"><sup>1</sup>Me referiré a esta tabla a través de la explicación para los números de delay.</p>
+                    <div class="overflow-x-auto">
+                         <table>
+                             <thead>
+                                 <tr>
+                                     <th>Móvil</th>
+                                     <th>F8 (0s)</th>
+                                     <th>S1 (0s)</th>
+                                     <th>S2 (0s)</th>
+                                     <th>SS (0s)</th>
+                                     <th>DD S1 (0s)</th>
+                                     <th>DD S2 (0s)</th>
+                                     <th>Delay/sec</th>
+                                     <th>Penalidad Ítem/Dual<sup>2</sup></th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 <tr>
+                                     <td>Armor</td>
+                                     <td>710</td>
+                                     <td>760</td>
+                                     <td>910</td>
+                                     <td>1310</td>
+                                     <td>1510</td>
+                                     <td>1510</td>
+                                     <td>+10</td>
+                                     <td>N/A</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Ice</td>
+                                     <td>680</td>
+                                     <td>740</td>
+                                     <td>890</td>
+                                     <td>1290</td>
+                                     <td>1490</td>
+                                     <td>1490</td>
+                                     <td>+10</td>
+                                     <td>N/A</td>
+                                 </tr>
+                                  <tr>
+                                     <td>Nak</td>
+                                     <td>720</td>
+                                     <td>770</td>
+                                     <td>920</td>
+                                     <td>1320</td>
+                                     <td>1520</td>
+                                     <td>1520</td>
+                                     <td>+10</td>
+                                     <td>N/A</td>
+                                 </tr>
+                                 <tr>
+                                    <td>Trico</td>
+                                    <td>710</td>
+                                    <td>760</td>
+                                    <td>890</td>
+                                    <td>1290</td>
+                                    <td>1490</td>
+                                    <td>1490</td>
+                                    <td>+10</td>
+                                    <td>N/A</td>
+                                </tr>
+                                 <tr>
+                                     <td>Boomer</td>
+                                     <td>730</td>
+                                     <td>780</td>
+                                     <td>880</td>
+                                     <td>1280</td>
+                                     <td>1510</td>
+                                     <td>1510</td>
+                                     <td>+10</td>
+                                     <td>+30</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Grub</td>
+                                     <td>710</td>
+                                     <td>760</td>
+                                     <td>910</td>
+                                     <td>1310</td>
+                                     <td>1510</td>
+                                     <td>1510</td>
+                                     <td>+10</td>
+                                     <td>+50</td>
+                                 </tr>
+                                  <tr>
+                                     <td>Turtle</td>
+                                     <td>715</td>
+                                     <td>765</td>
+                                     <td>915</td>
+                                     <td>1315</td>
+                                     <td>1515</td>
+                                     <td>1515</td>
+                                     <td>+12<sup>2</sup></td>
+                                     <td>+25</td>
+                                 </tr>
+                                 </tbody>
+                         </table>
+                    </div>
+                    <p class="note"><sup>2</sup>En el servidor de GBCA he descubierto dos modificaciones. Primero, a los móviles Grub (+50), Boomer (+30), y Turtle (+25) les han agregado una “penalidad” por usar cualquier ítem, incluyendo el dual. Por ejemplo, boomer tiene un delay muy bueno, pero a la hora de dar dual, no solo se aumenta su delay en 600 (lo que cuesta todo dual), sino que también le agregan 30 puntos de delay. Y lo segundo que he descubierto es que Turtle se aumenta 12 puntos de delay por segundo. Esto quiere decir que el servidor perjudica a Turtle en delay por ambos lados, al usar un ítem y al demorarse.</p>
+                </section>
+
+                <section id="gb-adventures" class="mb-6">
+                    <h3>GB Adventures</h3>
+                     <div class="overflow-x-auto">
+                         <table>
+                             <thead>
+                                 <tr>
+                                     <th>Móvil</th>
+                                     <th>Per Second</th>
+                                     <th>F8</th>
+                                     <th>S1</th>
+                                     <th>S2</th>
+                                     <th>SS</th>
+                                     <th>DD F8</th>
+                                     <th>DD S1</th>
+                                     <th>DD S2</th>
+                                     <th>Shield</th>
+                                     <th>Total Life</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 <tr>
+                                     <td>ARMOR</td>
+                                     <td>14</td>
+                                     <td>725</td>
+                                     <td>775</td>
+                                     <td>980</td>
+                                     <td>1470</td>
+                                     <td>1360</td>
+                                     <td>1410</td>
+                                     <td>1615</td>
+                                     <td>~</td>
+                                     <td>1100</td>
+                                 </tr>
+                                 <tr>
+                                     <td>MAGE</td>
+                                     <td>10</td>
+                                     <td>690</td>
+                                     <td>700</td>
+                                     <td>830</td>
+                                     <td>1190</td>
+                                     <td>1335</td>
+                                     <td>1345</td>
+                                     <td>1475</td>
+                                     <td>290</td>
+                                     <td>1030</td>
+                                 </tr>
+                                 <tr>
+                                     <td>NAK</td>
+                                     <td>11</td>
+                                     <td>710</td>
+                                     <td>760</td>
+                                     <td>940</td>
+                                     <td>1210</td>
+                                     <td>1330</td>
+                                     <td>1380</td>
+                                     <td>1560</td>
+                                     <td>~</td>
+                                     <td>1150</td>
+                                 </tr>
+                                 <tr>
+                                     <td>TRICO</td>
+                                     <td>10</td>
+                                     <td>690</td>
+                                     <td>745</td>
+                                     <td>890</td>
+                                     <td>1360</td>
+                                     <td>1315</td>
+                                     <td>1370</td>
+                                     <td>1515</td>
+                                     <td>~</td>
+                                     <td>1260</td>
+                                 </tr>
+                                 <tr>
+                                     <td>ICE</td>
+                                     <td>10</td>
+                                     <td>690</td>
+                                     <td>740</td>
+                                     <td>890</td>
+                                     <td>1340</td>
+                                     <td>1316</td>
+                                     <td>1366</td>
+                                     <td>1516</td>
+                                     <td>~</td>
+                                     <td>1450</td>
+                                 </tr>
+                                 <tr>
+                                     <td>TURTLE</td>
+                                     <td>12</td>
+                                     <td>690</td>
+                                     <td>755</td>
+                                     <td>890</td>
+                                     <td>1320</td>
+                                     <td>1325</td>
+                                     <td>1390</td>
+                                     <td>1525</td>
+                                     <td>~</td>
+                                     <td>1070</td>
+                                 </tr>
+                                 <tr>
+                                     <td>RAON</td>
+                                     <td>13</td>
+                                     <td>700</td>
+                                     <td>760</td>
+                                     <td>940</td>
+                                     <td>1320</td>
+                                     <td>1320</td>
+                                     <td>1380</td>
+                                     <td>1580</td>
+                                     <td>~</td>
+                                     <td>1180</td>
+                                 </tr>
+                                 <tr>
+                                     <td>BOOMER</td>
+                                     <td>10</td>
+                                     <td>680</td>
+                                     <td>740</td>
+                                     <td>880</td>
+                                     <td>1280</td>
+                                     <td>1300</td>
+                                     <td>1360</td>
+                                     <td>1500</td>
+                                     <td>~</td>
+                                     <td>1250</td>
+                                 </tr>
+                                 <tr>
+                                     <td>LIGHTNING</td>
+                                     <td>10</td>
+                                     <td>680</td>
+                                     <td>680</td>
+                                     <td>825</td>
+                                     <td>1230</td>
+                                     <td>1320</td>
+                                     <td>1320</td>
+                                     <td>1465</td>
+                                     <td>300</td>
+                                     <td>?</td>
+                                 </tr>
+                                 <tr>
+                                     <td>A.SATE</td>
+                                     <td>10</td>
+                                     <td>680</td>
+                                     <td>730</td>
+                                     <td>880</td>
+                                     <td>1280</td>
+                                     <td>1310</td>
+                                     <td>1360</td>
+                                     <td>1410</td>
+                                     <td>?</td>
+                                     <td>1090</td>
+                                 </tr>
+                             </tbody>
+                         </table>
+                    </div>
+                    <p class="note"><sup>1</sup>No se usará esta tabla para nada en las explicaciones, pero la misma lógica aplica obviamente con diferentes números.</p>
+                     <p class="note">Tabla de GB Adventures basada en la imagen proporcionada por el usuario. Creado por Efrain, [PF4]UGC4.</p>
+                </section>
+            </section>
+
+            <section id="estrategias-delay" class="mb-8">
+                <h2>3. Estrategias de Delay</h2>
+                <p><strong>El F8:</strong> Tener un turno tiene un costo base diferente para cada móvil. F8 es la función para pasar el turno sin disparar, lo cual te ahorra un poco de delay, pero igual tienes que pagar el delay por el turno pasado. Digamos que juegas <span class="self-info">ice</span>. Tu costo base por turno es 690 delay. Si apretas F8 en 0 segundos, verás que tu delay es 680. Si te demoras 1 segundo en apretar F8, tu delay será 700, y así sucesivamente. Entonces, ¿cuánto es el máximo delay que podrías tener con un simple F8? Si te demoras 20 segundos en apretar F8, será 680 + (10x20) = 890. Ahora, si apretas dual y luego F8, todo dual cuesta 600 delay, entonces sería 690 + 600 = 1290. ¿Qué significa todo esto? Significa que al saber los números, puedes hacer la matemática para saber cuál es la mejor estrategia a seguir.</p>
+
+                <section id="delay-1vs1" class="mb-6">
+                    <h3>En 1vs1 – Ejemplos:</h3>
+                    <div class="mb-4 p-4 border border-gray-600 rounded bg-black bg-opacity-20">
+                        <h4>Ejemplo A (cuando ganar turno):</h4>
+                        <p>Es un 1vs1 de un <span class="self-info">ice</span> vs <span class="opponent-info">armor</span>, el <span class="opponent-info">armor</span> dispara primero. El clima de los dos primeros turnos es Cambio de Viento y el clima que viene después es Thor (ya con estas condiciones tienes el Thor que te induce a jugar un poco más agresivo y menos conservador). El <span class="opponent-info">armor se demora 12 segundos en darte un DD s1 (1520 + [12x10]) = 1640</span> es su delay. Ahora te toca a ti, ¿qué haces? Asumiendo que todo sigue normal, la mejor reacción sería ganar 3 turnos cosa que así le robas los dos turnos de Thor. Entonces, en tu <span class="self-info">primer turno das s1 en 1 segundo = 750</span> (<span class="opponent-info">su tiro de 1640</span> – <span class="self-info">tu tiro de 750</span> = +890, quiere decir que <span class="self-info">tú aún tienes +890 delay para aprovechar y te toca de nuevo</span>). Tu <span class="self-info">segundo turno (ya el primer turno de Thor) das s1 en 1 segundo = 750</span> (el delay que te quedaba 890 – <span class="self-info">tu segundo tiro 750</span> = +140, <span class="self-info">tú aún tienes +140 delay para aprovechar y te toca de nuevo</span>). Tu <span class="self-info">tercer turno (ya el segundo turno de Thor) le das un DD s2 en 1 segundo = 1500</span> (el delay que te quedaba 140 – <span class="self-info">el delay de tu dual 1500</span> = -1360, <span class="opponent-info">ahora él tiene 1360 delay sobre ti</span>). ¿Por qué dar dual y regalarle 1360 de delay? Porque había Thor en tu turno, y sabías que al rival ya no le tocaría turno de Thor. Ahora, eso no quiere decir que necesariamente debes dar dual, en tu tercer turno podrías simplemente <span class="self-info">dar un s1 en 2 segundos</span> y pasaría lo siguiente: (el delay que te quedaba 140 – <span class="self-info">el delay de tu s1 770</span> = -630, <span class="opponent-info">ahora le toca al oponente pero con 630 de delay no tiene para ganarte turno ni con F8 que serían 720 para armor</span>). Como ves, la estrategia que escojas depende de ti y de tus objetivos en el momento. Piensa bien cuál es la mejor y ejecútala siempre pensando en delay.</p>
+                    </div>
+                    <div class="mb-4 p-4 border border-gray-600 rounded bg-black bg-opacity-20">
+                        <h4>Ejemplo B (cuando perder turno):</h4>
+                        <p>Es un 1vs1 de un <span class="self-info">ice</span> vs <span class="opponent-info">armor</span>, tú disparas primero. El clima de los dos primeros turnos es Cambio de Viento y el clima que viene es Luna Curativa y luego Luna Negra (ya con estas condiciones te deberías dar cuenta que no deberías jugar muy agresivo). <span class="self-info">Turno 1, tú das s2 en 3 segundos (890 + 30 = 920)</span>. Le toca a él y te da <span class="opponent-info">DD s2 en 10 segundos (1520 + 100 = 1620)</span>. Entonces la diferencia (<span class="opponent-info">su tiro de 1620</span> – <span class="self-info">tu tiro de 920</span> = +700) significa que <span class="self-info">tienes una diferencia positiva de +700</span>, ¿qué haces? Como sabes que los dos siguientes turnos son Luna Curativa, y los siguientes dos turnos son Luna Negra, la mejor estrategia sería ganar los 2 turnos de Luna Curativa y luego perder los 2 turnos de Luna Negra. Entonces, te vuelve a tocar a ti y <span class="self-info">das F8 en 0 segundos</span> (el delay restante de 700 – <span class="self-info">el delay del F8 680</span> = +10) <span class="self-info">te toca tirar de nuevo porque le ganaste delay</span>. Ahora, le das un <span class="self-info">DD s2 (1490) pero te demoras lo más posible, 19 segundos (190)</span>, cosa que aumentas tu delay al máximo y le regalas la oportunidad de robarte delay, (<span class="self-info">1490 + 190 = 1680</span>). Ahora ya es Luna Negra, y <span class="opponent-info">él tiene una ventaja de 1680 delay</span>. Como no tiene para dar DD, lo máximo que podría gastar es <span class="opponent-info">SS (1290)</span>, lo cual igual resultaría en una diferencia positiva de 390 delay (<span class="opponent-info">1680 - 1290 = 390</span>) y le tocará de nuevo en Luna Negra. Se jodió porque otra vez no puede dar dual, así que dará s1 o s2, y luego te toca a ti otra vez. Ahora, ten en mente que te curaste 2 turnos seguidos con la Luna Curativa, lo cual también te beneficia a pesar de que en ese turno ni siquiera hayas disparado por el F8. Y no necesariamente te tienes que demorar 19 segundos, eso fue solo para exagerar el ejemplo. El punto es que de esta manera, cagaste al rival porque te curaste 2 turnos tú y lo dejaste en Luna Negra 2 turnos a él. En resumen, <span class="self-info">perder delay intencionalmente también puede ser una buena estrategia</span>.</p>
+                     </div>
+                </section>
+
+                <section id="delay-2vs2" class="mb-6">
+                    <h3>En 2vs2 – Ejemplos:</h3>
+                     <div class="mb-4 p-4 border border-gray-600 rounded bg-black bg-opacity-20">
+                         <h4>Ejemplo A (cuando ganar turno):</h4>
+                         <p>Es un 2vs2, y <span class="self-info">tú eres Ice</span>. Empieza la partida y el primer clima es Cambio de Viento y el que viene es Thor. Tu teammate y tú están amenazados de morir en same time. Es el turno de tu compañero, y al siguiente turno saldrá un tornado entre tus oponentes y tú, lo cual les complica el tiro a todos. Si ves que definitivamente morirán de same time después del tornado, concluirás que la única forma de sobrevivir sería si tu compañero se suicida y tú sobrevives hasta que caiga. Así que tu compañero se suicida, y ahora le toca al primer oponente; faltan 4 turnos para que caiga tu compañero y tú estás a mitad de vida. El <span class="opponent-info">primer oponente te da un s1 de armor en 13 segundos (760 + 130 = 890)</span> y falla por el tornado. El <span class="opponent-info">segundo oponente te da DD s2 de armor en 3 segundos (1510 + 30 = 1540)</span> y te baja solo 300 puntos de vida y quedas en rojo. ¿Qué haces? Como viene Thor deberías ganar turno para poder dar un DD en Thor antes de morir, pero a la vez necesitas ángulo. Entonces, <span class="self-info">das rápido un tiro de s1 para hacerte ángulo en 1 segundo (740 + 10 = 750)</span>. <span class="self-info">750</span> menor <span class="opponent-info">890</span> (el menor delay del oponente que tiró antes), así que te vuelve a tocar. Ahora ya toca Thor, entonces <span class="self-info">das DD s2 ya que les ganaste el turno a todos</span>.</p>
+                     </div>
+                </section>
+
+                <section id="delay-3vs3" class="mb-6">
+                    <h3>En 3vs3 – Ejemplos:</h3>
+                    <div class="mb-4 p-4 border border-gray-600 rounded bg-black bg-opacity-20">
+                        <h4>Ejemplo A (cuando ganar turno):</h4>
+                        <p>Es un 3vs3, y <span class="self-info">tú eres Ice</span>. Empieza la partida y el primer clima es Cambio de Viento y el que viene es Thor. Tú eres el último en la lista, y el equipo contrario decide matarte sin turno. El <span class="opponent-info">primer oponente te da un SS de armor en 5 segundos (1310 + 50 = 1360)</span> y te bajó solo 250 puntos de vida. El <span class="opponent-info">segundo oponente te da DD s2 de armor en 3 segundos (1510 + 30 = 1540)</span> y te baja solo 250 puntos de vida (o sea ya has perdido como 500hp estás tipo a mitad de vida). Por último, el <span class="opponent-info">tercero decide darte s1 porque piensa que no te podrá matar, y lo hace en 2 segundos (760 + 20 = 780)</span>, y te hace 100 de daño, pero te quitó el ángulo. ¿Qué haces? Como viene Thor deberías ganar turno para poder dar un DD en Thor antes de morir, pero a la vez necesitas ángulo. Entonces, <span class="self-info">das rápido un tiro de s1 para hacerte ángulo en 1 segundo (740 + 10 = 750)</span>. <span class="self-info">750</span> menor <span class="opponent-info">780</span>, así que te vuelve a tocar. Ahora ya toca Thor, entonces <span class="self-info">das DD s2 ya que les ganaste el turno a todos</span>.</p>
+                    </div>
+                     <div class="mb-4 p-4 border border-gray-600 rounded bg-black bg-opacity-20">
+                         <h4>Ejemplo B (cuando perder turno):</h4>
+                         <p>Es un 3vs3, y el marcador de la partida es 1-4 porque tu equipo quiere hacer same time. Tu equipo está compuesto de jugador A, jugador B, y <span class="self-info">tú (todos ice)</span>; mientras que el otro equipo está compuesto de <span class="opponent-info">jugador X, jugador Y, y jugador Z (todos armor)</span>. Llega la hora de ejecutar el same time. <span class="self-info">Jugador A le da DD s2 en 3 segundos (1490 + 30 = 1520)</span> al <span class="opponent-info">jugador X</span> y lo mata. El <span class="opponent-info">jugador X</span> hace click para caer, y comienza la cuenta regresiva para ejecutar el same time (4, 3, 2, 1, y si cae pierden porque ya no se puede el same time). Quedan 4 turnos. <span class="self-info">Jugador B le da s2 en 1 segundo (890 + 10 = 900)</span> al <span class="opponent-info">jugador Y</span> y lo mata. Quedan 3 turnos. Ahora le toca al <span class="opponent-info">jugador Z</span>, que al ver que están ejecutando el same time decide esconderse y ya no le puedes dar tú, y <span class="opponent-info">rompe tierra con s2 en 10 segundos (910 + 100 = 1010)</span>. Quedan 2 turnos. Te toca a ti, pero la verdad es que no le puedes dar bien, en cambio tu compañero B sí, y acuérdate que él tiene un delay de <span class="self-info">900</span> por su s2. Si apretas F8 o das s1, le ganarás el turno a tu compañero B y te tocará de nuevo, pero aún no le podrás dar. Entonces lo correcto es <span class="self-info">demorarte lo suficiente con un s2, digamos 11 segundos (890 + 110 = 1000)</span> para así pasarle el turno (<span class="self-info">1000</span> > <span class="self-info">900</span>) a tu compañero. Queda 1 turno, y tu compañero B logra matar al oponente Z. En este caso, <span class="self-info">perdiste delay</span> para que le toque turno a un compañero que tenía acceso a un mejor tiro que tú. Pero ten en mente que, aun si hubiera fallado su tiro tu compañero, con un delay de <span class="self-info">900</span> igual le ganabas delay al contrincante (<span class="opponent-info">1010</span>) y tenías oportunidad de matarlo a pesar de que ya haya caído el oponente X. Siempre ten en cuenta que a la hora de perder delay, tampoco es bueno REGALAR demasiado delay, si no regalar lo justo y necesario.</p>
+                     </div>
+                </section>
+
+                <section id="delay-4vs4" class="mb-6">
+                    <h3>En 4vs4:</h3>
+                    <p>En 4vs4 la estrategia principal debería ser matar a los oponentes 5 veces lo más rápido posible, ya que los same time son bastante más complicados (aunque matar a 4 en same time es un orgasmo estratégico). La idea es que cada jugador debe preocuparse por su propio micromanejo del juego y pensando en cómo beneficiar los de tu equipo. Acuérdate que si la sala es de 40 turnos sudden death, quiere decir que entre 8 jugadores solo hacen falta 5 turnos cada uno (promedio) para llegar al sudden death, y juega con eso en mente.</p>
+                </section>
+            </section>
+
+            <section id="matematica-mental" class="mb-8">
+                <h2>4. La Matemática Mental</h2>
+                <p>La matemática del delay es matemática básica de suma y resta rápida y mental, pero es necesario memorizarse la tabla del delay para verdaderamente hacer la matemática correcta. Veamos los siguientes ejemplos, y comentaré sobre cada uno.</p>
+
+                <div class="my-4">
+                    <h4 class="mb-2">Comienzo del juego:</h4>
+                    <div class="contenedor-imagen">
+                        <img src={img1.src} alt="[Imagen de Lista de Turnos 1]" class="imagen-ajustada">
+                    </div>
+                    
+                    <p><strong>AQUÍ VIENE LA PARTE INTERESANTE con lo poco que ven en esa foto:</strong></p>
+                    <p>Alguien va primero, en este caso <span class="self-info">AQPRuLeSxD (Turtle)</span> que está en mi equipo, y tira <span class="self-info">DD s2</span>. ¿Cómo sabemos que es DD s2? Porque para llegar a un delay tan alto de <span class="self-info">1647</span> la única forma sería demorándose bastante de DD s2. ¿Y cuánto se demoró? Pues en la Tabla dice que un DD s2 de Turtle en 0 segundos es 1515 y por cada segundo +12, entonces (<span class="self-info">1647 – 1515 = 132 / 12 = 11 segundos</span>).</p>
+                    <p>Ahora le toca al oponente <span class="opponent-info">NasTyl (boomer)</span>.
+                         Pero antes de que él tire, podemos sacar un par de conclusiones rápidamente. 
+                         Un DD s2 (boomer) en 0 segundos serían 1510 y +10 por segundo.
+                          En caso de que el boomer tire en 0 segundos, podemos concluir 
+                          que la máxima ventaja de delay que podría sacar sería (
+                          <span class="opponent-info">1510</span> – <span class="self-info">1647</span> = -137),
+                           lo cual también significa que podría demorarse hasta 13 segundos sin perder el turno 
+                           (<span class="opponent-info">1510 + 13*10 = 1640</span> menor <span class="self-info">
+                            1647</span>). Para que el boomer pierda delay contra AQPRuLeSxD tendría que demorarse un total de 14 segundos (<span class="opponent-info">1510 + 14*10 = 1650</span>. Y ahora, <span class="opponent-info">1650</span> > <span class="self-info">1647</span>). Por último, en caso de que el boomer se demorara 20 segundos en disparar su DD s2 (<span class="opponent-info">1710</span>), el Turtle estaría adelante en delay por (<span class="self-info">1647</span> – <span class="opponent-info">1710</span> = -63).</p>
+                </div>
+
+                 <div class="my-4">
+                    <h4 class="mb-2">Ahora observemos otra lista ya más detallada:</h4>
+                    <div class="contenedor-imagen">
+                         <img src={img2.src} alt="[Imagen de Lista de Turnos 2]" class="imagen-ajustada">
+                    </div>
+                    
+                
+                    <p>No se sabe en qué turno está, ni importa. Solo vamos a sacar conclusiones de las tres relaciones que vemos deletreadas ahí. “A” es la relación entre <span class="opponent-info">DrCheSamir</span> y <span class="self-info">PF4Best</span>, “B” es la relación entre <span class="opponent-info">TonyNice</span> y <span class="self-info">PF4Best</span>, “C” es la relación entre <span class="self-info">PF4Best</span> y <span class="opponent-info">Edminstrator</span>, y “D” es la relación entre <span class="self-info">PF4 Best</span> y <span class="self-info">Wayfarer</span>.</p>
+                    <p class="note">(Los primeros dos ejemplos se les llama <strong>situación reactiva de delay</strong>, ya que como ellos tienen delay sobre ti, y tú lo único que puedes hacer es reaccionar a los movimientos que ellos efectúen. En otras palabras, con ellos debes pensar, “<span class="self-info">¿qué hago yo si él hace esto? ¿O esto? ¿O esto?</span>”)</p>
+                    <ul class="list-disc ml-6 space-y-2">
+                        <li><strong>A. <span class="opponent-info">DrCheSamir (-880)</span> y <span class="self-info">PF4Best (1570)</span>:</strong> Le toca a <span class="opponent-info">Samir (no se ve pero era boomer)</span>. Antes de que él tire, yo puedo sacar mis propias conclusiones al comprar nuestros delays. Él me lleva una ventaja de <span class="opponent-info">-880</span> (por eso está en negativo, porque es la ventaja que te han sacado). Eso significa que si tira un <span class="opponent-info">s1 en 0 segundos (780)</span> aún me tendría una ventaja de (<span class="opponent-info">780 – 880 = -100</span>), y le tocaría de nuevo (les prometo que sí, 100 sería el número exacto que aparecería al costado de su nombre después de ese tiro). Por ende, puede demorarse hasta 9 segundos sin perder turno (<span class="opponent-info">9*10 - 100 = -10</span>), aún tendría 10 puntos de ventaja (ventaja mínima). Ahora, si <span class="opponent-info">DrCheSamir</span> decide usar <span class="opponent-info">s2</span>, yo sé que aun si tira en <span class="opponent-info">0 segundos (880)</span> podría perder turno, ya que solo me tiene una ventaja de 880, entonces (<span class="opponent-info">880 – 880 = 0</span>) estaríamos empatados a 0 de delay, y me podría tocar a mí. Por último, también es bueno ponerse a pensar en qué pasa si da <span class="opponent-info">DD s2</span>. Si da un <span class="opponent-info">DD s2 en 0 segundos (1510)</span>, obviamente perdería delay (<span class="opponent-info">1510 – 880 = +630</span>) y me tocaría tirar a mí con una ventaja de 630 puntos de delay. Eso quiere decir que ni con F8 de nak (720) le podría ganar delay. O sea, si yo le quisiera ganar delay con un s1 de nak en 0 segundos (770), él tendría que demorarse 14 segundos (<span class="opponent-info">1510 + 14*10 = 1650 – 880 = 770</span> > <span class="self-info">760</span> - *Nota: Usé valores de Nak para PF4Best y Boomer para Samir como se infiere*).</li>
+                        <li><strong>B. <span class="opponent-info">TonyNice (-330)</span> y <span class="self-info">PF4Best (1570)</span>:</strong> Después le toca a <span class="opponent-info">TonyNice (no se ve pero también es boomer)</span>. La relación es la misma que con DrCheSamir, ya que ambos tienen menos delay que yo en la lista. <span class="opponent-info">TonyNice</span> me lleva una ventaja de <span class="opponent-info">-330</span> delay, o sea que para poder igualarlo en delay de <span class="self-info">s1 en 0 segundos yo como nak (770)</span> él tendría que llegar a gastar 1100 de delay (<span class="self-info">770 + 330 = 1100</span>). ¿Qué quiere decir eso? Que su tiro de <span class="opponent-info">s2 aunque se demore 20 segundos (880 + 200 = 1080)</span> igual me ganará delay. Él tendría que usar SS para yo siquiera comenzar a pensar en cómo ganarle delay.</li>
+                    </ul>
+                     <p class="note">(A continuación viene la <strong>situación accionista de delay</strong>, donde tienes que preocuparte por lo que tú haces, ya que tu oponente será quien reaccione a lo que tú haces. Aquí tu pensamiento es “<span class="self-info">¿Qué hago yo pensando en lo que podría hacer él?</span>”)</p>
+                     <ul class="list-disc ml-6 space-y-2">
+                        <li><strong>C. <span class="self-info">PF4Best (1570)</span> y <span class="self-info">Wayfarer (+330)</span>:</strong> No se ve pero <span class="self-info">Wayfarer</span> está de nak. Cuando me toque a mí, yo sé que tendré una ventaja de delay sobre Wayfarer de <span class="self-info">+330</span> delay (por eso es positivo, porque yo le llevo a él una ventaja de 330 puntos de delay). Si yo doy un <span class="self-info">shot 1 en 20 segundos como nak (770 + 200 = 970)</span>, él igual no podrá sacarme delay (<span class="self-info">970 – 330 = 640</span>, ni con F8 que es 720). Pero si me demoro 20 segundos en un <span class="self-info">s2 de nak (920 + 200 = 1120)</span>, ahora sí podría sacarme delay (<span class="self-info">1120 – 330 = 790</span>) con un simple <span class="self-info">shot 1 de entre 0 o 1 segundo (770 y 780 menor 790)</span>. Ahora, si quiero dar dual, me tengo que poner a pensar en cuánto delay le voy a regalar a Wayfarer. Si doy un <span class="self-info">DD s2 en 0 segundos como nak (1520)</span>, le estoy regalando (<span class="self-info">1520 – 330 = 1190</span>) de delay. Eso quiere decir que me podría ganar turno hasta con un <span class="self-info">s2 de 20 segundos de nak (1120)</span> (<span class="self-info">1120 – 1190 = -70</span>) aún con una ventaja de 70 puntos; pero también significa que no me gana turno si da <span class="self-info">SS en 0 segundos (1320)</span> (<span class="self-info">1320 – 1190 = +130</span>) ya que ahora tendría yo ventaja de delay por 130 puntos.</li>
+                        <li><strong>D. <span class="self-info">PF4Best (1570)</span> y <span class="opponent-info">Edminstrator (+530)</span>:</strong> A la hora de tirar, también debemos pensar en cuánto delay le vamos a dar a nuestros compañeros de equipo. En este caso, yo sé que le llevo una ventaja de <span class="self-info">+530</span> puntos a <span class="opponent-info">Edminstrator</span> (asumiendo que es compañero, aunque el texto original lo pone como oponente en C, aquí lo trato como compañero por el contexto). O sea, si yo doy <span class="self-info">DD s2 en 0 segundos como nak (1520)</span> quiere decir que le regalaré (<span class="self-info">1520 – 530 = 990</span>) de delay, y él podría ganarme delay con un <span class="opponent-info">s2 de trico de hasta 9 segundos (890 + 9 * 10 = 980)</span>. Esto es muy importante a la hora de matar al mismo tiempo ya que hay veces que, como los turnos están en cuenta regresiva, no es preferible perder turno ni con tu propio equipo porque quizás el tiro ganador está en tus manos.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="conclusion" class="mb-8">
+                <h2>5. Conclusión</h2>
+                <p>Un buen control de delay sin una buena estrategia no sirve de nada. Para ser PRO necesitas 3 cosas:</p>
+                <ol class="list-decimal ml-6 my-4 space-y-1">
+                    <li><strong>Ejecución</strong> – poder dar donde quieres dar para ganar</li>
+                    <li><strong>Estrategia</strong> – saber cómo vas a ganar</li>
+                    <li><strong>Delay</strong> – saber cómo llegar a ganar</li>
+                </ol>
+                <p>Los mejores jugadores del juego son aquellos que manipulan a sus oponentes con un buen control de delay. Esto crea una similitud con otros juegos como Poker, Magic The Gathering, etc., que llegan a los 3 niveles de pensamiento:</p>
+                 <ol class="list-decimal ml-6 my-4 space-y-2">
+                    <li><strong>“¿Qué haré yo?”</strong> – Te preocupas solamente por tu propio juego, en Gunbound sería como tirar solo preocupándose en no fallar e ignorar todo lo que sucede con el delay.</li>
+                    <li><strong>“¿Qué hará él, y qué haré yo al respecto?”</strong> – Te preocupas por lo que hará tu oponente, y actúas pensando en lo que él hará. En Gunbound sería como preocuparte... (texto incompleto en original)</li>
+                    <li><strong>“¿Qué piensa él que yo haré, qué hará él al respecto, y qué haré yo para beneficiarme?”</strong> – Te preocupas por lo que tu oponente piensa que tú harás, y usas esa información para jugarla en su contra. En Gunbound sería como forzar a tu oponente a jugar al ritmo que tú quieras manipulando bien el delay, como cuando te suicidas y los obligas a arriesgar si quieren matar al same time.</li>
+                </ol>
+                <p>Pregúntate lo siguiente: ¿alguna vez he calculado que necesitaré dar F8 si quiero ganar delay antes de que me toque mi turno? ¿Alguna vez me he demorado en dar click para volver a bajar intencionalmente si después de contar los turnos así lo vi conveniente? ¿Pienso jugando imaginándome cuántos turnos adelantado? Esas son preguntas de otro nivel.</p>
+            </section>
+        </article>
+    </main>
+
+    <div class="footer-text">
+        Guía de Delay de Gunbound - Adaptada del texto original.
+    </div>
+
+</div>
+
+
+
+
+
+
+<style scoped>
+    
+
+    h1, .h2, h3, h4, h5, h6 {
+        font-family: 'Press Start 2P', cursive; /* Pixelated font for headers */
+        color: #ffcc00; /* Gold color for headers */
+        text-shadow: 2px 2px #6b4f2d; /* Simple shadow for depth */
+        margin-bottom: 0.75em; /* Spacing below headers */
+         word-wrap: break-word; /* Ensure long headers wrap */
+         overflow-wrap: break-word;
+    }
+     h1 { font-size: 1.8rem; line-height: 1.2;}
+     .h2 { font-size: 1.5rem; line-height: 1.2;}
+     h3 { font-size: 1.2rem; line-height: 1.2;}
+
+
+    .container2 {
+        max-width: 900px; /* Limit content width */
+        margin: 2rem auto; /* Center container with margin */
+        background-color: #004080; /* Darker semi-transparent background for content */
+        padding: 2rem;
+        border: 5px solid #8b6b4a; /* Wood-like border */
+        border-radius: 15px; /* Rounded corners */
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); /* Outer shadow */
+    }
+
+    /* Style for opponent/self emphasis */
+    .opponent-info {
+        color: #90ee90; /* Light green for opponent info */
+        font-weight: bold;
+    }
+
+    .self-info {
+        color: #f08080; /* Light red for self/team info */
+        font-weight: bold;
+    }
+
+    /* Table styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        background-color: rgba(40, 30, 15, 0.9); /* Darker table background */
+        border: 2px solid #a07c54; /* Table border */
+        border-radius: 8px; /* Rounded corners for table */
+        overflow: hidden; /* Ensures border-radius clips content */
+    }
+
+    th, td {
+        border: 1px solid #a07c54; /* Cell borders */
+        padding: 0.75rem; /* Cell padding */
+        text-align: left;
+        color: #e0dcd1; /* Text color inside table */
+    }
+
+    th {
+        background-color: #5a4a3a; /* Header background */
+        font-family: 'Press Start 2P', cursive; /* Header font */
+        color: #ffdd55; /* Header text color */
+        font-size: 0.8rem; /* Slightly smaller header font */
+    }
+
+    /* Style for notes and important sections */
+    .note {
+        background-color: rgba(20, 15, 10, 0.7);
+        border-left: 5px solid #ffcc00;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 5px;
+        font-style: italic;
+    }
+    .contenedor-imagen {
+        width: 100%;
+  max-width: 600px;       /* o el tamaño que quieras */
+  height: 300px;          /* altura deseada */
+  margin: 2rem auto;
+  border: 2px solid yellow;
+  border-radius: 0.75rem;
+  background-color: #fdf6c9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+    .imagen-ajustada{
+        max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; 
+}
+.footer-text{
+    margin-top: 2rem;              /* mt-8 → 2rem */
+  padding-top: 1rem;             /* pt-4 → 1rem */
+  border-top: 1px solid #ffcc00; /* border-yellow-700 */
+  text-align: center;
+  font-size: 0.875rem;           /* text-sm */
+  color: #ffcc00;                /* text-yellow-200 */
+  opacity: 0.7;
+}
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .container2 {
+            padding: 1rem;
+            margin: 1rem;
+        }
+        h1 { font-size: 1.5rem; }
+        .h2 { font-size: 1.3rem; }
+        h3 { font-size: 1.1rem; }
+        th, td { padding: 0.5rem; font-size: 0.9rem;}
+        th { font-size: 0.7rem; }
+        table { overflow-x: auto; display: block; } /* Allow table horizontal scroll on small screens */
+    }
+     @media (max-width: 480px) {
+         h1 { font-size: 1.3rem; }
+         .h2 { font-size: 1.1rem; }
+         h3 { font-size: 1.0rem; }
+         th, td { padding: 0.4rem; font-size: 0.8rem;}
+         th { font-size: 0.6rem; }
+     }
+
+    /* Style for the Table of Contents */
+    #toc {
+        background-color: rgba(40, 30, 15, 0.85);
+        border: 3px solid #a07c54;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 10px;
+    }
+    #toc .h2 {
+         margin-bottom: 1rem;
+         font-size: 1.3rem; /* Adjust TOC header size */
+    }
+    #toc .ul {
+        list-style: none;
+        padding: 0;
+    }
+    #toc .li {
+        margin-bottom: 0.5rem;
+    }
+    #toc a {
+        color: #c8a87a; /* Link color */
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    #toc a:hover {
+        color: #ffdd55; /* Link hover color */
+        text-decoration: underline;
+    }
+    #toc .page-number {
+        float: right;
+        color: #b08c6a;
+    }
+
+</style>

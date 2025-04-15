@@ -1,24 +1,25 @@
 ---
 
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import GunboundForm from "@/components/gunbound/GunboundForm.astro";
 
-import Footer from "../components/Footer.astro";
-import GbBoomer from "@/components/gunbound/GbBoomer.astro";
+import Footer from "@/components/Footer.astro";
 
 import App from "@/components/App";
 
 ---
 
-<Layout title="GunBound 2003 - Turtle">
+<Layout title="GunBound 2007">
     <Header />
     <div class="main-content">
-        <GbBoomer />
-       
+        <GunboundForm />
+        
+        
     </div>
     <App client:load />
-    <Footer />
 
+    <Footer />
     <style>
         .main-content {
             display: flex;
