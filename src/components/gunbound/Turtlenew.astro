@@ -1,0 +1,549 @@
+---
+
+---
+
+<div class="ConTurtle">
+    <div class="form-table">
+        <div class="container">
+            <h3>
+                Distance: <input
+                    type="number"
+                    id="distance"
+                    value="5"
+                    oninput="calcularAngulo()"
+                />
+            </h3>
+            <h3>
+                Desnivel: <input
+                    type="number"
+                    id="desnivel"
+                    value="0"
+                    oninput="calcularAngulo()"
+                />
+            </h3>
+            <h3>
+                Fator: <input
+                    type="number"
+                    id="fator"
+                    value="90"
+                    oninput="calcularAngulo()"
+                />
+            </h3>
+            <h3>
+                Wind: <input
+                    type="number"
+                    id="wind"
+                    value="10"
+                    oninput="calcularAngulo()"
+                />
+            </h3>
+            <h3>
+                Angle: <input
+                    type="number"
+                    id="angle"
+                    value="70"
+                    oninput="calcularAngulo()"
+                />
+            </h3>
+            <span class="result" id="value">---</span>
+        </div>
+        <table class="gunbound-table">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Ángulo</th>
+                    <th>Poder</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Fork 4</td>
+                    <td><span class="fork4" id="fork4"></span></td>
+                    <td><span class="fork4" id="powerfork4"></span></td>
+                </tr>
+                <tr>
+                    <td>Fork 5</td>
+                    <td><span class="fork4" id="fork5"></span></td>
+                    <td><span class="fork4" id="powerfork5"></span></td>
+                </tr>
+                <tr>
+                    <td>Fork 6</td>
+                    <td><span class="fork4" id="fork6"></span></td>
+                    <td><span class="fork4" id="powerfork6"></span></td>
+                </tr>
+                <tr>
+                    <td>Connect</td>
+                    <td><span class="fork4" id="cfork"></span></td>
+                    <td><span class="fork4" id="cpowerfork"></span></td>
+                </tr>
+                <tr>
+                    <td>TimeBoom</td>
+                    <td><span class="fork4" id="timefork"></span></td>
+                    <td><span class="fork4" id="timepowerfork"></span></td>
+                </tr>
+                <tr>
+                    <td>SkyBoom</td>
+                    <td><span class="fork4" id="AngleBoom"></span></td>
+                    <td><span class="fork4" id="PowerBoom"></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="selectedValue" hidden>Haz clic en un valor de la gráfica</div>
+    <div class="main-container">
+        <canvas id="dataCanvas" width="800" height="800"></canvas>
+    </div>
+</div>
+<style>
+    .container {
+        background: #ffd700;
+        padding: 25px;
+
+        max-width: 100%;
+        width: 100%;
+        text-align: left;
+        margin: 0 auto 20px auto;
+        display: flex;
+        flex-direction: column;
+        border-radius: 12px;
+        box-shadow: 0 0 10px #000;
+    }
+
+    input {
+        width: 60px;
+        text-align: center;
+        border: 2px solid #444;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    .result,
+    .fork4 {
+        background: #cc0000;
+        color: yellow;
+        padding: 6px 10px;
+        margin: 2px;
+        display: inline-block;
+        font-weight: bold;
+        border-radius: 5px;
+        box-shadow: 1px 1px 3px #000;
+    }
+
+    h3 {
+        color: #000;
+
+        width: 100%;
+        padding: 0.5rem;
+        text-align: center;
+    }
+    h4,
+    h5 {
+        color: black;
+        margin: 5px;
+    }
+    .form-table {
+        display: flex;
+        flex-direction: row;
+        max-width: 100%;
+        width: 100%;
+        gap: 20px;
+        text-align: center;
+    }
+
+    table.gunbound-table {
+        background: #444;
+        border-collapse: collapse;
+        width: 90%;
+        max-width: 100%;
+        margin: auto;
+        border: 3px solid #999;
+        border-radius: 10px;
+        overflow: hidden;
+        word-wrap: break-word;
+    }
+
+    .gunbound-table th {
+        background-color: #222;
+        color: #ffd700;
+        padding: 10px;
+        border-bottom: 2px solid #888;
+        font-size: 16px;
+    }
+
+    .gunbound-table td {
+        padding: 10px;
+        color: #fff;
+        font-weight: bold;
+        border-bottom: 1px solid #666;
+    }
+
+    .gunbound-table td span {
+        font-size: 15px;
+    }
+
+    #selectedValue {
+        margin-top: 1rem;
+        font-size: 18px;
+        color: gold;
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2rem;
+        color: #0af;
+        margin-bottom: 1rem;
+    }
+
+    .ConTurtle {
+        background-color: #000000;
+        color: #eee;
+        border: 2px solid gold;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        width: 60%;
+        box-sizing: border-box;
+    }
+    .main-container {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        aspect-ratio: 1 / 1;
+    }
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .container {
+            width: 95%;
+            padding: 10px;
+        }
+        .ConTurtle {
+            width: 100%;
+            text-align: center;
+        }
+        .gunbound-table th,
+        .gunbound-table td {
+            font-size: 14px;
+            padding: 8px;
+        }
+
+        input {
+            width: 50px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+        }
+
+        #selectedValue {
+            font-size: 1rem;
+        }
+        .form-table {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            width: 100%;
+            padding: 8px;
+        }
+        .form-table {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+
+        label,
+        input {
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        .result,
+        .fork4 {
+            width: 100%;
+            text-align: center;
+        }
+
+        .gunbound-table {
+            font-size: 12px;
+        }
+    }
+</style>
+<script>
+    // Función auxiliar para redondear un número a 'decimals' decimales
+    const canvas = document.getElementById("dataCanvas") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d")!;
+    const selectedValue = document.getElementById("selectedValue")!;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const maxRadius = 250;
+
+    const values: number[] = [
+        0, -5, -10, -15, -20, -25, -30, -35, -40, -45, -50, -55, -60, -65, -70,
+        -75, -80, -85, -90, -95, -100, -105, -110, -120, -125, -130, -135, -140,
+        -145, -150, -155, -160, -165, -170, -175, 180, 175, 170, 165, 160, 155,
+        150, 145, 140, 135, 130, 125, 120, 115, 110, 105, 100, 90, 85, 80, 75,
+        70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5,
+    ];
+
+    interface Point {
+        x: number;
+        y: number;
+        value: number;
+    }
+    let points: Point[] = [];
+
+    function calcularAngulo(): void {
+        let distance = parseFloat(
+            (document.getElementById("distance") as HTMLInputElement).value,
+        );
+        let desnivel = parseFloat(
+            (document.getElementById("desnivel") as HTMLInputElement).value,
+        );
+        let fator = parseFloat(
+            (document.getElementById("fator") as HTMLInputElement).value,
+        );
+        let wind = parseFloat(
+            (document.getElementById("wind") as HTMLInputElement).value,
+        );
+        let angle = parseFloat(
+            (document.getElementById("angle") as HTMLInputElement).value,
+        );
+
+        const finalD74 = fator * (Math.PI / 180);
+        const D74 = Math.cos(finalD74) * wind;
+        const finalD75 = fator * (Math.PI / 180);
+        const D75 = Math.sin(finalD75) * wind;
+        const rAngle = angle * (Math.PI / 180);
+
+        const E74 = Math.cos(rAngle);
+        const E75 = Math.sin(rAngle);
+        const c72 = wind * wind * 0.02;
+        const C72 = 149 - c72;
+        const C71 = 0.73;
+        const C76 = distance / 3.75;
+        const B2 = distance / 3.75;
+        const r76 = (90 - angle) * (Math.PI / 180);
+        const C18 = desnivel;
+        const E76 = B2 - C18 * Math.atan(r76);
+        const D76 = D74 / C72;
+        const D77 = C71 - D75 / C72;
+        const E77 = Math.sqrt(
+            E76 / ((2 * E74 * E75) / D77 + (2 * D76 * E75 ** 2) / D77 ** 2),
+        );
+        const E78 = E77 * E74;
+        const E79 = E77 * E75;
+        const E80 = (2 * E79) / D77;
+        const E81 = E79 * ((E80 * 5) / 10) - 0.5 * D77 * ((E80 * 5) / 10) ** 2;
+        const C77 = C18 + ((D77 / 2) * E80 ** 2) / C76 - (D76 / 2) * E80 ** 2;
+        const C78 = Math.atan(C77) * (180 / Math.PI);
+        const rC74 = C78 * (Math.PI / 180);
+        const C74 = Math.cos(rC74);
+        const C75 = Math.sin(rC74);
+        const C79 = (B2 - 0.5 * D76 * E80 * E80) / (C74 * E80);
+        const C80 = C79 * C74;
+        const C81 = C79 * C75;
+        const Vo = C79.toFixed(2);
+
+        const D63 = 2.665;
+        const D67 = (C18 + (D77 / 2) * D63 ** 2) / (B2 - (D76 / 2) * D63 ** 2);
+        const D68 = Math.atan(D67) * (180 / Math.PI);
+        const rD64 = D68 * (Math.PI / 180);
+        const D64 = Math.cos(rD64);
+        const D65 = Math.sin(rD64);
+        const D69 = (B2 - 0.5 * D76 * D63 * D63) / (D64 * D63);
+        const AngleFork4 = D68.toFixed(2);
+        const PowerFork4 = D69.toFixed(2);
+
+        const f5D63 = 3.37;
+        const f5D67 =
+            (C18 + (D77 / 2) * f5D63 ** 2) / (B2 - (D76 / 2) * f5D63 ** 2);
+        const f5D68 = Math.atan(f5D67) * (180 / Math.PI);
+        const f5rD64 = f5D68 * (Math.PI / 180);
+        const f5D64 = Math.cos(f5rD64);
+        const f5D65 = Math.sin(f5rD64);
+        const f5D69 = (B2 - 0.5 * D76 * f5D63 * f5D63) / (f5D64 * f5D63);
+        const f5AngleFork4 = f5D68.toFixed(2);
+        const f5PowerFork4 = f5D69.toFixed(2);
+
+        const f6D63 = 4.24;
+        const f6D67 =
+            (C18 + (D77 / 2) * f6D63 ** 2) / (B2 - (D76 / 2) * f6D63 ** 2);
+        const f6D68 = Math.atan(f6D67) * (180 / Math.PI);
+        const f6rD64 = f6D68 * (Math.PI / 180);
+        const f6D64 = Math.cos(f6rD64);
+        const f7D65 = Math.sin(f6rD64);
+        const f6D69 = (B2 - 0.5 * D76 * f6D63 * f6D63) / (f6D64 * f6D63);
+        const f6AngleFork4 = f6D68.toFixed(2);
+        const f6PowerFork4 = f6D69.toFixed(2);
+
+        const cD63 = 6.18;
+        const cD67 =
+            (C18 + (D77 / 2) * cD63 ** 2) / (B2 - (D76 / 2) * cD63 ** 2);
+        const cD68 = Math.atan(cD67) * (180 / Math.PI);
+        const crD64 = cD68 * (Math.PI / 180);
+        const cD64 = Math.cos(crD64);
+        const cD65 = Math.sin(crD64);
+        const cD69 = (B2 - 0.5 * D76 * cD63 * cD63) / (cD64 * cD63);
+        const cAngleFork4 = cD68.toFixed(2);
+        const cPowerFork4 = cD69.toFixed(2);
+
+        const Dtime = (distance - 0.5) / 3.75;
+        const tD63 = 4.98;
+        const tD67 =
+            (C18 + (D77 / 2) * tD63 ** 2) / (Dtime - (D76 / 2) * tD63 ** 2);
+        const tD68 = Math.atan(tD67) * (180 / Math.PI);
+        const trD64 = tD68 * (Math.PI / 180);
+        const tD64 = Math.cos(trD64);
+        const tD65 = Math.sin(trD64);
+        const tD69 = (Dtime - 0.5 * D76 * tD63 * tD63) / (tD64 * tD63);
+        const timeAngleFork4 = tD68.toFixed(2);
+        const timePowerFork4 = tD69.toFixed(2);
+
+        const B8 = 390.0;
+        const B6 = 30.0;
+        const B9 = 0.254;
+        const B10 = 4.1;
+        const rE6 = angle * (Math.PI / 180);
+        const cosE6 = Math.cos(rE6);
+        const E14 = cosE6 === -1 ? 1 : cosE6;
+        const D14 = E14 === 1 ? wind : wind - 1;
+        const B14 = wind === 0 ? 0 : D14;
+        const D15 = fator * (Math.PI / 180);
+        let D16 = Math.cos(D15);
+        if (Math.abs(D16) < 1e-10) {
+            D16 = 0;
+        }
+        const D17 = Math.sin(D15);
+        const D18 = D16 * B14;
+        const D19 = D17 * B14;
+        const D20 = D18 / B9;
+        const D21 = B8 - D19 / B9;
+        const B18 = (800 / B6) * distance;
+        const B19 =
+            (0 + 0.5 * D21 * (B10 * B10)) / (B18 - 0.5 * D20 * B10 * B10);
+        const B20 = Math.atan(B19) * (180 / Math.PI);
+        const B15 = (B20 + 0.00001) * (Math.PI / 180);
+        const B16 = Math.cos(B15);
+        const B17 = Math.sin(B15);
+        const B21 = (B18 - 0.5 * D20 * B10 * B10) / (B16 * B10);
+        const B22 = B21 * B16;
+        const B23 = B21 * B17;
+        const AngleBoom = B20.toFixed(2);
+        const PowerBoom = (B21 * 0.004332712 - -0.32).toFixed(2);
+
+        // Mostrar resultados
+        (document.getElementById("angle") as HTMLInputElement).value =
+            angle.toString();
+        document.getElementById("value")!.textContent = Vo;
+        document.getElementById("fork4")!.textContent = AngleFork4;
+        document.getElementById("powerfork4")!.textContent = PowerFork4;
+        document.getElementById("fork5")!.textContent = f5AngleFork4;
+        document.getElementById("powerfork5")!.textContent = f5PowerFork4;
+        document.getElementById("fork6")!.textContent = f6AngleFork4;
+        document.getElementById("powerfork6")!.textContent = f6PowerFork4;
+        document.getElementById("cfork")!.textContent = cAngleFork4;
+        document.getElementById("cpowerfork")!.textContent = cPowerFork4;
+        document.getElementById("timefork")!.textContent = timeAngleFork4;
+        document.getElementById("timepowerfork")!.textContent = timePowerFork4;
+        document.getElementById("AngleBoom")!.textContent = AngleBoom;
+        document.getElementById("PowerBoom")!.textContent = PowerBoom;
+    }
+
+    const valueColors = values.map((v, i) => {
+        if (i % 2 === 0) return "yellow";
+        return i < 18 || (i >= 54 && i < 72) ? "green" : "red";
+    });
+
+    function drawCircularGraph(): void {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, maxRadius, 0, 2 * Math.PI);
+        ctx.strokeStyle = "gray";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        for (let i = 0; i < 72; i++) {
+            const angle = ((2 * Math.PI) / 72) * i;
+            const endX = centerX + maxRadius * Math.cos(angle);
+            const endY = centerY + maxRadius * Math.sin(angle);
+
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(endX, endY);
+            ctx.strokeStyle = i % 2 === 0 ? "white" : "blue";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        const totalPoints = values.length;
+        points = [];
+
+        for (let i = 0; i < totalPoints; i++) {
+            const angle = ((2 * Math.PI) / totalPoints) * i;
+            const distance = maxRadius + (i % 2 === 0 ? 20 : 40);
+            const x = centerX + distance * Math.cos(angle);
+            const y = centerY + distance * Math.sin(angle);
+
+            ctx.font = "16px Tahoma";
+            ctx.fillStyle = valueColors[i];
+            ctx.shadowColor = "black";
+            ctx.shadowBlur = 8;
+            ctx.textAlign = "center";
+            ctx.fillText(values[i].toString(), x, y);
+            points.push({ x, y, value: values[i] });
+        }
+
+        ctx.font = "20px Tahoma";
+        ctx.fillStyle = "#FFF";
+        ctx.textAlign = "center";
+        ctx.fillText("@ERVICLINARES", centerX, centerY);
+    }
+
+    drawCircularGraph();
+
+    canvas.addEventListener("click", function (event: MouseEvent) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+
+        const clickX = (event.clientX - rect.left) * scaleX;
+        const clickY = (event.clientY - rect.top) * scaleY;
+
+        for (const point of points) {
+            const dx = clickX - point.x;
+            const dy = clickY - point.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance <= 15) {
+                const valorSeleccionado = point.value;
+                selectedValue.innerHTML = `Valor seleccionado: ${point.value}`;
+                (document.getElementById("fator") as HTMLInputElement).value =
+                    point.value.toString();
+                calcularAngulo();
+                break;
+            }
+        }
+    });
+
+    document
+        .querySelectorAll<HTMLInputElement>(
+            "#distance, #desnivel, #fator, #wind, #angle",
+        )
+        .forEach((input) => {
+            input.addEventListener("change", calcularAngulo);
+        });
+</script>

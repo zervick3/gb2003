@@ -1,0 +1,26 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import App from "@/components/App";
+import Turtlenew from "@/components/gunbound/Turtlenew.astro";
+---
+
+<Layout title="GunBound 2003 - Turtle">
+    <Header />
+    <div class="main-content">
+        <Turtlenew />
+    </div>
+    <App client:load />
+
+    <Footer />
+</Layout>
+<style>
+    .main-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        padding: 2rem;
+    }
+</style>
