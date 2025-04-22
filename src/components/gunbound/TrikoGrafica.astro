@@ -1,0 +1,678 @@
+---
+
+---
+
+<div class="body">
+    <h2 class="float">GunBound 2004 - Triko GRAFICA</h2>
+    <div class="container">
+        <label
+            >Distance: <input
+                type="number"
+                id="distance"
+                value="4"
+                oninput="calcularAngulo()"
+            /></label
+        >
+        <label
+            >Desnivel: <input
+                type="number"
+                id="desnivel"
+                value="0"
+                oninput="calcularAngulo()"
+            /></label
+        >
+        <label
+            >Fator: <input
+                type="number"
+                id="fator"
+                value="90"
+                oninput="calcularAngulo()"
+            /></label
+        >
+        <label
+            >Wind: <input
+                type="number"
+                id="wind"
+                value="0"
+                oninput="calcularAngulo()"
+            /></label
+        >
+    </div>
+
+    <div class="tables-wrapper">
+        <div class="spin-box">
+            <h2>Derecha</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Spin</th>
+                        <th>Angle</th>
+                        <th>Power</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        ><td>1 Spin</td><td
+                            ><span class="result" id="spin1">---</span></td
+                        >
+                        <td><span class="result" id="power1">---</span></td></tr
+                    >
+
+                    <tr
+                        ><td>2 Spin</td><td
+                            ><span class="result" id="spin2">---</span></td
+                        ><td><span class="result" id="power2">---</span></td
+                        ></tr
+                    >
+                    <tr
+                        ><td>3 Spin</td><td
+                            ><span class="result" id="spin3">---</span></td
+                        ><td><span class="result" id="power3">---</span></td
+                        ></tr
+                    >
+                </tbody>
+            </table>
+        </div>
+
+        <div class="spin-box">
+            <h2>Izquierda</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Spin</th>
+                        <th>Angle</th>
+                        <th>Power</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        ><td>2 Spin</td><td
+                            ><span class="result" id="spin4">---</span></td
+                        ><td><span class="result" id="power4">---</span></td
+                        ></tr
+                    >
+                    <tr
+                        ><td>3 Spin</td><td
+                            ><span class="result" id="spin5">---</span></td
+                        ><td><span class="result" id="power5">---</span></td
+                        ></tr
+                    >
+                </tbody>
+            </table>
+        </div>
+
+        <div class="main-container">
+            <div id="selectedValue" hidden>
+                Haz clic en un valor de la gráfica
+            </div>
+            <canvas id="dataCanvas" width="700" height="700"></canvas>
+        </div>
+    </div>
+</div>
+<style>
+    .body {
+        background: #000;
+        font-family: "Trebuchet MS", sans-serif;
+        color: var(--text-color);
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        width: 65%;
+        border: 4px ridge var(--primary-color);
+        border-radius: 10px;
+    }
+    h2 {
+        color: var(--primary-color);
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .container {
+        background: #002244;
+        border: 4px ridge var(--primary-color);
+        border-radius: 15px;
+        padding: 20px;
+        width: 100%;
+        max-width: 360px;
+        box-shadow: 0 0 20px rgba(255, 223, 0, 0.9);
+    }
+    .main-containe {
+        width: 100%;
+        height: 100%;
+    }
+    canvas {
+        width: 100%;
+        height: 100%;
+    }
+    label {
+        display: block;
+        margin-bottom: 12px;
+        font-weight: bold;
+        color: var(--primary-color);
+        text-shadow: 1px 1px #000;
+    }
+
+    input[type="number"] {
+        width: 120px;
+        padding: 6px;
+        margin-left: 10px;
+        background: #000;
+        color: #0f0;
+        border: 2px inset #666;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    h3 {
+        color: var(--accent-color);
+        margin-top: 20px;
+        text-shadow: 1px 1px #000;
+    }
+
+    .result {
+        display: block;
+        font-size: 1.5em;
+        color: var(--secondary-color);
+        margin-top: 15px;
+        font-weight: bold;
+        text-shadow: 1px 1px #000;
+    }
+
+    .tables-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        width: 100%;
+        max-width: 800px;
+    }
+
+    .spin-box {
+        background: #001133;
+        border: 3px groove var(--accent-color);
+        border-radius: 12px;
+        padding: 15px;
+        flex: 1 1 250px;
+        box-shadow: 0 0 20px rgba(0, 204, 255, 0.4);
+    }
+
+    .spin-box h2 {
+        text-align: center;
+        color: var(--accent-color);
+        text-shadow: 1px 1px #000;
+        margin-bottom: 12px;
+        font-size: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        border: 2px solid var(--accent-color);
+        padding: 10px;
+        text-align: center;
+        color: #0ff;
+        background-color: #002244;
+        text-shadow: 1px 1px #000;
+    }
+
+    th {
+        background-color: #006699;
+        color: #fff;
+    }
+
+    @media (max-width: 600px) {
+        .container {
+            width: 90%;
+        }
+
+        .spin-box {
+            flex: 1 1 100%;
+        }
+    }
+</style>
+<script>
+    // Define una interfaz para la estructura de los puntos en el gráfico
+    interface Point {
+        x: number;
+        y: number;
+        value: number;
+    }
+
+    // Asegúrate de que el DOM esté cargado antes de ejecutar el script
+    // (Aunque no estaba explícito en el JS, es necesario para getElementById)
+
+    // --- Obtención de Elementos del DOM (Asumiendo que existen, como en el JS original) ---
+    const canvas = document.getElementById("dataCanvas") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d")!; // Usamos '!' para afirmar que no es null
+    const selectedValue = document.getElementById(
+        "selectedValue",
+    ) as HTMLElement;
+    const distanceInput = document.getElementById(
+        "distance",
+    ) as HTMLInputElement;
+    const desnivelInput = document.getElementById(
+        "desnivel",
+    ) as HTMLInputElement;
+    const fatorInput = document.getElementById("fator") as HTMLInputElement;
+    const windInput = document.getElementById("wind") as HTMLInputElement;
+    // const angleInput = document.getElementById('angle') as HTMLInputElement; // No se usa para lectura
+
+    const spin1Element = document.getElementById("spin1") as HTMLElement;
+    const power1Element = document.getElementById("power1") as HTMLElement;
+    const spin2Element = document.getElementById("spin2") as HTMLElement;
+    const power2Element = document.getElementById("power2") as HTMLElement;
+    const spin3Element = document.getElementById("spin3") as HTMLElement;
+    const power3Element = document.getElementById("power3") as HTMLElement;
+    const spin4Element = document.getElementById("spin4") as HTMLElement;
+    const power4Element = document.getElementById("power4") as HTMLElement;
+    const spin5Element = document.getElementById("spin5") as HTMLElement;
+    const power5Element = document.getElementById("power5") as HTMLElement;
+
+    // --- Variables Globales del Canvas ---
+    const centerX: number = canvas.width / 2;
+    const centerY: number = canvas.height / 2;
+    const maxRadius: number = 250;
+
+    // --- Datos ---
+    const values: number[] = [
+        0, -5, -10, -15, -20, -25, -30, -35, -40, -45, -50, -55, -60, -65, -70,
+        -75, -80, -85, -90, -95, -100, -105, -110, -120, -125, -130, -135, -140,
+        -145, -150, -155, -160, -165, -170, -175, 180, 175, 170, 165, 160, 155,
+        150, 145, 140, 135, 130, 125, 120, 115, 110, 105, 100, 90, 85, 80, 75,
+        70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5,
+    ];
+    let points: Point[] = [];
+    // let valorSeleccionado: number | null = null; // Declaración global no presente en el original JS, aunque se usa en el listener
+
+    // --- Tablas de Datos (Manteniendo formato y posibles errores del original) ---
+    // A59:A85 & B59:B85
+    const tablaA: number[] = [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 25, 26,
+    ];
+    const tablaB: number[] = [
+        0, 0, 1.1, 0.4, 3.5, 4.4, 5.1, 6.4, 7.4, 8.7, 9.5, 10.8, 11.9, 12.7,
+        13.8, 15.1, 15.8, 17.2, 18.3, 18.9, 20.4, 21.6, 22.5, 23.2, 24.8, 25.9,
+        26.5,
+    ];
+    // Q108: & R136
+    const tablaC: number[] = [
+        -1.5, -1, -0.5, 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5,
+        4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5,
+    ];
+    const tablaD: number[] = [
+        4.28, 4.28, 4.28, 4.28, 4.2, 4.1, 4, 3.8888, 3.86, 3.87, 3.75, 3.62789,
+        3.500389, 3.45816, 3.3, 3.20534, 3.0073, 2.6825, 2.59081, 2.52952,
+        2.50803, 2.470333, 2.45167, 2.4204, 2.41, 2.4, 2.4, 2.39, 2.39,
+    ];
+    // N104: & O141:
+    // Se usa 'any[]' aquí para permitir las comas dobles/valores vacíos del original sin error de TS
+    const tablaN: any[] = [
+        -5, -4, -3, -2, -1, 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6,
+        6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14,
+        14.5, 15, 15.5, 16,
+    ];
+    const tablaO: any[] = [
+        6.6, 6.64, 6.66, 6.68, 6.69899, 6.69899, 6.65289, 0.60801, 6.56905,
+        6.55108, 6.50744, 6.38468, 6.30844, 6.24688, 6.17333, 6.16468, 6.18695,
+        6.12046, 6.05818, 5.99844, 5.8769, 5.885, 5.8236064, 5.764310784,
+        5.703603415, 5.64105909, 5.626185, 5.6068233, 5.534493, 5.459355,
+        5.4754473, 5.487208323, 5.399736, 5.308666, 5.307422, 5.3023346,
+        5.293494, 5.28098,
+    ];
+    // H I
+    const tablaH: any[] = [
+        -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4,
+        4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12,
+        12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19,
+        19.5, 20,
+    ];
+    const tablaI: any[] = [
+        8.92, 8.96, 9.02, 9.02, 9.02, 9.05, 9.04, 9.03, 9.04, 9, 8.98, 8.96,
+        8.94, 8.92, 8.9, 8.88, 8.86, 8.84, 8.82, 8.81, 8.8, 8.795, 8.79, 8.78,
+        8.77, 8.7666, 8.71, 8.67051, 8.62, 8.58586, 8.54, 8.50815, 8.53,
+        8.56401, 8.46, 8.3628, 8.32, 82917, 8.25, 8.22016, 8.18, 8.14727, 8.095,
+        8.05, 8, 7.96, 7.91, 7.86, 7.81, 7.76,
+    ];
+    // F G
+    const tablaF: any[] = [
+        -4, -3, -2, -1, 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5,
+        7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14,
+        14.5, 15,
+    ];
+    const tablaG: any[] = [
+        5.22, 5.32, 5.36, 5.37, 5.36554, 5.345, 5.32408, 5.27, 5.22562, 5.16,
+        5.1, 5.04, 4.99589, 4.86, 4.74591, 4.7, 4.65, 4.6, 4.55, 4.5, 4.45449,
+        4.35, 4.25304, 4.17, 4.09529, 4.03, 3.97883, 3.934, 3.90931, 3.865,
+        3.83, 3.8, 3.77278, 3.73, 3.7,
+    ];
+    // K L
+    const tablaK: any[] = [
+        -6, -5, -4, -3, -2, -1, 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5,
+        6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5,
+        14, 14.5, 15, 15.5, 16,
+    ];
+    const tablaL: any[] = [
+        7.842, 7.882, 7.902, 7.93, 7.96, 7.962, 7.962, 7.89699, 7.87776, 7.8635,
+        7.85416, 7.83209, 7.80325, 7.76773, 7.73418, 7.70346, 7.67264, 7.63833,
+        7.59268, 7.54847518, 7.493191, 7.442112, 7.406418668, 0.32896, 7.3038,
+        7.2517, 7.2053399, 7.18698, 7.166716, 7.159454, 7.152, 0.1371, 7.108608,
+        7.078348, 7.033237, 6.935934, 6.827754, 6.780937, 6.772,
+    ];
+
+    // --- Funciones de Consulta (replicando las originales) ---
+    // Se usa 'any' para los tipos de retorno para reflejar que el original no manejaba el 'null' explícitamente en los cálculos
+    function consultarV(c5: number, tablaA: number[], tablaB: number[]): any {
+        for (let i = 0; i < tablaA.length; i++) {
+            // Usar '==' en lugar de '===' si se quiere replicar posible coerción de tipos del JS original
+            if (tablaA[i] === c5) {
+                return tablaB[i];
+            }
+        }
+        return null; // Aunque el original no lo manejaba, la función debe retornar algo
+    }
+
+    function consultarQ(q5: number, tablaC: number[], tablaD: number[]): any {
+        for (let i = 0; i < tablaC.length; i++) {
+            if (tablaC[i] === q5) {
+                return tablaD[i];
+            }
+        }
+        return null;
+    }
+
+    // Se usa any[] para las tablas con comas dobles para evitar errores TS
+    function consultarN(q5: number, tablaN: any[], tablaO: any[]): any {
+        for (let i = 0; i < tablaN.length; i++) {
+            // Saltar indices vacíos creados por comas dobles/iniciales si existen
+            if (tablaN[i] === undefined) continue;
+            if (tablaN[i] === q5) {
+                // Asegurarse que el índice correspondiente en tablaO existe
+                return i < tablaO.length ? tablaO[i] : null;
+            }
+        }
+        return null;
+    }
+
+    function consultarH(q5: number, tablaH: any[], tablaI: any[]): any {
+        for (let i = 0; i < tablaH.length; i++) {
+            if (tablaH[i] === undefined) continue;
+            if (tablaH[i] === q5) {
+                return i < tablaI.length ? tablaI[i] : null;
+            }
+        }
+        return null;
+    }
+
+    function consultarF(q5: number, tablaF: any[], tablaG: any[]): any {
+        for (let i = 0; i < tablaF.length; i++) {
+            if (tablaF[i] === undefined) continue;
+            if (tablaF[i] === q5) {
+                return i < tablaG.length ? tablaG[i] : null;
+            }
+        }
+        return null;
+    }
+
+    function consultark(q5: number, tablaK: any[], tablaL: any[]): any {
+        for (let i = 0; i < tablaK.length; i++) {
+            if (tablaK[i] === undefined) continue;
+            if (tablaK[i] === q5) {
+                return i < tablaL.length ? tablaL[i] : null;
+            }
+        }
+        return null;
+    }
+
+    // --- Función Principal de Cálculo (Lógica Original) ---
+    function calcularAngulo(): void {
+        // 1. Obtener los valores de entrada
+        let distance: number = parseFloat(distanceInput.value);
+        let desnivel: number = parseFloat(desnivelInput.value);
+        let fator: number = parseFloat(fatorInput.value);
+        let wind: number = parseFloat(windInput.value);
+        // let angle = parseFloat(angleInput.value); // No se usa
+
+        // --- Consultas (Asumiendo que no devuelven null y usando 'any' para evitar errores TS donde el original fallaría) ---
+        const c5: number = wind;
+        const C67: any = consultarV(c5, tablaA, tablaB); // Se mantiene 'any'
+
+        const q5: number = distance;
+        const AM128: any = consultarQ(q5, tablaC, tablaD);
+        const AM129: any = consultarN(q5, tablaN, tablaO);
+        const AM131: any = consultarH(q5, tablaH, tablaI);
+        const AM132: any = consultarF(q5, tablaF, tablaG);
+        const AM130: any = consultark(q5, tablaK, tablaL);
+
+        // --- Cálculos (Replicando variables y fórmulas originales) ---
+        // Se asume que las variables anteriores (C67, AM*) no son null aquí, como en el JS original
+        const C4: number = fator;
+        const C3: number = desnivel;
+        const AL114: number = 124; // masa
+        const AL113: number = 0.835; // Gravedad
+        const AL117: number = distance; // distancia <-
+
+        const rAM119: number = C4 * (Math.PI / 180); // Ángulo C4 en radianes
+        const AM118: number = Math.cos(rAM119) * C67;
+        const AM119: number = Math.sin(rAM119) * C67;
+        const AM120: number = AM118 / AL114;
+        const AM121: number = AL113 - AM119 / AL114;
+
+        // --- 1SPIN Derecha (Lógica Original) ---
+        const AL118_num: number = C3 + (AM121 / 2) * AM128 ** 2;
+        const AL118_den: number = AL117 - (AM120 / 2) * AM128 ** 2;
+        const AL118: number = AL118_num / AL118_den; // tan(ángulo) - Puede ser NaN o Infinity si el den es 0
+        const AL119: number = Math.atan(AL118) * (180 / Math.PI); // a
+        const rAL119: number = AL119 * (Math.PI / 180);
+        const AL115: number = Math.cos(rAL119);
+        // const AL116: number = Math.sin(rAL119); // No usado para AL120
+        const AL120_num: number = AL117 - 0.5 * AM120 * AM128 * AM128;
+        const AL120_den: number = AL115 * AM128;
+        const AL120: number = AL120_num / AL120_den; // Vo - Puede ser NaN o Infinity
+
+        // Usar || 'NaN' por si toFixed falla con NaN/Infinity
+        const spin1Angle: string = AL119.toFixed(2) || "NaN";
+        const spin1Power: string = AL120.toFixed(2) || "NaN";
+
+        // --- 2SPIN Derecha (Lógica Original) ---
+        const AP118_num: number = C3 + (AM121 / 2) * AM129 ** 2;
+        const AP118_den: number = AL117 - (AM120 / 2) * AM129 ** 2;
+        const AP118: number = AP118_num / AP118_den; // tan(ángulo)
+        const AP119: number = Math.atan(AP118) * (180 / Math.PI); // a
+        const rAP115: number = AP119 * (Math.PI / 180); // rAP115 era el nombre en JS para rAP119
+        const AP115_val: number = Math.cos(rAP115); // Renombrada AP115 en JS
+        // const AP116: number = Math.sin(rAP115); // No usado para AP120
+        const AP120_num: number = AL117 - 0.5 * AM120 * AM129 * AM129;
+        const AP120_den: number = AP115_val * AM129;
+        const AP120_val: number = AP120_num / AP120_den; // vo - Renombrada AP120 en JS
+        // const AP121 = AP120_val*AP115_val; // VoX - Calculado pero no usado
+        // const AP122 = AP120_val*AP116; // Voy - Calculado pero no usado
+
+        const spin2Angle: string = AP119.toFixed(2) || "NaN";
+        const spin2Power: string = AP120_val.toFixed(2) || "NaN";
+
+        // --- 3SPIN Derecha (Lógica Original) ---
+        const AP128_num: number = C3 + (AM121 / 2) * AM131 ** 2;
+        const AP128_den: number = AL117 - (AM120 / 2) * AM131 ** 2;
+        const AP128_val: number = AP128_num / AP128_den; // Renombrada AP128 en JS
+        const AP129: number = Math.atan(AP128_val) * (180 / Math.PI); // a
+        const rAP125: number = AP129 * (Math.PI / 180); // rAP125 era el nombre en JS
+        const AP125_val: number = Math.cos(rAP125); // Renombrada AP125 en JS
+        // const AP126: number = Math.sin(rAP125); // No usado para AP130
+        const AP130_num: number = AL117 - 0.5 * AM120 * AM131 * AM131;
+        const AP130_den: number = AP125_val * AM131;
+        const AP130: number = AP130_num / AP130_den; // vo
+
+        const spin3Angle: string = AP129.toFixed(2) || "NaN";
+        const spin3Power: string = AP130.toFixed(2) || "NaN";
+
+        // --- 2SPIN Izquierda (Lógica Original) ---
+        const AP138_num: number = C3 + (AM121 / 2) * AM132 ** 2;
+        const AP138_den: number = AL117 - (AM120 / 2) * AM132 ** 2;
+        const AP138: number = AP138_num / AP138_den; // tan(ángulo)
+        const AP139: number = Math.atan(AP138) * (180 / Math.PI); // a
+        const rAP135: number = AP139 * (Math.PI / 180); // rAP135 era el nombre en JS
+        const AP135_val: number = Math.cos(rAP135); // Renombrada AP135 en JS
+        // const AP136: number = Math.sin(rAP135); // No usado para AP140
+        const AP140_num: number = AL117 - 0.5 * AM120 * AM132 * AM132;
+        const AP140_den: number = AP135_val * AM132;
+        const AP140: number = AP140_num / AP140_den; // vo
+
+        const spin2AngleIzq: string = AP139.toFixed(2) || "NaN";
+        const spin2PowerIzq: string = (AP140 * 0.99).toFixed(2) || "NaN"; // Factor 0.99 original
+
+        // --- 3SPIN Izquierda (Lógica Original) ---
+        const AS118_num: number = C3 + (AM121 / 2) * AM130 ** 2;
+        const AS118_den: number = AL117 - (AM120 / 2) * AM130 ** 2;
+        const AS118: number = AS118_num / AS118_den; // tan(ángulo)
+        const AS119: number = Math.atan(AS118) * (180 / Math.PI); // a
+        const rAS115: number = AS119 * (Math.PI / 180); // rAS115 era el nombre en JS
+        const AS115_val: number = Math.cos(rAS115); // Renombrada AS115 en JS
+        // const AS116: number = Math.sin(rAS115); // No usado para AS120
+        const AS120_num: number = AL117 - 0.5 * AM120 * AM130 * AM130;
+        const AS120_den: number = AS115_val * AM130;
+        const AS120_val: number = AS120_num / AS120_den; // vo - Renombrada AS120 en JS
+
+        const spin3AngleIzq: string = AS119.toFixed(2) || "NaN";
+        const spin3PowerIzq: string = AS120_val.toFixed(2) || "NaN";
+
+        // Mostrar valores intermedios (como en el original)
+        // console.log("AP118:", AP118); // Muestra el tan(angle)
+
+        // --- Actualizar la Interfaz de Usuario ---
+        spin1Element.textContent = spin1Angle;
+        power1Element.textContent = spin1Power;
+        spin2Element.textContent = spin2Angle;
+        power2Element.textContent = spin2Power;
+        spin3Element.textContent = spin3Angle;
+        power3Element.textContent = spin3Power;
+        spin4Element.textContent = spin2AngleIzq;
+        power4Element.textContent = spin2PowerIzq;
+        spin5Element.textContent = spin3AngleIzq;
+        power5Element.textContent = spin3PowerIzq;
+
+        // No se actualizaba el input 'angle' en el original
+        // if (angleInput) angleInput.value = someValue;
+    }
+
+    // --- Colores para el Gráfico (Lógica Original) ---
+    const valueColors: string[] = values.map((v, i) => {
+        if (i % 2 === 0) return "yellow";
+        // Esta era la lógica original:
+        return i < 18 || (i >= 54 && i < 72) ? "green" : "red";
+    });
+
+    // --- Función para Dibujar el Gráfico Circular (Lógica Original) ---
+    function drawCircularGraph(): void {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Círculo exterior
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, maxRadius, 0, 2 * Math.PI);
+        ctx.strokeStyle = "gray";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Líneas radiales (72 segmentos)
+        for (let i = 0; i < 72; i++) {
+            const angle: number = ((2 * Math.PI) / 72) * i; // Sin ajuste
+            const endX: number = centerX + maxRadius * Math.cos(angle);
+            const endY: number = centerY + maxRadius * Math.sin(angle);
+
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(endX, endY);
+            ctx.strokeStyle = i % 2 === 0 ? "white" : "blue"; // Colores originales
+            ctx.lineWidth = 2; // Grosor original
+            ctx.stroke();
+        }
+
+        const totalPoints = values.length;
+        points = []; // Reinicia array
+
+        // Dibuja los números y guarda posiciones
+        for (let i = 0; i < totalPoints; i++) {
+            const angle: number = ((2 * Math.PI) / totalPoints) * i; // Sin ajuste
+            const distance: number = maxRadius + (i % 2 === 0 ? 20 : 40); // Distancia original
+            const x: number = centerX + distance * Math.cos(angle);
+            const y: number = centerY + distance * Math.sin(angle);
+
+            ctx.font = "16px Tahoma";
+            ctx.fillStyle = valueColors[i]; // Color original
+            ctx.shadowColor = "black";
+            ctx.shadowBlur = 8; // Blur original
+            ctx.textAlign = "center";
+            // ctx.textBaseline = 'middle'; // No especificado en original
+            // Usar toString() por si el valor es undefined/null en las tablas con errores
+            ctx.fillText(values[i]?.toString() ?? "", x, y);
+            points.push({ x, y, value: values[i] });
+        }
+        // Reset shadow
+        ctx.shadowColor = "transparent";
+        ctx.shadowBlur = 0;
+
+        // Texto central
+        ctx.font = "20px Tahoma";
+        ctx.fillStyle = "#FFF";
+        ctx.textAlign = "center";
+        // ctx.textBaseline = 'middle'; // No especificado en original
+        ctx.fillText("@ERVICLINARES", centerX, centerY);
+    }
+
+    // --- Dibujo Inicial y Event Listeners (Originales) ---
+
+    drawCircularGraph(); // Dibujo inicial
+
+    // Listener de clic (Lógica Original)
+    canvas.addEventListener("click", (event: MouseEvent) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+
+        const clickX = (event.clientX - rect.left) * scaleX;
+        const clickY = (event.clientY - rect.top) * scaleY;
+
+        for (const point of points) {
+            // Saltar si el punto no tiene valor (podría pasar por los errores en tablas)
+            if (point.value === undefined || point.value === null) continue;
+
+            const dx = clickX - point.x;
+            const dy = clickY - point.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance <= 15) {
+                // Condición original
+                // valorSeleccionado = point.value; // 'valorSeleccionado' no declarado globalmente
+                selectedValue.innerText = `Valor seleccionado: ${point.value}`;
+
+                // Auto set valor en el input 'fator'
+                fatorInput.value = point.value.toString();
+                calcularAngulo();
+                break; // break original
+            }
+        }
+    });
+
+    // Listeners para cambios en los inputs (Solo 'change' como en el original)
+    ["distance", "desnivel", "fator", "wind", "angle"].forEach((id) => {
+        const input = document.getElementById(id) as HTMLInputElement | null;
+        if (input) {
+            input.addEventListener("input", calcularAngulo);
+        }
+    });
+
+    // Llamada inicial para calcular con los valores por defecto (si los hay)
+    // (No presente explícitamente en el original, pero útil)
+    // calcularAngulo();
+    // Fin del DOMContentLoaded listener
+</script>

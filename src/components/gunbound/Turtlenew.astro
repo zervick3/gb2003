@@ -3,6 +3,7 @@
 ---
 
 <div class="ConTurtle">
+    <h2 class="float">GunBound 2004 - Turtle GRAFICA</h2>
     <div class="form-table">
         <div class="container">
             <h3>
@@ -108,7 +109,13 @@
         border-radius: 12px;
         box-shadow: 0 0 10px #000;
     }
-
+    h2 {
+        color: var(--primary-color);
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
     input {
         width: 60px;
         text-align: center;
@@ -202,7 +209,7 @@
         flex-direction: column;
         align-items: center;
         padding: 2rem;
-        width: 60%;
+        width: 80%;
         box-sizing: border-box;
     }
     .main-container {
@@ -539,11 +546,10 @@
         }
     });
 
-    document
-        .querySelectorAll<HTMLInputElement>(
-            "#distance, #desnivel, #fator, #wind, #angle",
-        )
-        .forEach((input) => {
-            input.addEventListener("change", calcularAngulo);
-        });
+    ["distance", "desnivel", "fator", "wind", "angle"].forEach((id) => {
+        const input = document.getElementById(id) as HTMLInputElement | null;
+        if (input) {
+            input.addEventListener("input", calcularAngulo);
+        }
+    });
 </script>

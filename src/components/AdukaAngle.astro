@@ -3,6 +3,7 @@
 ---
 
 <div class="main-container">
+    <h2 class="float">GunBound 2004 - Triko GRAFICA</h2>
     <h4 id="selectedValue" hidden>Valor seleccionado: Ninguno</h4>
     <canvas id="dataCanvas" width="800" height="800"></canvas>
 
@@ -248,7 +249,16 @@
         position: relative;
         overflow: hidden;
     }
-
+    h2 {
+        position: relative;
+        top: 40px;
+        color: var(--primary-color);
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        z-index: 5;
+    }
     .container::before {
         content: "";
         position: absolute;
