@@ -4,6 +4,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import App from "@/components/App";
 import Turtlenew from "@/components/gunbound/Turtlenew.astro";
+import CardAvatares from "@/components/CardAvatares.astro";
 ---
 
 <Layout title="GunBound 2003 - Turtle">
@@ -11,6 +12,8 @@ import Turtlenew from "@/components/gunbound/Turtlenew.astro";
     <div class="main-content">
         <Turtlenew />
     </div>
+    <CardAvatares />
+    
     <App client:load />
 
     <Footer />

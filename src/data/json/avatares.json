@@ -1,0 +1,79 @@
+ [
+    {
+        "id": 1,                                                                                
+        "name": "Snowman CosTume",
+        "image": "./public/avatares/img1.gif"
+    },
+    {
+        "id": 2,                                                                                
+        "name": "PiPi",
+        "image": "./public/avatares/avatar_01.png"
+    },
+    {
+        "id": 3,                                                                                
+        "name": "09 GrandPrix Rank1",
+        "image": "./public/avatares/avatar_02.png"
+    },
+    {
+        "id": 4,                                                                                
+        "name": "09 GrandPrix Rank2",
+        "image": "./public/avatares/avatar_03.png"
+    },
+    {
+        "id": 5,                                                                                
+        "name": "09 GrandPrix Rank3",
+        "image": "./public/avatares/avatar_04.png"
+    },
+    {
+        "id": 6,                                                                                
+        "name": "Antenna",
+        "image": "./public/avatares/avatar_05.png"
+    },
+    {
+        "id": 7,                                                                                
+        "name": "Teletuby",
+        "image": "./public/avatares/avatar_06.png"
+    },
+    {
+        "id": 8,                                                                                
+        "name": "Nyx Hunter",
+        "image": "./public/avatares/avatar_07.png"
+    },
+    {
+        "id": 9,                                                                                
+        "name": "Postbox",
+        "image": "./public/avatares/avatar_08.png"
+    },
+    {
+        "id": 10,                                                                               
+        "name": "Birthday Cake",
+        "image": "./public/avatares/avatar_09.png"
+    },
+    {
+        "id": 11,                                                                               
+        "name": "Happy Stick",
+        "image": "./public/avatares/avatar_10.png"
+    },
+    {
+        "id": 12,                                                                               
+        "name": "Judge Balance",
+        "image": "./public/avatares/avatar_11.png"
+    },
+    {
+        "id": 13,                                                                               
+        "name": "Rudolf",
+        "image": "./public/avatares/avatar_12.png"
+    },
+    {
+        "id": 14,                                                                               
+        "name": "Crusader",
+        "image": "./public/avatares/avatar_13.png"
+    },
+    {
+        "id": 15,                                                                               
+        "name": "Witch Broom",
+        "image": "./public/avatares/avatar_14.png"
+    }
+    
+    
+]

@@ -2,12 +2,13 @@
 
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
-import GunboundForm from "@/components/gunbound/GunboundForm.astro";
+
 
 import Footer from "@/components/Footer.astro";
 import Triko from "@/pages/Triko/index.astro"
 
 import App from "@/components/App";
+import CardAvatares from "@/components/CardAvatares.astro";
 
 ---
 
@@ -16,7 +17,9 @@ import App from "@/components/App";
     <div class="main-content">
         <Triko />
         
+
     </div>
+    <CardAvatares />
     <App client:load />
 
     <Footer />

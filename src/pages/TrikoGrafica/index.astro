@@ -4,6 +4,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import App from "@/components/App";
 import TrikoGrafica from "@/components/gunbound/TrikoGrafica.astro";
+import CardAvatares from "@/components/CardAvatares.astro";
 ---
 
 <Layout title="GunBound 2003 - Turtle">
@@ -11,6 +12,7 @@ import TrikoGrafica from "@/components/gunbound/TrikoGrafica.astro";
     <div class="main-content">
         <TrikoGrafica />
     </div>
+    <CardAvatares/>
     <App client:load />
 
     <Footer />
