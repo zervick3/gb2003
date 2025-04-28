@@ -2,7 +2,7 @@
     {
         "id": 1,                                                                                
         "name": "Snowman CosTume",
-        "image": "../public/avatares/img1.gif"
+        "image": "./public/avatares/img1.gif"
     },
     {
         "id": 2,                                                                                
