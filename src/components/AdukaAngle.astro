@@ -2,58 +2,292 @@
 
 ---
 
-<div class="main-container">
-    <h2 class="float">GunBound 2004 - Triko GRAFICA</h2>
-    <h4 id="selectedValue" hidden>Valor seleccionado: Ninguno</h4>
-    <canvas id="dataCanvas" width="800" height="800"></canvas>
+<div class="aduka-container">
+    <div class="header-section">
+        <h2 class="title">GunBound 2004 - Aduka Calculator</h2>
+        <p class="subtitle">Calculadora de ángulos para Aduka/JD/GRUD</p>
+    </div>
 
-    <div class="form-centered">
-        <label
-            >Distance
-            <input
-                type="number"
-                id="distance"
-                value="15"
-                oninput="calcularAngulo()"
-            />
-        </label>
-        <label
-            >Desnivel
-            <input
-                type="number"
-                id="desnivel"
-                value="0"
-                oninput="calcularAngulo()"
-            />
-        </label>
-        <label
-            >Fator
-            <input
-                type="number"
-                id="fator"
-                value="0"
-                oninput="calcularAngulo()"
-            />
-        </label>
-        <label
-            >Wind
-            <input
-                type="number"
-                id="wind"
-                value="0"
-                oninput="calcularAngulo()"
-            />
-        </label>
-        <label style="grid-column: span 2;"
-            >Angle
-            <input
-                type="number"
-                id="angle"
-                value="70"
-                oninput="calcularAngulo()"
-            />
-        </label>
-        <div class="result" id="value">---</div>
+    <div class="calculator-section">
+        <div class="form-container">
+            <div class="form-group">
+                <label for="distance">Distancia</label>
+                <input
+                    type="number"
+                    id="distance"
+                    value="15"
+                    placeholder="Ingrese distancia"
+                    oninput="calcularAngulo()"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="desnivel">Desnivel</label>
+                <input
+                    type="number"
+                    id="desnivel"
+                    value="0"
+                    placeholder="Ingrese desnivel"
+                    oninput="calcularAngulo()"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="fator">Fator</label>
+                <div class="fator-input-group">
+                    <input
+                        type="number"
+                        id="fator"
+                        value="0"
+                        placeholder="Ingrese fator"
+                        oninput="calcularAngulo()"
+                    />
+                    <button
+                        class="fator-graph-button"
+                        onclick="openGraphModal()"
+                        title="Abrir gráfica de factores"
+                    >
+                        📊
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="wind">Viento</label>
+                <input
+                    type="number"
+                    id="wind"
+                    value="0"
+                    placeholder="Ingrese viento"
+                    oninput="calcularAngulo()"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="angle">Ángulo</label>
+                <input
+                    type="number"
+                    id="angle"
+                    value="70"
+                    placeholder="Ingrese ángulo"
+                    oninput="calcularAngulo()"
+                />
+            </div>
+        </div>
+
+        <div class="result-section">
+            <div class="result-display">
+                <h3>Velocidad Inicial</h3>
+                <div class="result-value" id="value">---</div>
+            </div>
+
+            <button class="graph-button" onclick="openGraphModal()">
+                <span class="button-icon">📊</span>
+                Ver Gráfica Circular
+            </button>
+        </div>
+    </div>
+
+    <!-- Sección de Comunicado -->
+    <div class="comunicado-section">
+        <div class="comunicado-content">
+            <div class="comunicado-icon">📢</div>
+            <div class="comunicado-text">
+                <h3>¿Quieres el Excel completo de todos los carros?</h3>
+                <p>
+                    Si deseas obtener el archivo Excel con todos los cálculos y
+                    datos de GunBound, contáctanos:
+                </p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <span class="contact-text">
+                            <strong>Email:</strong>
+                            <a
+                                href="mailto:excelgunboundggh@gmail.com"
+                                class="contact-link"
+                                >excelgunboundggh@gmail.com</a
+                            >
+                        </span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📱</span>
+                        <span class="contact-text">
+                            <strong>WhatsApp:</strong>
+                            <a
+                                href="https://wa.me/51918968939"
+                                class="contact-link"
+                                target="_blank">+51 918 968 939</a
+                            >
+                        </span>
+                    </div>
+                </div>
+                <p class="comunicado-note">
+                    Te enviaremos el link de descarga directamente a tu correo o
+                    WhatsApp.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de App Móvil -->
+    <div class="app-section">
+        <div class="app-header">
+            <h2>📱 App Móvil GunBound</h2>
+            <p>
+                Descarga nuestra aplicación móvil para tener todas las
+                calculadoras de GunBound en tu dispositivo
+            </p>
+        </div>
+
+        <div class="app-content">
+            <div class="app-preview">
+                <div class="app-screenshots">
+                    <img
+                        src="/appmovil/parte30.png"
+                        alt="División de pantalla de la app"
+                        class="main-screenshot"
+                    />
+                    <div class="screenshot-grid">
+                        <img
+                            src="/appmovil/2233_resized_2.png"
+                            alt="Screenshot de la app"
+                            class="screenshot"
+                        />
+                        <img
+                            src="/appmovil/aaaaa (1).png"
+                            alt="Screenshot de la app"
+                            class="screenshot"
+                        />
+                        <img
+                            src="/appmovil/2233_resized.png"
+                            alt="Screenshot de la app"
+                            class="screenshot"
+                        />
+                        <img
+                            src="/appmovil/bbbb.png"
+                            alt="Screenshot de la app"
+                            class="screenshot"
+                        />
+                        <img
+                            src="/appmovil/primera (1).png"
+                            alt="Screenshot de la app"
+                            class="screenshot"
+                        />
+                        <img
+                            src="/appmovil/4342.PNG"
+                            alt="Screenshot de la app"
+                            class="screenshot"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="app-info">
+                <div class="app-features">
+                    <h3>✨ Características de la App</h3>
+                    <ul>
+                        <li>
+                            📊 <strong>Calculadoras completas</strong> para todos
+                            los carros
+                        </li>
+                        <li>
+                            🎯 <strong>Gráficas interactivas</strong> para selección
+                            de factores
+                        </li>
+                        <li>
+                            📱 <strong>Interfaz optimizada</strong> para móviles
+                        </li>
+                        <li>
+                            ⚡ <strong>Cálculos instantáneos</strong> sin conexión
+                        </li>
+                        <li>
+                            🎮 <strong>Datos actualizados</strong> de GunBound 2004
+                        </li>
+                        <li>
+                            💾 <strong>Funciona offline</strong> - sin internet necesario
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="app-download">
+                    <h3>📥 Descarga la App</h3>
+                    <p>
+                        Obtén acceso completo a todas las calculadoras de
+                        GunBound en tu dispositivo móvil
+                    </p>
+                    <div class="download-options">
+                        <div class="download-option">
+                            <span class="download-icon">📧</span>
+                            <span
+                                >Envía un email a: <strong
+                                    >excelgunboundggh@gmail.com</strong
+                                ></span
+                            >
+                        </div>
+                        <div class="download-option">
+                            <span class="download-icon">📱</span>
+                            <span
+                                >WhatsApp: <strong>+51 918 968 939</strong
+                                ></span
+                            >
+                        </div>
+                    </div>
+                    <p class="download-note">
+                        Te enviaremos el link de descarga directo para Android
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para la gráfica -->
+    <div id="graphModal" class="modal-overlay" onclick="closeGraphModal(event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Gráfica Circular - Factores</h3>
+                <button class="modal-close" onclick="closeGraphModal()"
+                    >&times;</button
+                >
+            </div>
+            <div class="modal-body">
+                <canvas id="dataCanvas" width="800" height="800"></canvas>
+                <div class="graph-info">
+                    <p id="selectedValue">
+                        Haz clic en un valor para seleccionarlo
+                    </p>
+                    <div class="graph-legend">
+                        <div class="legend-item">
+                            <span class="legend-color yellow"></span>
+                            <span>Valores pares</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color green"></span>
+                            <span>Valores verdes</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color red"></span>
+                            <span>Valores rojos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para imágenes de la app -->
+    <div id="imageModal" class="modal-overlay" onclick="closeImageModal(event)">
+        <div class="image-modal-content">
+            <div class="image-modal-header">
+                <h3>Vista Ampliada</h3>
+                <button class="modal-close" onclick="closeImageModal()"
+                    >&times;</button
+                >
+            </div>
+            <div class="image-modal-body">
+                <img id="modalImage" src="" alt="Screenshot de la app" />
+            </div>
+        </div>
     </div>
 </div>
 
@@ -195,8 +429,26 @@
         }
     }
 
-    // Exponer la función para que funcione si usás oninput en HTML
+    function openGraphModal(): void {
+        const modal = document.getElementById("graphModal") as HTMLElement;
+        if (modal) {
+            modal.style.display = "flex";
+            drawCircularGraph();
+        }
+    }
+
+    function closeGraphModal(event?: Event): void {
+        if (event && event.target !== event.currentTarget) return;
+        const modal = document.getElementById("graphModal") as HTMLElement;
+        if (modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Exponer funciones globalmente
     (window as any).calcularAngulo = calcularAngulo;
+    (window as any).openGraphModal = openGraphModal;
+    (window as any).closeGraphModal = closeGraphModal;
 
     // Listeners automáticos para inputs
     ["distance", "desnivel", "fator", "wind", "angle"].forEach((id) => {
@@ -205,9 +457,6 @@
             input.addEventListener("input", calcularAngulo);
         }
     });
-
-    // Dibujar la gráfica circular
-    drawCircularGraph();
 
     // Manejo del click en el canvas
     canvas.addEventListener("click", (event: MouseEvent) => {
@@ -228,314 +477,924 @@
                 ) as HTMLInputElement;
                 fatorInput.value = point.value.toString();
                 calcularAngulo();
+                // Cerrar el modal automáticamente después de seleccionar un valor
+                setTimeout(() => {
+                    closeGraphModal();
+                }, 300); // Pequeño delay para que el usuario vea el valor seleccionado
                 break;
             }
         }
     });
 
-    // Redibuja al cambiar tamaño
-    window.addEventListener("resize", drawCircularGraph);
+    // Cerrar modal con Escape
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            closeGraphModal();
+            closeImageModal();
+        }
+    });
+
+    // Event listeners para las imágenes de la app
+    document.addEventListener("DOMContentLoaded", () => {
+        const images = document.querySelectorAll(
+            ".screenshot, .main-screenshot",
+        );
+        images.forEach((img) => {
+            img.addEventListener("click", () => {
+                openImageModal((img as HTMLImageElement).src);
+            });
+        });
+    });
+
+    function openImageModal(imageSrc: string): void {
+        const modal = document.getElementById("imageModal") as HTMLElement;
+        const modalImage = document.getElementById(
+            "modalImage",
+        ) as HTMLImageElement;
+        if (modal && modalImage) {
+            modalImage.src = imageSrc;
+            modal.style.display = "flex";
+        }
+    }
+
+    function closeImageModal(event?: Event): void {
+        if (event && event.target !== event.currentTarget) return;
+        const modal = document.getElementById("imageModal") as HTMLElement;
+        if (modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Exponer funciones globalmente
+    (window as any).openImageModal = openImageModal;
+    (window as any).closeImageModal = closeImageModal;
+
+    // Calcular inicial
+    calcularAngulo();
 </script>
 
 <style>
-    .container {
-        background: linear-gradient(135deg, var(--bg-color), #002040);
+    .aduka-container {
+        max-width: 1200px;
+        margin: 0 auto;
         padding: 2rem;
-        border-radius: 1rem;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        max-width: 90%;
-        width: 50rem;
-        border: 0.25rem solid var(--primary-color);
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border: 2px solid #00d4ff;
+    }
+
+    .header-section {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid #00d4ff;
+    }
+
+    .title {
+        color: #00d4ff;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 10px #00d4ff;
+    }
+
+    .subtitle {
+        color: #ffffff;
+        font-size: 1.2rem;
+        opacity: 0.8;
+    }
+
+    .calculator-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: start;
+    }
+
+    .form-container {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 2rem;
+        border-radius: 15px;
+        border: 1px solid #00d4ff;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        color: #00d4ff;
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 5px #00d4ff;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px 15px;
+        background: rgba(0, 0, 0, 0.5);
+        border: 2px solid #00d4ff;
+        border-radius: 8px;
+        color: #ffffff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: #ffd700;
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    .form-group input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .fator-input-group {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .fator-input-group input {
+        flex: 1;
+    }
+
+    .fator-graph-button {
+        background: linear-gradient(45deg, #00d4ff, #0099cc);
+        color: white;
+        border: none;
+        padding: 12px 15px;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 3px 10px rgba(0, 212, 255, 0.3);
+    }
+
+    .fator-graph-button:hover {
+        background: linear-gradient(45deg, #ffd700, #ffb700);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+    }
+
+    .result-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 2rem;
+        border-radius: 15px;
+        border: 1px solid #00d4ff;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        min-height: 300px;
+    }
+
+    .result-display {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .result-display h3 {
+        color: #ffffff;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .result-value {
+        font-size: 4rem;
+        font-weight: bold;
+        color: #ffd700;
+        text-shadow: 0 0 20px #ffd700;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 1rem 2rem;
+        border-radius: 15px;
+        border: 2px solid #ffd700;
+        min-width: 200px;
+    }
+
+    .graph-button {
+        background: linear-gradient(45deg, #00d4ff, #0099cc);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+    }
+
+    .graph-button:hover {
+        background: linear-gradient(45deg, #ffd700, #ffb700);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    }
+
+    .button-icon {
+        font-size: 1.2rem;
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        border-radius: 20px;
+        border: 2px solid #00d4ff;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        max-width: 90vw;
+        max-height: 90vh;
+        overflow: auto;
+        position: relative;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid #00d4ff;
+    }
+
+    .modal-header h3 {
+        color: #00d4ff;
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    .modal-close {
+        background: none;
+        border: none;
+        color: #00d4ff;
+        font-size: 2rem;
+        cursor: pointer;
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+        background: rgba(255, 0, 0, 0.2);
+        color: #ff4444;
+    }
+
+    .modal-body {
+        padding: 2rem;
+        text-align: center;
+    }
+
+    #dataCanvas {
+        max-width: 100%;
+        height: auto;
+        border: 3px solid #ffd700;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        background: rgba(0, 0, 0, 0.9);
+    }
+
+    .graph-info {
+        margin-top: 1.5rem;
+    }
+
+    #selectedValue {
+        color: #00ff00;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 10px #00ff00;
+    }
+
+    .graph-legend {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #ffffff;
+    }
+
+    .legend-color {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+    }
+
+    .legend-color.yellow {
+        background: #ffff00;
+    }
+
+    .legend-color.green {
+        background: #00ff00;
+    }
+
+    .legend-color.red {
+        background: #ff0000;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .calculator-section {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .title {
+            font-size: 2rem;
+        }
+
+        .result-value {
+            font-size: 3rem;
+            min-width: 150px;
+        }
+
+        .modal-content {
+            margin: 1rem;
+            max-width: calc(100vw - 2rem);
+        }
+
+        .modal-header {
+            padding: 1rem;
+        }
+
+        .modal-body {
+            padding: 1rem;
+        }
+
+        .graph-legend {
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .aduka-container {
+            padding: 1rem;
+        }
+
+        .title {
+            font-size: 1.5rem;
+        }
+
+        .form-container,
+        .result-section {
+            padding: 1.5rem;
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+        }
+
+        .graph-button {
+            padding: 12px 20px;
+            font-size: 1rem;
+        }
+
+        .fator-graph-button {
+            padding: 10px 12px;
+            font-size: 1rem;
+            min-width: 45px;
+        }
+    }
+
+    /* Estilos para la sección de comunicado */
+    .comunicado-section {
+        margin-top: 3rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, #ffd700, #ffb700);
+        border-radius: 20px;
+        border: 3px solid #ff6b35;
+        box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
         position: relative;
         overflow: hidden;
     }
-    h2 {
-        position: relative;
-        top: 40px;
-        color: var(--primary-color);
-        text-align: center;
-        font-size: 2.5em;
-        margin-bottom: 1.5rem;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        z-index: 5;
-    }
-    .container::before {
+
+    .comunicado-section::before {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         height: 5px;
-        background: linear-gradient(
-            to right,
-            var(--primary-color),
-            var(--secondary-color),
-            var(--accent-color)
-        );
+        background: linear-gradient(to right, #ff6b35, #ffd700, #ff6b35);
     }
 
-    h2 {
-        color: var(--primary-color);
-        text-align: center;
-        font-size: 2.5em;
-        margin-bottom: 1.5rem;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    .comunicado-content {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
     }
 
-    input[type="number"] {
-        margin: 0.625rem 0;
-        padding: 0.625rem;
-        width: 100%;
-        background: linear-gradient(to bottom, #ffff99, var(--primary-color));
-        color: #000;
-        border: 0.1875rem solid var(--secondary-color);
-        font-family: "Russo One", sans-serif;
-        font-size: 1.2em;
-        border-radius: 0.625rem;
-        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    .comunicado-icon {
+        font-size: 4rem;
+        animation: pulse 2s infinite;
     }
 
-    input[type="number"]:focus {
-        outline: none;
-        box-shadow: 0 0 10px var(--accent-color);
+    @keyframes pulse {
+        0%,
+        100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
     }
-    .Direction {
-        background: linear-gradient(to bottom, #444, #111);
-        border: 2px solid #ffd700;
-        color: #ffd700;
+
+    .comunicado-text {
+        flex: 1;
+    }
+
+    .comunicado-text h3 {
+        color: #1a1a2e;
+        font-size: 1.8rem;
         font-weight: bold;
-        font-family: Arial, sans-serif;
-        text-shadow: 1px 1px 2px black;
-        padding: 5px 10px;
-        border-radius: 5px;
-        box-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
-        cursor: pointer;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    .table-container {
-        overflow-x: auto;
-        margin-top: 1.25rem;
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 0.5rem;
+    .comunicado-text p {
+        color: #1a1a2e;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
         padding: 1rem;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        border: 2px solid #ff6b35;
+        transition: all 0.3s ease;
     }
 
-    table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0.125rem;
+    .contact-item:hover {
+        background: rgba(255, 255, 255, 1);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
-    th,
-    td {
-        border: 0.125rem solid var(--secondary-color);
-        padding: 0.5rem;
-        text-align: center;
-        background-color: rgba(30, 144, 255, 0.7);
-        border-radius: 0.3125rem;
+    .contact-icon {
+        font-size: 1.5rem;
+        min-width: 30px;
     }
 
-    th {
-        background-color: var(--secondary-color);
-        color: var(--primary-color);
-        font-size: 1.2em;
+    .contact-text {
+        color: #1a1a2e;
+        font-size: 1.1rem;
     }
 
-    tr:nth-child(even) td {
-        background-color: rgba(255, 215, 0, 0.7);
-    }
-    .mobile-icon,
-    .shot-icon {
-        width: 30px;
-        height: 30px;
-        vertical-align: middle;
-        margin-right: 5px;
+    .contact-link {
+        color: #ff6b35;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
     }
 
-    input[type="radio"] {
-        appearance: none;
-        width: 1.25rem;
-        height: 1.25rem;
-        border: 0.125rem solid var(--primary-color);
-        border-radius: 50%;
-        outline: none;
-        margin-right: 0.3125rem;
-        vertical-align: middle;
-        position: relative;
-        cursor: pointer;
+    .contact-link:hover {
+        color: #1a1a2e;
+        text-decoration: underline;
     }
 
-    input[type="radio"]:checked::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 0.75rem;
-        height: 0.75rem;
-        background-color: var(--primary-color);
-        border-radius: 50%;
-        animation: pulse 0.5s ease-out;
+    .comunicado-note {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 1rem;
+        border-radius: 10px;
+        border-left: 4px solid #ff6b35;
+        font-style: italic;
+        font-weight: bold;
+        color: #1a1a2e;
     }
 
-    input[type="radio"]:hover {
-        box-shadow: 0 0 8px var(--accent-color);
-    }
-
-    label {
-        cursor: pointer;
-        font-size: 1.1em;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    }
-
+    /* Responsive para el comunicado */
     @media (max-width: 768px) {
-        .container {
-            padding: 1rem;
+        .comunicado-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 1.5rem;
         }
 
-        h2 {
-            font-size: 2em;
+        .comunicado-icon {
+            font-size: 3rem;
         }
 
-        input[type="number"] {
-            font-size: 1em;
+        .comunicado-text h3 {
+            font-size: 1.5rem;
         }
 
-        th,
-        td {
-            padding: 0.5rem;
-        }
-
-        label {
-            font-size: 1em;
-        }
-
-        .mobile-icon,
-        .shot-icon {
-            width: 20px;
-            height: 20px;
+        .contact-item {
+            flex-direction: column;
+            text-align: center;
+            gap: 0.5rem;
         }
     }
 
     @media (max-width: 480px) {
-        .container {
-            padding: 0.75rem;
+        .comunicado-section {
+            padding: 1.5rem;
         }
 
-        h2 {
-            font-size: 1.75em;
+        .comunicado-text h3 {
+            font-size: 1.3rem;
         }
 
-        input[type="radio"] {
-            width: 1rem;
-            height: 1rem;
+        .comunicado-text p {
+            font-size: 1rem;
         }
 
-        .mobile-icon,
-        .shot-icon {
-            width: 15px;
-            height: 15px;
+        .contact-text {
+            font-size: 1rem;
         }
     }
-    .main-container {
+
+    /* Estilos para la sección de App Móvil */
+    .app-section {
+        margin-top: 3rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 20px;
+        border: 3px solid #4c63d2;
+        box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
         position: relative;
-        width: 100%;
-        max-width: 800px;
-
-        aspect-ratio: 1 / 1;
+        overflow: hidden;
     }
 
-    canvas {
+    .app-section::before {
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        background: rgba(0, 0, 0, 1);
-        border: 5px solid #ffd700;
-        border-radius: 12px;
-        box-shadow: 0 0 15px #000;
-        filter: drop-shadow(0 0 10px #000);
-        filter: drop-shadow(0 0 20px #000);
+        right: 0;
+        height: 5px;
+        background: linear-gradient(to right, #4c63d2, #667eea, #4c63d2);
     }
 
-    .form-centered {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 2;
+    .app-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .app-header h2 {
+        color: #ffffff;
+        font-size: 2.2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .app-header p {
+        color: #ffffff;
+        font-size: 1.2rem;
+        opacity: 0.9;
+        line-height: 1.6;
+    }
+
+    .app-content {
         display: grid;
-        grid-template-columns: repeat(2, auto);
-        gap: 5px 10px;
-        background: rgba(0, 0, 0, 0.6);
-        padding: 20px;
-        border-radius: 12px;
-        border: 1px solid #ffd700;
-        box-shadow: 0 0 15px #000;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: start;
     }
 
-    .form-centered label {
+    .app-preview {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 1.5rem;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .app-screenshots {
         display: flex;
         flex-direction: column;
-        font-size: 14px;
-        color: #ffd700;
+        gap: 1.5rem;
     }
 
-    .form-centered input[type="number"] {
-        width: 80px;
-        padding: 5px;
-        font-size: 14px;
-        text-align: center;
-        border: 1px solid #ffd700;
-        border-radius: 6px;
-        background: rgba(0, 0, 0, 0.6);
-        color: #ffd700;
-        outline: none;
+    .main-screenshot {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        border: 3px solid #ffffff;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
     }
 
-    .result {
-        grid-column: span 2;
-        text-align: center;
-        font-size: 48px;
+    .main-screenshot:hover {
+        transform: scale(1.02);
+    }
+
+    .screenshot-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    .screenshot {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .screenshot:hover {
+        transform: scale(1.05);
+        border-color: #ffffff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .app-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .app-features {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 1.5rem;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .app-features h3 {
+        color: #ffffff;
+        font-size: 1.5rem;
         font-weight: bold;
-        color: #ffd700;
-        text-shadow: 0 0 6px #00ffff;
-        margin-top: 5px;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
-    #selectedValue {
-        position: absolute;
-        bottom: 15px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 2;
-        font-size: 18px;
-        color: #00ff00;
-        text-shadow: 0 0 6px #000;
-        text-align: center;
+    .app-features ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
     }
 
-    @media screen and (max-width: 500px) {
-        .form-centered {
+    .app-features li {
+        color: #ffffff;
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .app-features li:last-child {
+        border-bottom: none;
+    }
+
+    .app-download {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 1.5rem;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .app-download h3 {
+        color: #ffffff;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .app-download p {
+        color: #ffffff;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .download-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .download-option {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        border: 2px solid #4c63d2;
+        transition: all 0.3s ease;
+    }
+
+    .download-option:hover {
+        background: rgba(255, 255, 255, 1);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .download-icon {
+        font-size: 1.5rem;
+        min-width: 30px;
+    }
+
+    .download-option span {
+        color: #1a1a2e;
+        font-size: 1.1rem;
+    }
+
+    .download-note {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 1rem;
+        border-radius: 10px;
+        border-left: 4px solid #4c63d2;
+        font-style: italic;
+        font-weight: bold;
+        color: #1a1a2e;
+        margin: 0;
+    }
+
+    /* Responsive para la app */
+    @media (max-width: 768px) {
+        .app-content {
             grid-template-columns: 1fr;
-            gap: 10px;
-            padding: 15px;
+            gap: 2rem;
         }
 
-        .form-centered input[type="number"] {
-            width: 100%;
+        .app-header h2 {
+            font-size: 1.8rem;
         }
 
-        #selectedValue {
-            font-size: 14px;
+        .screenshot-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
-        #dataCanvas {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
+
+        .download-option {
+            flex-direction: column;
+            text-align: center;
+            gap: 0.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .app-section {
+            padding: 1.5rem;
+        }
+
+        .app-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .app-header p {
+            font-size: 1rem;
+        }
+
+        .screenshot-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .app-features li {
+            font-size: 1rem;
+        }
+
+        .download-option span {
+            font-size: 1rem;
+        }
+    }
+
+    /* Estilos para el modal de imágenes */
+    .image-modal-content {
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        border-radius: 20px;
+        border: 2px solid #4c63d2;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        max-width: 95vw;
+        max-height: 95vh;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .image-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid #4c63d2;
+        background: rgba(76, 99, 210, 0.1);
+    }
+
+    .image-modal-header h3 {
+        color: #ffffff;
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .image-modal-body {
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        overflow: auto;
+    }
+
+    #modalImage {
+        max-width: 100%;
+        max-height: 100%;
+        height: auto;
+        border-radius: 15px;
+        border: 3px solid #4c63d2;
+        box-shadow: 0 10px 30px rgba(76, 99, 210, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    #modalImage:hover {
+        transform: scale(1.02);
+    }
+
+    /* Cursor pointer para las imágenes clickeables */
+    .screenshot,
+    .main-screenshot {
+        cursor: pointer;
+    }
+
+    /* Responsive para el modal de imágenes */
+    @media (max-width: 768px) {
+        .image-modal-content {
+            margin: 1rem;
+            max-width: calc(100vw - 2rem);
+            max-height: calc(100vh - 2rem);
+        }
+
+        .image-modal-header {
+            padding: 1rem;
+        }
+
+        .image-modal-header h3 {
+            font-size: 1.3rem;
+        }
+
+        .image-modal-body {
+            padding: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .image-modal-header h3 {
+            font-size: 1.1rem;
+        }
+
+        .image-modal-body {
+            padding: 0.5rem;
         }
     }
 </style>
