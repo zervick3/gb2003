@@ -85,6 +85,20 @@
                 <span class="button-icon">📊</span>
                 Ver Gráfica Circular
             </button>
+
+            <!-- Botón de Hotmart -->
+            <div class="hotmart-section">
+                <a
+                    onclick="return false;"
+                    href="https://pay.hotmart.com/N101195248B?checkoutMode=2"
+                    class="hotmart-fb hotmart__button-checkout"
+                >
+                    <img
+                        src="https://static.hotmart.com/img/btn-buy-green.png"
+                        alt="Comprar en Hotmart"
+                    />
+                </a>
+            </div>
         </div>
     </div>
 
@@ -93,11 +107,33 @@
         <div class="comunicado-content">
             <div class="comunicado-icon">📢</div>
             <div class="comunicado-text">
-                <h3>¿Quieres el Excel completo de todos los carros?</h3>
+                <h3>📊 Excel Completo - Todas las Calculadoras de GunBound</h3>
                 <p>
-                    Si deseas obtener el archivo Excel con todos los cálculos y
-                    datos de GunBound, contáctanos:
+                    Obtén el archivo Excel con todas las calculadoras: Aduka,
+                    Boomer, Turtle, Mamu, Triko y más. Datos completos y
+                    fórmulas para todos los carros de GunBound 2004:
                 </p>
+                <div class="excel-features">
+                    <ul>
+                        <li>
+                            🎯 <strong>Calculadoras completas</strong> para todos
+                            los carros
+                        </li>
+                        <li>
+                            📊 <strong>Gráficas interactivas</strong> y tablas de
+                            datos
+                        </li>
+                        <li>
+                            ⚡ <strong>Fórmulas automáticas</strong> y cálculos instantáneos
+                        </li>
+                        <li>
+                            📱 <strong>Datos actualizados</strong> de GunBound 2004
+                        </li>
+                        <li>
+                            💾 <strong>Archivo completo</strong> con todas las herramientas
+                        </li>
+                    </ul>
+                </div>
                 <div class="contact-info">
                     <div class="contact-item">
                         <span class="contact-icon">📧</span>
@@ -531,6 +567,19 @@
 
     // Calcular inicial
     calcularAngulo();
+
+    // Script de Hotmart
+    function importHotmart() {
+        var imported = document.createElement("script");
+        imported.src = "https://static.hotmart.com/checkout/widget.min.js";
+        document.head.appendChild(imported);
+        var link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.type = "text/css";
+        link.href = "https://static.hotmart.com/css/hotmart-fb.min.css";
+        document.head.appendChild(link);
+    }
+    importHotmart();
 </script>
 
 <style>
@@ -708,6 +757,171 @@
 
     .button-icon {
         font-size: 1.2rem;
+    }
+
+    .power-bar-section {
+        margin-top: 2rem;
+        text-align: center;
+    }
+
+    .power-bar-section h3 {
+        color: #ffffff;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 5px #00d4ff;
+    }
+
+    .power-bar-container {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 1rem;
+        border: 2px solid #00d4ff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        width: 100%;
+    }
+
+    .power-controls {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .power-controls input[type="number"] {
+        width: 80px;
+        padding: 8px 12px;
+        background: rgba(0, 0, 0, 0.5);
+        border: 2px solid #00d4ff;
+        border-radius: 8px;
+        color: #ffffff;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .power-controls input[type="range"] {
+        width: 200px;
+        height: 8px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .power-controls input[type="range"]::-webkit-slider-thumb {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #00d4ff;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    }
+
+    .power-bar-wrapper {
+        margin-bottom: 1rem;
+    }
+
+    .power-bar {
+        width: 100%;
+        height: 60px;
+        background: rgba(0, 0, 0, 0.5);
+        border: 3px solid #00d4ff;
+        position: relative;
+        cursor: pointer;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    }
+
+    .power-division {
+        position: absolute;
+        width: 2px;
+        height: 100%;
+        background: #00d4ff;
+        top: 0;
+        z-index: 5;
+        box-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+    }
+
+    .power-marker {
+        position: absolute;
+        width: 30px;
+        height: 45px;
+        background: linear-gradient(to bottom, #ffd700, #ffb700);
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        transition: left 0.3s ease;
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        z-index: 10;
+        border: 2px solid #ffffff;
+    }
+
+    .power-labels {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        padding: 0 10px;
+    }
+
+    .power-label {
+        color: #00d4ff;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-shadow: 0 0 8px #00d4ff;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 5px 10px;
+        border: 1px solid #00d4ff;
+    }
+
+    .power-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ffd700;
+        text-shadow: 0 0 10px #ffd700;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        border: 2px solid #ffd700;
+        display: inline-block;
+        min-width: 200px;
+    }
+
+    .power-error {
+        color: #ff4444;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+        background: rgba(255, 68, 68, 0.1);
+        border-radius: 5px;
+        border: 1px solid #ff4444;
+    }
+
+    /* Estilos para la sección de Hotmart */
+    .hotmart-section {
+        margin-top: 2rem;
+        text-align: center;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        border: 1px solid #00d4ff;
+    }
+
+    .hotmart-section a {
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+
+    .hotmart-section a:hover {
+        transform: scale(1.05);
+    }
+
+    .hotmart-section img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
 
     /* Modal Styles */
@@ -894,6 +1108,29 @@
             font-size: 1rem;
             min-width: 45px;
         }
+
+        .power-bar-section h3 {
+            font-size: 1.1rem;
+        }
+
+        .power-value {
+            font-size: 1.5rem;
+            min-width: 50px;
+        }
+
+        .power-label {
+            font-size: 1.2rem;
+            padding: 3px 8px;
+        }
+
+        .power-bar {
+            height: 50px;
+        }
+
+        .power-marker {
+            width: 25px;
+            height: 35px;
+        }
     }
 
     /* Estilos para la sección de comunicado */
@@ -956,6 +1193,35 @@
         font-size: 1.1rem;
         margin-bottom: 1.5rem;
         line-height: 1.6;
+    }
+
+    .excel-features {
+        margin: 1.5rem 0;
+    }
+
+    .excel-features ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .excel-features li {
+        color: #1a1a2e;
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+        padding: 0.5rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 0.8rem;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+        border-left: 4px solid #ff6b35;
+    }
+
+    .excel-features li:last-child {
+        margin-bottom: 0;
     }
 
     .contact-info {
